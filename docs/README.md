@@ -1,7 +1,7 @@
 <!-- omit in toc -->
 # 🛍️ Maga Lab: ecommerce de diseños digitales para músicos - Backend.
 
-Maga Lab es una plataforma de ecommerce especializada en la venta de diseños digitales exclusivos creados para músicos y bandas, principalmente para portadas de álbumes. Estos diseños están optimizados para su uso en plataformas de streaming como Spotify, Apple Music, YouTube, SoundCloud, entre otras. En el futuro, Maga Lab planea expandir sus servicios para incluir otros productos gráficos relacionados con la identidad visual de los artistas.
+Maga Lab es una plataforma de ecommerce especializada en la venta de diseños digitales exclusivos creados para músicos y bandas, principalmente para portadas de álbumes y/o canciones/single. Estos diseños están optimizados para su uso en plataformas de streaming como Spotify, Apple Music, YouTube, SoundCloud, entre otras. En el futuro, Maga Lab planea expandir sus servicios para incluir otros productos gráficos relacionados con la identidad visual de los artistas.
 
 El sistema permite a los usuarios explorar, filtrar y adquirir diseños de forma sencilla y autónoma.
 
