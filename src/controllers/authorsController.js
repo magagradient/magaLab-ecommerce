@@ -218,4 +218,11 @@ const destroy = async (req, res) => {
     }
 };
 
-module.exports = { index, search, show, store, update, destroy };
+module.exports = { 
+    index, 
+    search, 
+    show, 
+    store, 
+    update, 
+    destroy 
+};

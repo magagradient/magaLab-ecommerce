@@ -1,5 +1,3 @@
-// relaciones del módulo de usuarios y seguridad
-
 module.exports = (models) => {
     // users - passwordResets 
     models.Users.hasMany(models.PasswordResets, {

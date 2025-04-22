@@ -20,7 +20,7 @@ const filter = async (req, res) => {
         const where = {};
         const include = [];
 
-        // 🔍 Búsqueda por texto
+        // busqueda por texto
         if (title || description) {
             where[Op.or] = [];
 
@@ -33,7 +33,7 @@ const filter = async (req, res) => {
             }
         }
 
-        // 📦 Filtros simples
+        // filtros simples
         if (price_min || price_max) {
             where.price = {};
             if (price_min) where.price[Op.gte] = price_min;
@@ -44,7 +44,7 @@ const filter = async (req, res) => {
             where.is_sold = is_sold === 'true';
         }
 
-        // 🔗 Asociaciones condicionales
+        // asociaciones condicionales
         const dynamicInclude = [
             {
                 model: Categories,
@@ -90,12 +90,12 @@ const filter = async (req, res) => {
 
         include.push(...dynamicInclude);
 
-        // 🚀 Ejecutar búsqueda
+        // ejecutar búsqueda
         const products = await Products.findAll({
             where,
             include,
             attributes: {
-                exclude: ['created_at', 'updated_at'] // Excluir timestamps si no se necesitan
+                exclude: ['created_at', 'updated_at'] // excluir timestamps si no se necesitan
             }
         });
 

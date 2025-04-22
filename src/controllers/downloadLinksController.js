@@ -1,7 +1,6 @@
 const { DownloadLinks, Users, Products } = require("../database/indexModels");
 const { Op } = require("sequelize");
 
-// Obtener todos los links de descarga
 const index = async (req, res) => {
     try {
         const allLinks = await DownloadLinks.findAll({
@@ -36,7 +35,6 @@ const index = async (req, res) => {
     }
 };
 
-// Buscar enlaces por término
 const search = async (req, res) => {
     try {
         const { query } = req.params;
@@ -75,7 +73,6 @@ const search = async (req, res) => {
     }
 };
 
-// Obtener un link por ID
 const show = async (req, res) => {
     try {
         const link = await DownloadLinks.findByPk(req.params.id, {
@@ -96,7 +93,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear un nuevo link
 const create = async (req, res) => {
     try {
         const { id_user, id_product, download_url, expires_at } = req.body;
@@ -119,7 +115,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar un link
 const update = async (req, res) => {
     try {
         const { id } = req.params;
@@ -144,7 +139,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar un link
 const destroy = async (req, res) => {
     try {
         const { id } = req.params;

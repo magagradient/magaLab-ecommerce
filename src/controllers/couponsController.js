@@ -1,7 +1,7 @@
 const { Coupons } = require("../database/indexModels");
 const { Op } = require("sequelize");
 
-// Listar todos los cupones
+
 const index = async (req, res) => {
     try {
         const allCoupons = await Coupons.findAll({
@@ -28,7 +28,6 @@ const index = async (req, res) => {
     }
 };
 
-// Buscar cupones por código
 const search = async (req, res) => {
     try {
         const { query } = req.params;
@@ -64,7 +63,6 @@ const search = async (req, res) => {
     }
 };
 
-// Mostrar un cupón por ID
 const show = async (req, res) => {
     try {
         const coupon = await Coupons.findByPk(req.params.id, {
@@ -85,7 +83,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear un nuevo cupón
 const create = async (req, res) => {
     try {
         const { code, discount, expiration_date, max_uses, type } = req.body;
@@ -120,7 +117,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar un cupón
 const update = async (req, res) => {
     try {
         const { code, discount, expiration_date, max_uses, type } = req.body;
@@ -165,7 +161,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar un cupón
 const destroy = async (req, res) => {
     try {
         const coupon = await Coupons.findByPk(req.params.id, {

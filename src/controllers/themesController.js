@@ -1,6 +1,5 @@
 const { Themes } = require("../database/indexModels");
 
-// Obtener todos los temas
 const index = async (req, res) => {
     try {
         const themes = await Themes.findAll();
@@ -18,7 +17,6 @@ const index = async (req, res) => {
     }
 };
 
-// Obtener un tema por ID
 const show = async (req, res) => {
     const { id } = req.params;
 
@@ -44,7 +42,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear un nuevo tema
 const create = async (req, res) => {
     const { name } = req.body;
 
@@ -70,7 +67,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar un tema
 const update = async (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
@@ -107,7 +103,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar un tema
 const destroy = async (req, res) => {
     const { id } = req.params;
 

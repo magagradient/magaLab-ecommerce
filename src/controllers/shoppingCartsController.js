@@ -1,6 +1,6 @@
 const { ShoppingCarts } = require("../database/indexModels");
 
-// Obtener todos los carritos
+
 const index = async (req, res) => {
     try {
         const carts = await ShoppingCarts.findAll();
@@ -22,7 +22,6 @@ const index = async (req, res) => {
     }
 };
 
-// Obtener un carrito por ID
 const show = async (req, res) => {
     try {
         const cart = await ShoppingCarts.findByPk(req.params.id);
@@ -38,7 +37,7 @@ const show = async (req, res) => {
     }
 };
 
-// Crear un nuevo carrito
+
 const create = async (req, res) => {
     try {
         const { id_user, created_at } = req.body;
@@ -59,7 +58,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar carrito
 const update = async (req, res) => {
     try {
         const cart = await ShoppingCarts.findByPk(req.params.id);
@@ -82,7 +80,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar carrito
 const destroy = async (req, res) => {
     try {
         const cart = await ShoppingCarts.findByPk(req.params.id);

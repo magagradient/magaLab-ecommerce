@@ -59,7 +59,7 @@ const assignRelation = async (req, res) => {
             });
         }
 
-        // Verificación más precisa de los elementos relacionados
+        // verificación más precisa de los elementos relacionados
         const items = await relation.model.findAll({
             where: {
                 [relation.idField]: ids
@@ -73,10 +73,10 @@ const assignRelation = async (req, res) => {
             });
         }
 
-        // Establecer las relaciones en el producto usando los modelos completos
+        // establecer las relaciones en el producto usando los modelos completos
         await product[`set${capitalize(relation.alias)}`](items);
 
-        // Obtener el producto actualizado con las relaciones asignadas
+        // obtener el producto actualizado con las relaciones asignadas
         const updatedProduct = await Products.findByPk(idProduct, {
             include: [relation.alias]
         });

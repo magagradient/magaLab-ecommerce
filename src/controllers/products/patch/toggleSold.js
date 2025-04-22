@@ -5,7 +5,7 @@ const toggleSold = async (req, res) => {
         const { id } = req.params;
 
         const product = await Products.findByPk(id, {
-            include: [{ all: true }] // agregá asociaciones específicas si querés
+            include: [{ all: true }] 
         });
 
         if (!product) {

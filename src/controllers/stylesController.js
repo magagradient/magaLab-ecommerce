@@ -1,6 +1,6 @@
 const { Styles } = require("../database/indexModels");
 
-// Obtener todos los estilos
+
 const index = async (req, res) => {
     try {
         const styles = await Styles.findAll();
@@ -18,7 +18,6 @@ const index = async (req, res) => {
     }
 };
 
-// Obtener un estilo por ID
 const show = async (req, res) => {
     const { id } = req.params;
 
@@ -44,7 +43,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear un nuevo estilo
 const create = async (req, res) => {
     const { name } = req.body;
 
@@ -70,7 +68,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar un estilo
 const update = async (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
@@ -107,7 +104,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar un estilo
 const destroy = async (req, res) => {
     const { id } = req.params;
 

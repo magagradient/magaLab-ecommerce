@@ -1,6 +1,5 @@
 const { Invoices } = require("../database/indexModels");
 
-// Obtener todas las facturas
 const index = async (req, res) => {
     try {
         const invoices = await Invoices.findAll();
@@ -22,7 +21,6 @@ const index = async (req, res) => {
     }
 };
 
-// Obtener una factura por ID
 const show = async (req, res) => {
     try {
         const invoice = await Invoices.findByPk(req.params.id);
@@ -38,7 +36,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear una nueva factura
 const create = async (req, res) => {
     try {
         const { id_order, invoice_number, issued_at, total_amount } = req.body;
@@ -61,7 +58,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar una factura existente
 const update = async (req, res) => {
     try {
         const invoice = await Invoices.findByPk(req.params.id);
@@ -86,7 +82,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar una factura
 const destroy = async (req, res) => {
     try {
         const invoice = await Invoices.findByPk(req.params.id);

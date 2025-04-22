@@ -1,6 +1,5 @@
 const { OrdersProducts, Orders, Products } = require("../database/indexModels");
 
-// Obtener todos los registros
 const index = async (req, res) => {
     try {
         const allItems = await OrdersProducts.findAll({
@@ -30,7 +29,6 @@ const index = async (req, res) => {
     }
 };
 
-// Obtener por ID de orden y producto
 const show = async (req, res) => {
     try {
         const { id_order, id_product } = req.params;
@@ -65,7 +63,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear un nuevo registro
 const create = async (req, res) => {
     try {
         const { id_order, id_product, quantity, unit_price } = req.body;
@@ -103,7 +100,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar un registro
 const update = async (req, res) => {
     const { id_order, id_product } = req.params;
     const { quantity, unit_price } = req.body;
@@ -140,7 +136,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar un registro
 const destroy = async (req, res) => {
     const { id_order, id_product } = req.params;
     try {
@@ -170,7 +165,8 @@ const destroy = async (req, res) => {
     }
 };
 
-module.exports = { index,
+module.exports = { 
+    index,
     show,
     create,
     update,

@@ -1,5 +1,3 @@
-// relaciones del módulo de órdenes y pagos
-
 module.exports = (models) => {
     // users - orders:
     models.Users.hasMany(models.Orders, {

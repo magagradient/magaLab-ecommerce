@@ -1,7 +1,6 @@
 const { Categories } = require("../database/indexModels");
 const { Op } = require("sequelize");
 
-// Listar todas las categorías
 const index = async (req, res) => {
     try {
         const allCategories = await Categories.findAll();
@@ -26,7 +25,6 @@ const index = async (req, res) => {
     }
 };
 
-// Búsqueda por nombre
 const search = async (req, res) => {
     try {
         const { query } = req.params;
@@ -63,7 +61,6 @@ const search = async (req, res) => {
     }
 };
 
-// Obtener una categoría por ID
 const show = async (req, res) => {
     try {
         const category = await Categories.findByPk(req.params.id);
@@ -82,7 +79,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear una nueva categoría
 const create = async (req, res) => {
     try {
         const { name } = req.body;
@@ -109,7 +105,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar una categoría
 const update = async (req, res) => {
     try {
         const { name } = req.body;
@@ -141,7 +136,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar una categoría
 const destroy = async (req, res) => {
     try {
         const category = await Categories.findByPk(req.params.id);
@@ -167,4 +161,11 @@ const destroy = async (req, res) => {
     }
 };
 
-module.exports = { index, search, show, create, update, destroy };
+module.exports = { 
+    index, 
+    search, 
+    show, 
+    create, 
+    update, 
+    destroy 
+};

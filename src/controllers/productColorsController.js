@@ -1,6 +1,6 @@
 const { ProductColors, Products, Colors } = require("../database/indexModels");
 
-// Obtener todos los registros ProductColors
+
 const index = async (req, res) => {
     try {
         const productColors = await ProductColors.findAll({
@@ -23,7 +23,6 @@ const index = async (req, res) => {
     }
 };
 
-// Obtener un registro por clave compuesta
 const show = async (req, res) => {
     const { id_product, id_color } = req.params;
 
@@ -55,7 +54,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear una nueva asociación
 const create = async (req, res) => {
     const { id_product, id_color } = req.body;
 
@@ -90,7 +88,6 @@ const create = async (req, res) => {
     }
 };
 
-// Eliminar una asociación
 const destroy = async (req, res) => {
     const { id_product, id_color } = req.params;
 

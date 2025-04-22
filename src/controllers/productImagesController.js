@@ -1,6 +1,5 @@
 const { ProductImages, Products } = require("../database/indexModels");
 
-// Obtener todas las imágenes
 const index = async (req, res) => {
     try {
         const images = await ProductImages.findAll({
@@ -20,7 +19,6 @@ const index = async (req, res) => {
     }
 };
 
-// Obtener una imagen por ID
 const show = async (req, res) => {
     const { id } = req.params;
 
@@ -48,7 +46,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear una nueva imagen
 const create = async (req, res) => {
     const { id_product, image_url } = req.body;
 
@@ -79,7 +76,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar una imagen
 const update = async (req, res) => {
     const { id } = req.params;
     const { id_product, image_url } = req.body;
@@ -116,7 +112,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar una imagen
 const destroy = async (req, res) => {
     const { id } = req.params;
 

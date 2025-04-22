@@ -14,7 +14,7 @@ const search = async (req, res) => {
     const searchTerm = term.toLowerCase();
 
     try {
-        // Primero busca por título y descripción
+        // primero busca por título y descripción
         const products = await Products.findAll({
             where: {
                 [Op.or]: [
@@ -39,7 +39,7 @@ const search = async (req, res) => {
             ]
         });
 
-        // Después filtra en memoria por relaciones
+        // después filtra en memoria por relaciones
         const extendedResults = products.filter(product => {
             const fields = [
                 product.category?.name,
@@ -52,7 +52,7 @@ const search = async (req, res) => {
             return fields.some(f => f?.toLowerCase().includes(searchTerm));
         });
 
-        // Evitar duplicados
+        // evitar duplicados
         const totalResults = [
             ...products,
             ...extendedResults.filter(r => !products.includes(r))

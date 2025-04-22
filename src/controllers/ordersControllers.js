@@ -1,7 +1,7 @@
 const { Orders, Users } = require("../database/indexModels");
 const { Op } = require("sequelize");
 
-// Obtener todas las órdenes
+
 const index = async (req, res) => {
     try {
         const allOrders = await Orders.findAll({
@@ -32,7 +32,6 @@ const index = async (req, res) => {
     }
 };
 
-// Buscar órdenes por estado
 const search = async (req, res) => {
     try {
         const { query } = req.params;
@@ -74,7 +73,6 @@ const search = async (req, res) => {
     }
 };
 
-// Obtener una orden por ID
 const show = async (req, res) => {
     try {
         const order = await Orders.findByPk(req.params.id, {
@@ -103,7 +101,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear una nueva orden
 const create = async (req, res) => {
     try {
         const { id_user, total, status } = req.body;
@@ -141,7 +138,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar una orden
 const update = async (req, res) => {
     try {
         const { id_user, total, status } = req.body;
@@ -180,7 +176,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar una orden
 const destroy = async (req, res) => {
     try {
         const order = await Orders.findByPk(req.params.id, {
@@ -212,4 +207,10 @@ const destroy = async (req, res) => {
     }
 };
 
-module.exports = { index, search, show, create, update, destroy };
+module.exports = { 
+    index, 
+    search, 
+    show, 
+    create, 
+    update, 
+    destroy };

@@ -1,5 +1,3 @@
-// relaciones de carritos de compra y sus ítems
-
 module.exports = (models) => {
     // Un usuario puede tener un carrito:
     models.Users.hasOne(models.ShoppingCarts, {

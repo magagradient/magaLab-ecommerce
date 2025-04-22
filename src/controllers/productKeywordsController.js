@@ -1,6 +1,5 @@
 const { ProductKeywords, Products, Keywords } = require("../database/indexModels");
 
-// Obtener todos los registros de producto-keywords
 const index = async (req, res) => {
     try {
         const data = await ProductKeywords.findAll({
@@ -23,7 +22,6 @@ const index = async (req, res) => {
     }
 };
 
-// Obtener un registro por ID compuesto
 const show = async (req, res) => {
     const { id_product, id_keyword } = req.params;
 
@@ -55,7 +53,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear una nueva relación producto-keyword
 const create = async (req, res) => {
     const { id_product, id_keyword } = req.body;
 
@@ -81,7 +78,7 @@ const create = async (req, res) => {
     }
 };
 
-// Eliminar una relación
+
 const destroy = async (req, res) => {
     const { id_product, id_keyword } = req.params;
 

@@ -1,7 +1,7 @@
 const { Users } = require("../database/indexModels");
 const { Op } = require("sequelize");
 
-// Listar todos los usuarios
+
 const index = async (req, res) => {
     try {
         const allUsers = await Users.findAll({
@@ -35,7 +35,6 @@ const index = async (req, res) => {
     }
 };
 
-// Buscar usuarios por nombre o email
 const search = async (req, res) => {
     try {
         const query = req.params.query || req.query.query;
@@ -82,7 +81,7 @@ const search = async (req, res) => {
     }
 };
 
-// Mostrar un usuario por ID
+
 const show = async (req, res) => {
     try {
         const user = await Users.findByPk(req.params.id, {
@@ -113,7 +112,7 @@ const show = async (req, res) => {
     }
 };
 
-// Crear un nuevo usuario
+
 const create = async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -169,7 +168,7 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar usuario
+
 const update = async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -227,7 +226,7 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar usuario
+
 const destroy = async (req, res) => {
     try {
         const user = await Users.findByPk(req.params.id);
@@ -263,4 +262,11 @@ const destroy = async (req, res) => {
     }
 };
 
-module.exports = { index, search, show, create, update, destroy };
+module.exports = { 
+    index, 
+    search, 
+    show, 
+    create, 
+    update, 
+    destroy 
+};

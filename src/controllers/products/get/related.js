@@ -17,7 +17,7 @@ const related = async (req, res) => {
             });
         }
 
-        // Obtener IDs de asociaciones del producto actual
+        // obtener IDs de asociaciones del producto actual
         const keywordIds = currentProduct.keywords.map(k => k.id_keyword);
         const styleIds = currentProduct.styles.map(s => s.id_style);
         const colorIds = currentProduct.colors.map(c => c.id_color);

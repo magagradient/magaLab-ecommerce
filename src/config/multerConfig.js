@@ -2,10 +2,10 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-// Carpeta donde se guardan las imágenes
+// carpeta donde se guardan las imágenes
 const uploadDir = path.join(__dirname, "../../uploads/products");
 
-// Crea la carpeta si no existe
+// crea la carpeta si no existe
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }

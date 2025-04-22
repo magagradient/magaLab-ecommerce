@@ -10,23 +10,22 @@ const bulkCreateProducts = async (req, res) => {
             });
         }
 
-        // Aquí simplemente pasamos los productos tal cual, pero asegurándonos de no incluir el id_product si es AUTO_INCREMENT
         const cleanedProducts = products.map(product => {
-            // Si id_product está presente, lo removemos (solo si es necesario)
+            // si id_product está presente, lo removemos (solo si es necesario)
             const { id_product, ...productWithoutId } = product; 
             return productWithoutId;
         });
 
-        // Crear los productos sin el id_product
+        // crear los productos sin el id_product
         const createdProducts = await Products.bulkCreate(cleanedProducts, {
             validate: true,
-            returning: true,  // Esto te asegura que el objeto completo es devuelto
+            returning: true,  // esto te asegura que el objeto completo es devuelto
         });
 
-        // Asignar relaciones si están presentes (usando set para las relaciones)
+        // ssignar relaciones si están presentes (usando set para las relaciones)
         for (let i = 0; i < createdProducts.length; i++) {
             const createdProduct = createdProducts[i];
-            const originalData = products[i]; // Este es el producto original con arrays
+            const originalData = products[i]; // este es el producto original con arrays
 
             if (originalData.styles) {
                 await createdProduct.setStyles(originalData.styles);
@@ -42,7 +41,7 @@ const bulkCreateProducts = async (req, res) => {
             }
         }
 
-        // Traer los productos con sus relaciones completas
+        // traer los productos con sus relaciones completas
         const finalProducts = await Products.findAll({
             where: {
                 id_product: createdProducts.map(p => p.id_product)
@@ -57,7 +56,7 @@ const bulkCreateProducts = async (req, res) => {
             ]
         });
 
-        // Devolver los productos creados junto con sus relaciones
+        // devolver los productos creados junto con sus relaciones
         return res.status(201).json({
             message: "Productos creados exitosamente.",
             data: finalProducts,
@@ -67,7 +66,7 @@ const bulkCreateProducts = async (req, res) => {
     } catch (error) {
         console.error('Error en bulkCreate:', error);
 
-        // Verificar si el error es una violación de validación
+        // verificar si el error es una violación de validación
         if (error.name === 'SequelizeValidationError') {
             return res.status(400).json({
                 message: 'Error de validación al crear productos.',
@@ -81,7 +80,7 @@ const bulkCreateProducts = async (req, res) => {
             });
         }
 
-        // Si no es un error de validación, devolver el error genérico
+        // si no es un error de validación, devolver el error genérico
         return res.status(500).json({
             message: 'Error al crear productos.',
             error: error.message || error.toString(), // más robusto

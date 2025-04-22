@@ -1,7 +1,6 @@
 const { Colors } = require("../database/indexModels");
 const { Op } = require("sequelize");
 
-// Listar todos los colores
 const index = async (req, res) => {
     try {
         const colors = await Colors.findAll();
@@ -23,7 +22,6 @@ const index = async (req, res) => {
     }
 };
 
-// Obtener un color por ID
 const show = async (req, res) => {
     try {
         const color = await Colors.findByPk(req.params.id);
@@ -39,7 +37,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear un nuevo color
 const create = async (req, res) => {
     try {
         let { name } = req.body;
@@ -65,7 +62,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar un color
 const update = async (req, res) => {
     try {
         const { id } = req.params;
@@ -102,7 +98,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar un color
 const destroy = async (req, res) => {
     try {
         const color = await Colors.findByPk(req.params.id);

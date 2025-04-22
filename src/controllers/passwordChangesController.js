@@ -1,7 +1,6 @@
 const { PasswordChanges, Users } = require("../database/indexModels");
 const { Op } = require("sequelize");
 
-// Listar todos los registros de cambio de contraseña
 const index = async (req, res) => {
     try {
         const allChanges = await PasswordChanges.findAll({
@@ -25,7 +24,6 @@ const index = async (req, res) => {
     }
 };
 
-// Búsqueda por dirección IP
 const search = async (req, res) => {
     try {
         const { query } = req.params;
@@ -54,7 +52,6 @@ const search = async (req, res) => {
     }
 };
 
-// Mostrar un registro por ID
 const show = async (req, res) => {
     try {
         const change = await PasswordChanges.findByPk(req.params.id, {
@@ -70,7 +67,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear un nuevo registro
 const create = async (req, res) => {
     try {
         const { id_user, change_date, ip_address } = req.body;
@@ -92,7 +88,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar un registro
 const update = async (req, res) => {
     try {
         const change = await PasswordChanges.findByPk(req.params.id);
@@ -117,7 +112,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar un registro
 const destroy = async (req, res) => {
     try {
         const change = await PasswordChanges.findByPk(req.params.id, {
@@ -138,4 +132,11 @@ const destroy = async (req, res) => {
     }
 };
 
-module.exports = { index, search, show, create, update, destroy };
+module.exports = { 
+    index, 
+    search, 
+    show, 
+    create, 
+    update, 
+    destroy 
+};

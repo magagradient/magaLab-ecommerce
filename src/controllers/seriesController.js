@@ -1,7 +1,6 @@
 const { Series } = require("../database/indexModels");
 const { Op } = require("sequelize");
 
-// Obtener todas las series
 const index = async (req, res) => {
     try {
         const series = await Series.findAll();
@@ -23,7 +22,6 @@ const index = async (req, res) => {
     }
 };
 
-// Buscar series por título
 const search = async (req, res) => {
     const { query } = req.params;
 
@@ -49,7 +47,6 @@ const search = async (req, res) => {
     }
 };
 
-// Obtener una serie por ID
 const show = async (req, res) => {
     try {
         const serie = await Series.findByPk(req.params.id);
@@ -65,7 +62,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear una nueva serie
 const create = async (req, res) => {
     try {
         const { title, description, cover_image } = req.body;
@@ -87,7 +83,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar una serie
 const update = async (req, res) => {
     try {
         const { title, description, cover_image } = req.body;
@@ -111,7 +106,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar una serie
 const destroy = async (req, res) => {
     try {
         const serie = await Series.findByPk(req.params.id);

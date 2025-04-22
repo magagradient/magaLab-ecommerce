@@ -1,7 +1,6 @@
 const { Keywords } = require("../database/indexModels");
 const { Op } = require("sequelize");
 
-// Listar todas las keywords
 const index = async (req, res) => {
     try {
         const allKeywords = await Keywords.findAll();
@@ -26,7 +25,6 @@ const index = async (req, res) => {
     }
 };
 
-// Buscar keywords por nombre
 const search = async (req, res) => {
     try {
         const { query } = req.params;
@@ -63,7 +61,6 @@ const search = async (req, res) => {
     }
 };
 
-// Obtener una keyword por ID
 const show = async (req, res) => {
     try {
         const keyword = await Keywords.findByPk(req.params.id);
@@ -86,7 +83,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear una nueva keyword
 const create = async (req, res) => {
     try {
         const { name } = req.body;
@@ -118,7 +114,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar una keyword
 const update = async (req, res) => {
     try {
         const { name } = req.body;
@@ -129,7 +124,7 @@ const update = async (req, res) => {
         }
 
         if (name) {
-            // Evita duplicados al actualizar
+            // evita duplicados al actualizar
             const duplicate = await Keywords.findOne({
                 where: {
                     name,
@@ -161,7 +156,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar una keyword
 const destroy = async (req, res) => {
     try {
         const keyword = await Keywords.findByPk(req.params.id);

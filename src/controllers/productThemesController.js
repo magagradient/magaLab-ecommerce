@@ -1,7 +1,6 @@
 const { ProductThemes, Products, Themes } = require("../database/indexModels");
 const { Op } = require("sequelize");
 
-// Obtener todas las relaciones
 const index = async (req, res) => {
     try {
         const records = await ProductThemes.findAll({
@@ -65,7 +64,6 @@ const search = async (req, res) => {
     }
 };
 
-// Mostrar una relación específica
 const show = async (req, res) => {
     const { id_product, id_theme } = req.params;
 
@@ -98,7 +96,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear una relación
 const create = async (req, res) => {
     const { id_product, id_theme } = req.body;
 
@@ -156,7 +153,6 @@ const create = async (req, res) => {
     }
 };
 
-// PUT /product-themes/:id_product/:id_theme
 const update = async (req, res) => {
     const { id_product, id_theme } = req.params;
     const { id_theme: new_id_theme } = req.body;
@@ -208,7 +204,6 @@ const update = async (req, res) => {
 };
 
 
-// Eliminar una relación
 const destroy = async (req, res) => {
     const { id_product, id_theme } = req.params;
 

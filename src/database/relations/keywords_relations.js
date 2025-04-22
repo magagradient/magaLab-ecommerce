@@ -1,6 +1,3 @@
-// relaciones entre productos y palabras clave:
-
-
 module.exports = (models) => {
     // un producto puede tener muchas keywords:
     models.Products.belongsToMany(models.Keywords, {

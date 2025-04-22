@@ -21,7 +21,7 @@ const updateRelations = async (req, res) => {
             });
         }
 
-        // Validar existencia de id_series si se proporciona
+        // validar existencia de id_series si se proporciona
         if (id_series !== null && id_series !== undefined) {
             const series = await Series.findByPk(id_series);
             if (!series) {
@@ -33,7 +33,7 @@ const updateRelations = async (req, res) => {
             await product.update({ id_series });
         }
 
-        // Validar existencia de id_category si se proporciona
+        // validar existencia de id_category si se proporciona
         if (id_category !== null && id_category !== undefined) {
             const category = await Categories.findByPk(id_category);
             if (!category) {
@@ -45,19 +45,19 @@ const updateRelations = async (req, res) => {
             await product.update({ id_category });
         }
 
-        // Actualizar relaciones Many-to-Many
+        // actualizar relaciones many-to-many
         if (keywords) await product.setKeywords(keywords);
         if (styles) await product.setStyles(styles);
         if (colors) await product.setColors(colors);
         if (themes) await product.setThemes(themes);
 
-        // Relación 1:N con imágenes (opcional)
+        // relación 1:N con imágenes (opcional)
         if (images) {
             await product.setImages([]);
             await Promise.all(images.map(img => product.createImage(img)));
         }
 
-        // Obtener el producto actualizado con todas sus asociaciones
+        // obtener el producto actualizado con todas sus asociaciones
         const updatedProduct = await Products.findByPk(id, {
             include: [
                 "keywords",

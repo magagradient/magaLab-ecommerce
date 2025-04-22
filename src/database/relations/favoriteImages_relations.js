@@ -1,5 +1,5 @@
 module.exports = (models) => {
-    // Relación directa
+    // relación directa
     models.Users.hasMany(models.FavoriteImages, {
         foreignKey: "id_user",
         as: "userFavorites"
@@ -20,7 +20,7 @@ module.exports = (models) => {
         as: "image"
     });
 
-    // Relación muchos a muchos a través de FavoriteImages
+    // relación muchos a muchos a través de FavoriteImages
     models.Users.belongsToMany(models.ProductImages, {
         through: models.FavoriteImages,
         foreignKey: "id_user",

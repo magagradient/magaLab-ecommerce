@@ -1,7 +1,6 @@
 const { PasswordResets, Users } = require("../database/indexModels");
 const { Op } = require("sequelize");
 
-// Listar todos los registros
 const index = async (req, res) => {
     try {
         const allResets = await PasswordResets.findAll({
@@ -36,7 +35,6 @@ const index = async (req, res) => {
     }
 };
 
-// Buscar por token
 const search = async (req, res) => {
     try {
         const { query } = req.params;
@@ -85,7 +83,6 @@ const search = async (req, res) => {
     }
 };
 
-// Mostrar un reseteo por ID
 const show = async (req, res) => {
     try {
         const reset = await PasswordResets.findByPk(req.params.id, {
@@ -119,7 +116,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear nuevo registro
 const create = async (req, res) => {
     try {
         const { id_user, token, expires_at, used } = req.body;
@@ -162,7 +158,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar registro
 const update = async (req, res) => {
     try {
         const reset = await PasswordResets.findByPk(req.params.id);
@@ -206,7 +201,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar registro
 const destroy = async (req, res) => {
     try {
         const reset = await PasswordResets.findByPk(req.params.id, {

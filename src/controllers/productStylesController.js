@@ -1,6 +1,5 @@
 const { ProductStyles, Products, Styles } = require("../database/indexModels");
 
-// GET /product-styles
 const index = async (req, res) => {
     try {
         const productStyles = await ProductStyles.findAll({
@@ -23,7 +22,6 @@ const index = async (req, res) => {
     }
 };
 
-// GET /product-styles/:id_product/:id_style
 const show = async (req, res) => {
     try {
         const { id } = req.params;
@@ -63,7 +61,6 @@ const show = async (req, res) => {
     }
 };
 
-// POST /product-styles
 const create = async (req, res) => {
     const { id_product, id_style } = req.body;
 
@@ -153,7 +150,6 @@ const update = async (req, res) => {
     }
 };
 
-// DELETE /product-styles/:id_product/:id_style
 const destroy = async (req, res) => {
     const { id_product, id_style } = req.params;
 

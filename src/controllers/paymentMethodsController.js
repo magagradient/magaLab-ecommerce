@@ -1,6 +1,5 @@
 const { PaymentMethods, Payments } = require("../database/indexModels");
 
-// Obtener todos los métodos de pago
 const index = async (req, res) => {
     try {
         const results = await PaymentMethods.findAll({
@@ -35,7 +34,6 @@ const index = async (req, res) => {
     }
 };
 
-// Mostrar un método de pago por ID
 const show = async (req, res) => {
     try {
         const { id } = req.params;
@@ -71,7 +69,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear nuevo método de pago
 const create = async (req, res) => {
     try {
         const { method_name } = req.body;
@@ -109,7 +106,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar método de pago
 const update = async (req, res) => {
     try {
         const { id } = req.params;
@@ -151,7 +147,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar método de pago
 const destroy = async (req, res) => {
     try {
         const { id } = req.params;

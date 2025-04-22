@@ -1,6 +1,6 @@
 const { UserCoupons, Users, Coupons } = require("../database/indexModels");
 
-// Obtener todos los cupones otorgados a usuarios
+
 const index = async (req, res) => {
     try {
         const data = await UserCoupons.findAll({
@@ -23,7 +23,7 @@ const index = async (req, res) => {
     }
 };
 
-// Obtener un cupón de usuario por ID
+
 const show = async (req, res) => {
     const { id_user_coupon } = req.params;
 
@@ -53,7 +53,7 @@ const show = async (req, res) => {
     }
 };
 
-// Otorgar un nuevo cupón a un usuario
+
 const create = async (req, res) => {
     const { id_user, id_coupon, used, granted_date } = req.body;
 
@@ -84,7 +84,7 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar un cupón de usuario
+
 const update = async (req, res) => {
     const { id_user_coupon } = req.params;
     const { used, granted_date } = req.body;
@@ -116,7 +116,7 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar un cupón de usuario
+
 const destroy = async (req, res) => {
     const { id_user_coupon } = req.params;
 

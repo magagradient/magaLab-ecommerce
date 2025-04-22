@@ -1,6 +1,5 @@
 const { ProductVariants } = require("../database/indexModels");
 
-// Obtener todos los variantes
 const index = async (req, res) => {
     try {
         const variants = await ProductVariants.findAll();
@@ -22,7 +21,6 @@ const index = async (req, res) => {
     }
 };
 
-// Obtener una variante por ID
 const show = async (req, res) => {
     try {
         const variant = await ProductVariants.findByPk(req.params.id);
@@ -38,7 +36,6 @@ const show = async (req, res) => {
     }
 };
 
-// Crear una nueva variante
 const create = async (req, res) => {
     try {
         const { id_product, name, price } = req.body;
@@ -56,7 +53,6 @@ const create = async (req, res) => {
     }
 };
 
-// Actualizar una variante
 const update = async (req, res) => {
     try {
         const variant = await ProductVariants.findByPk(req.params.id);
@@ -80,7 +76,6 @@ const update = async (req, res) => {
     }
 };
 
-// Eliminar una variante
 const destroy = async (req, res) => {
     try {
         const variant = await ProductVariants.findByPk(req.params.id);
