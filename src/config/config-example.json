@@ -1,0 +1,23 @@
+{
+    "development": {
+        "username": "TU_USUARIO",
+        "password": "TU_CONTRASEÑA",
+        "database": "NOMBRE_DB_DEV",
+        "host": "127.0.0.1",
+        "dialect": "mysql"
+    },
+    "test": {
+        "username": "TU_USUARIO",
+        "password": "TU_CONTRASEÑA",
+        "database": "NOMBRE_DB_TEST",
+        "host": "127.0.0.1",
+        "dialect": "mysql"
+    },
+    "production": {
+        "username": "TU_USUARIO",
+        "password": "TU_CONTRASEÑA",
+        "database": "NOMBRE_DB_PROD",
+        "host": "127.0.0.1",
+        "dialect": "mysql"
+    }
+}

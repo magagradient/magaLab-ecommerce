@@ -1,0 +1,68 @@
+const express = require("express");
+const router = express.Router();
+
+
+const upload = require("../config/multerConfig"); 
+
+// get
+const index = require("../controllers/products/get/index");
+const filter = require("../controllers/products/get/filter");
+const show = require("../controllers/products/get/show");
+const status = require("../controllers/products/get/status");
+const getRelations = require("../controllers/products/get/getRelations");
+const search = require("../controllers/products/get/search");
+const related = require("../controllers/products/get/related");
+
+// patch
+const toggleSold = require("../controllers/products/patch/toggleSold");
+const softDelete = require("../controllers/products/patch/softDelete");
+
+// post
+const create = require("../controllers/products/post/create");
+const bulkCreateProducts = require("../controllers/products/post/bulkCreateProducts");
+const uploadImage = require("../controllers/products/post/uploadImage");
+
+// put
+const assignRelation = require("../controllers/products/put/assignRelation")
+const update = require("../controllers/products/put/update")
+const updateRelations = require("../controllers/products/put/updateRelations")
+
+// delete
+const destroy = require("../controllers/products/delete/destroy")
+const removeRelation = require("../controllers/products/delete/removeRelation");
+
+
+
+/*-------------------------------------------------*/ 
+
+
+
+//get
+router.get("/filter", filter);
+router.get("/search", search);
+router.get("/status/:type", status);
+router.get("/:id/related", related);
+router.get("/:id/relations", getRelations); // 👈 TAMBIÉN ANTES DE /:id
+router.get("/:id", show);                   // 👈 ESTA SIEMPRE ÚLTIMA
+router.get("/", index);                     // puede ir primero o último
+
+// patch
+router.patch('/:id/toggle-sold', toggleSold);
+router.patch("/:id/soft-delete", softDelete);
+
+
+// post
+router.post("/", create);
+router.post('/bulk-create', bulkCreateProducts);
+router.post("/:id/upload-image", upload.single("image"), uploadImage);
+
+// put
+router.put('/:idProduct/assign/:relationType', assignRelation);
+router.put("/:id", update);
+router.put("/:id/relations", updateRelations);
+
+// delete
+router.delete("/:id", destroy);
+router.delete("/:idProduct/remove/:relationType/:relationId", removeRelation);
+
+module.exports = router;
