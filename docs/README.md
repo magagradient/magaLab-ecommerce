@@ -93,7 +93,7 @@ Este es el backend del proyecto, desarrollado con Node.js y Express, utilizando 
 | `npm run dev`           | Inicia el servidor en modo desarrollo con Nodemon, ideal para la fase de desarrollo. |
 | `npm start`             | Inicia el servidor en modo producción. Se recomienda para despliegues en producción. |
 | `npm run seed`          | Ejecuta el script de seeding general, que carga datos básicos en la base de datos.   |
-| `npm run seed:products` | Ejecuta el seeder específico para productos, útil para cargar solo los productos sin duplicar otros datos. |
+
 
 
 ---
