@@ -1,12 +1,35 @@
 const express = require("express");
 const router = express.Router();
 
-const controller = require("../controllers/cartItemsController");
+// get
+const index = require("../controllers/cartItems/get/index");
+const show = require("../controllers/cartItems/get/show");
 
-router.get("/", controller.index);
-router.get("/:id", controller.show);
-router.post("/", controller.create);
-router.put("/:id", controller.update);
-router.delete("/:id", controller.destroy);
+// post
+const create = require("../controllers/cartItems/post/create");
+
+
+// put
+const update = require("../controllers/cartItems/put/update");
+
+// delete
+const destroy = require("../controllers/cartItems/delete/destroy");
+
+/*-------------------------------------------------*/ 
+
+
+// get
+router.get("/", index);
+router.get("/:id", show);
+
+// post
+router.post("/", create);
+
+// put
+router.put("/:id", update);
+
+// delete
+router.delete("/:id", destroy);
+
 
 module.exports = router;
