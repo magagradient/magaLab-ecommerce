@@ -1,7 +1,7 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    const Users = sequelize.define("Users", {
+    const Users = sequelize.define('Users', {
         id_user: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
             allowNull: false,
             unique: true,
             validate: {
-                isEmail: true, // Valida que sea un email válido
+                isEmail: true,
             },
         },
         password: {
@@ -25,11 +25,16 @@ module.exports = (sequelize) => {
         },
         registration_date: {
             type: DataTypes.DATE,
-            defaultValue: DataTypes.NOW, // Fecha por defecto al momento de registro
+            defaultValue: DataTypes.NOW,
         },
+        is_deleted: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
+        }
     }, {
-        tableName: "users", // Nombre de la tabla en la BD
-        timestamps: false, // No agregar createdAt y updatedAt automáticamente
+        tableName: 'users',
+        timestamps: false, // No crea createdAt y updatedAt
     });
 
     return Users;

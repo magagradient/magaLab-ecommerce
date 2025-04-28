@@ -8,7 +8,6 @@ const {
     Themes
 } = require("../../../database/indexModels");
 
-const { Op } = require("sequelize");
 
 const show = async (req, res) => {
     try {

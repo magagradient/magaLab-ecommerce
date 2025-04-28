@@ -1,63 +1,39 @@
 const { Users } = require("../../../database/indexModels");
-const { Op } = require("sequelize");
-
+const responseHelper = require('../../../utils/responseHelper');
 
 const update = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, password } = req.body; // Excluimos is_deleted de aquí, no debe ser actualizado por el usuario
         const user = await Users.findByPk(req.params.id);
 
-        if (!user) return res.status(404).json({
-            error: "Usuario no encontrado.",
-            status: "not_found",
-            source: "user_update",
-            timestamp: new Date().toISOString()
-        });
-
-        if (email) {
-            const emailExists = await Users.findOne({
-                where: {
-                    email,
-                    id_user: { [Op.ne]: user.id_user }
-                }
-            });
-            if (emailExists) {
-                return res.status(409).json({
-                    error: "Ese email ya está en uso.",
-                    status: "conflict",
-                    source: "user_update",
-                    timestamp: new Date().toISOString()
-                });
-            }
+        // Validamos que el usuario exista
+        if (!user) {
+            return responseHelper.errorResponse(res, "user_not_found", responseHelper.errorMessages.user_not_found, "user_update", 404);
         }
 
+        // Si se pasó el 'name', lo actualizamos
         if (name) user.name = name;
-        if (email) user.email = email;
+        // Si se pasó el 'password', lo actualizamos
         if (password) user.password = password;
 
+        // **No permitimos actualizar is_deleted** desde aquí
+        // Esto previene que los usuarios puedan modificar el campo 'is_deleted'.
+
+        // Guardamos los cambios
         await user.save();
 
+        // Obtenemos el usuario actualizado sin la contraseña
         const updatedUser = await Users.findByPk(user.id_user, {
-            attributes: { exclude: ["password"] },
-            include: [] // Agregá asociaciones si aplica
+            attributes: { exclude: ["password"] }
         });
 
-        return res.status(200).json({
-            result: updatedUser,
-            status: "success",
-            source: "user_update",
-            timestamp: new Date().toISOString()
-        });
+        // Respondemos con el usuario actualizado
+        return responseHelper.successResponse(res, updatedUser, "user_update");
+
     } catch (error) {
         console.error("Error al actualizar usuario:", error);
-        return res.status(500).json({
-            error: "Error interno del servidor",
-            description: error.message,
-            source: "user_update",
-            timestamp: new Date().toISOString()
-        });
+        return responseHelper.errorResponse(res, "server_error", error.message, "user_update", 500);
     }
 };
-
 
 module.exports = update;

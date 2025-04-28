@@ -1,37 +1,30 @@
 const { Users } = require("../../../database/indexModels");
+const responseHelper = require('../../../utils/responseHelper');
 
 const destroy = async (req, res) => {
     try {
         const user = await Users.findByPk(req.params.id);
 
-        if (!user) return res.status(404).json({
-            error: "Usuario no encontrado.",
-            status: "not_found",
-            source: "user_destroy",
-            timestamp: new Date().toISOString()
+        // Validamos que el usuario exista
+        if (!user) {
+            return responseHelper.errorResponse(res, "user_not_found", responseHelper.errorMessages.user_not_found, "user_destroy", 404);
+        }
+
+        // Si el usuario está intentando eliminar su cuenta, actualizamos el campo 'is_deleted' a true
+        user.is_deleted = true;
+        
+        // Guardamos los cambios
+        await user.save();
+
+        // Respondemos con el usuario que fue marcado como eliminado
+        const deletedUser = await Users.findByPk(user.id_user, {
+            attributes: { exclude: ["password"] } // Excluimos la contraseña
         });
 
-        const userToDelete = await Users.findByPk(user.id_user, {
-            attributes: { exclude: ["password"] },
-            include: [] // Agregá asociaciones si aplica
-        });
-
-        await user.destroy();
-
-        return res.status(200).json({
-            result: userToDelete,
-            status: "deleted",
-            source: "user_destroy",
-            timestamp: new Date().toISOString()
-        });
+        return responseHelper.successResponse(res, deletedUser, "user_destroy");
     } catch (error) {
         console.error("Error al eliminar usuario:", error);
-        return res.status(500).json({
-            error: "Error interno del servidor",
-            description: error.message,
-            source: "user_destroy",
-            timestamp: new Date().toISOString()
-        });
+        return responseHelper.errorResponse(res, "server_error", error.message, "user_destroy", 500);
     }
 };
 
