@@ -12,7 +12,7 @@ const create = require("../controllers/shoppingCarts/post/create");
 const update = require("../controllers/shoppingCarts/put/update");
 
 // delete  
-const destroy = require("../controllers/passwordChanges/get/search");
+const destroy = require("../controllers/shoppingCarts/delete/destroy");
 
 
 /*-------------------------------------------------*/ 

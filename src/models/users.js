@@ -31,10 +31,19 @@ module.exports = (sequelize) => {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false,
+        },
+        avatar_url: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        role: {
+            type: DataTypes.ENUM('user', 'admin'),
+            allowNull: false,
+            defaultValue: 'user', // Por defecto, será 'user'
         }
     }, {
         tableName: 'users',
-        timestamps: false, // No crea createdAt y updatedAt
+        timestamps: false, 
     });
 
     return Users;

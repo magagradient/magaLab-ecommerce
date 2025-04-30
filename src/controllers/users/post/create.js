@@ -1,5 +1,5 @@
 const { Users } = require("../../../database/indexModels");
-const responseHelper = require('../../../utils/responseHelper'); // Importamos el responseHelper
+const responseHelper = require('../../../utils/responseHelper'); 
 
 const create = async (req, res) => {
     try {

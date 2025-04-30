@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const upload = require("../config/multerConfig"); 
+const upload = require("../middlewares/multerConfig"); 
 
 // get
 const index = require("../controllers/products/get/index");

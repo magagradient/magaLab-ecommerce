@@ -1,4 +1,4 @@
-const { ShoppingCarts } = require("../database/indexModels");
+const { ShoppingCarts } = require("../../../database/indexModels");
 
 const destroy = async (req, res) => {
     try {
