@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 // get
-
 const index = require("../controllers/passwordChanges/get/index")
 const verifyPasswordChange = require("../controllers/passwordChanges/get/verifyPasswordChange");
 
@@ -10,9 +9,7 @@ const verifyPasswordChange = require("../controllers/passwordChanges/get/verifyP
 const requestPasswordChange = require("../controllers/passwordChanges/post/request");
 
 
-
 /*-------------------------------------------------*/ 
-
 
 // get
 router.get("/users/:id/password-changes", index);

@@ -2,33 +2,27 @@ const express = require('express');
 const router = express.Router();
 
 // get
-const index = require("../controllers/passwordResets/get/index");
-const search= require("../controllers/passwordResets/get/search");
-const show = require("../controllers/passwordResets/get/show");
+const passwordResetsByUser = require("../controllers/passwordResets/get/passwordResetsByUser");
+const verifyToken = require("../controllers/passwordResets/get/verifyToken");
 
 // post
-const create = require("../controllers/passwordResets/post/create");
+const request = require("../controllers/passwordResets/post/request");
 
-// put
-const update = require("../controllers/passwordResets/put/update");
+// patch
+const invalidateToken = require("../controllers/passwordResets/patch/invalidateToken");
 
-//delete
-const destroy = require("../controllers/passwordResets/delete/destroy");
 
 /*-------------------------------------------------*/ 
 
 // get
-router.get("/", index);
-router.get('/search/:query', search);
-router.get("/:id", show);
+router.get("/users/:id/password-resets", passwordResetsByUser);
+router.get("/password-resets/verify/:token", verifyToken);
 
 // post
-router.post("/", create);
+router.post("/request", request);
 
-//put
-router.put("/:id", update);
+//patch
+router.patch("/password-resets/invalidate/:token", invalidateToken);
 
-// delete
-router.delete("/:id", destroy);
 
 module.exports = router; 

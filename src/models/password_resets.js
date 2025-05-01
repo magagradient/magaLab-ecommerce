@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         request_date: {
-            type: DataTypes.DATE,  // ✅ Cambio de TIMESTAMP a DATE
+            type: DataTypes.DATE,  // cambio de TIMESTAMP a DATE
             defaultValue: DataTypes.NOW
         },
         used: {
@@ -29,7 +29,7 @@ module.exports = (sequelize) => {
             defaultValue: false
         },
         expires_at: {
-            type: DataTypes.DATE,  // ✅ Cambio de TIMESTAMP a DATE
+            type: DataTypes.DATE,  // cambio de TIMESTAMP a DATE
             allowNull: false
         }
     }, {
