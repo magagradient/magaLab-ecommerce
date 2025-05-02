@@ -15,14 +15,14 @@ const invalidateToken = require("../controllers/passwordResets/patch/invalidateT
 /*-------------------------------------------------*/ 
 
 // get
-router.get("/users/:id/password-resets", passwordResetsByUser);
-router.get("/password-resets/verify/:token", verifyToken);
+router.get("/:id", passwordResetsByUser);
+router.get("/verify/:token", verifyToken);
 
 // post
 router.post("/request", request);
 
 //patch
-router.patch("/password-resets/invalidate/:token", invalidateToken);
+router.patch("/invalidate/:token", invalidateToken);
 
 
 module.exports = router; 

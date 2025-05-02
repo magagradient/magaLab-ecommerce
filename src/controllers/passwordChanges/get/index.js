@@ -1,14 +1,14 @@
-const { PasswordChange } = require("../../../database/indexModels");
+const { PasswordChanges } = require("../../../database/indexModels");
 const responseHelper = require('../../../utils/responseHelper');
 
-const index = async (req, res) => {
+const passwordChangesIndex = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const history = await PasswordChange.findAll({
-            where: { user_id: id },
-            attributes: { exclude: ["created_at", "updated_at"] },
-            order: [["created_at", "DESC"]],
+        const history = await PasswordChanges.findAll({
+            where: { id_user: id },
+            attributes: { exclude: ["createdAt", "updatedAt"] }, 
+            order: [["change_date", "DESC"]], 
         });
 
         if (!history || history.length === 0) {
@@ -22,4 +22,4 @@ const index = async (req, res) => {
     }
 };
 
-module.exports = index;
+module.exports = passwordChangesIndex;

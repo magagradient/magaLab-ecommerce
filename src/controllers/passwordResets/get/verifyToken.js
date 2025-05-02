@@ -15,7 +15,6 @@ const verifyPasswordResetToken = async (req, res) => {
             );
         }
 
-        // Buscar el token en la base de datos
         const resetRequest = await PasswordResets.findOne({ where: { token } });
 
         if (!resetRequest) {
@@ -28,7 +27,6 @@ const verifyPasswordResetToken = async (req, res) => {
             );
         }
 
-        // Token encontrado, se considera válido por ahora
         return responseHelper.successResponse(
             res,
             { message: "Token válido." },

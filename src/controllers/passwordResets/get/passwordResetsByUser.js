@@ -6,7 +6,7 @@ const passwordResetsByUser = async (req, res) => {
         const { id } = req.params;
 
         const user = await Users.findByPk(id);
-        
+
         if (!user) {
             return responseHelper.errorResponse(
                 res,
@@ -17,8 +17,7 @@ const passwordResetsByUser = async (req, res) => {
             );
         }
 
-        // Obtener todas las solicitudes de reseteo de ese usuario
-        const resets = await PasswordResets.findAll({ where: { userId: id } });
+        const resets = await PasswordResets.findAll({ where: { id_user: id }, attributes: { exclude: ["created_at", "updated_at"] } });
 
         if (resets.length === 0) {
             return responseHelper.successResponse(
@@ -28,7 +27,6 @@ const passwordResetsByUser = async (req, res) => {
             );
         }
 
-        // Devolver las solicitudes encontradas
         return responseHelper.successResponse(
             res,
             resets,

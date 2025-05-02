@@ -59,7 +59,7 @@ router.use("/product_images", productImagesRouter);
 router.use("/product_keywords", productKeywordsRouter);
 router.use("/product_styles", productStylesRouter);
 router.use("/product_variants", productVariantsRouter);
-router.use("series", seriesRouter);
+router.use("/series", seriesRouter);
 router.use("/styles", stylesRouter);
 router.use("/shopping_carts", shoppingCartsRouter);
 router.use("/themes", themesRouter);
