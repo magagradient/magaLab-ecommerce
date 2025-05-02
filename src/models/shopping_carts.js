@@ -14,6 +14,10 @@ module.exports = (sequelize) => {
         created_at: {
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW
+        },
+        is_deleted: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     }, {
         tableName: 'shopping_carts',

@@ -1,23 +1,67 @@
-const { ShoppingCarts } = require("../../../database/indexModels");
+const { ShoppingCarts, Users } = require("../../../database/indexModels");
+const responseHelper = require("../../../utils/responseHelper");
 
-const create = async (req, res) => {
+const createShoppingCart = async (req, res) => {
     try {
-        const { id_user, created_at } = req.body;
+        const { id_user } = req.body;
 
         if (!id_user) {
-            return res.status(400).json({ error: "El campo 'id_user' es obligatorio." });
+            return responseHelper.errorResponse(
+                res,
+                "bad_request",
+                "El campo id_user es requerido.",
+                "shopping_cart_create",
+                400
+            );
         }
 
-        const newCart = await ShoppingCarts.create({
-            id_user,
-            created_at
-        });
+        const user = await Users.findByPk(id_user);
+        if (!user) {
+            return responseHelper.errorResponse(
+                res,
+                "not_found",
+                "Usuario no encontrado.",
+                "shopping_cart_create",
+                404
+            );
+        }
 
-        return res.status(201).json(newCart);
+        // Verificar si ya tiene un carrito
+        const existingCart = await ShoppingCarts.findOne({ where: { id_user } });
+
+        if (existingCart) {
+            return responseHelper.errorResponse(
+                res,
+                "conflict",
+                "El usuario ya tiene un carrito activo.",
+                "shopping_cart_create",
+                409
+            );
+        }
+
+        // Crear el carrito
+        const newCart = await ShoppingCarts.create({ id_user });
+
+        return responseHelper.successResponse(
+            res,
+            {
+                message: "Carrito creado exitosamente.",
+                cart: newCart
+            },
+            "shopping_cart_create",
+            201
+        );
+
     } catch (error) {
         console.error("Error al crear carrito:", error);
-        return res.status(500).json({ error: "Error interno del servidor", description: error.message });
+        return responseHelper.errorResponse(
+            res,
+            "server_error",
+            error.message,
+            "shopping_cart_create",
+            500
+        );
     }
 };
 
-module.exports = create;
+module.exports = createShoppingCart;

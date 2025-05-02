@@ -1,22 +1,27 @@
 const { ShoppingCarts } = require("../../../database/indexModels");
+const { errorResponse, successResponse } = require("../../../utils/responseHelper");
 
 const destroy = async (req, res) => {
+    const { id } = req.params;
+
     try {
-        const cart = await ShoppingCarts.findByPk(req.params.id);
+        const cart = await ShoppingCarts.findByPk(id);
 
         if (!cart) {
-            return res.status(404).json({ error: "Carrito no encontrado." });
+            return errorResponse(res, 404, "Carrito no encontrado.");
         }
 
-        await cart.destroy();
+        if (cart.is_deleted) {
+            return errorResponse(res, 400, "El carrito ya fue eliminado.");
+        }
 
-        return res.status(200).json({
-            message: "Carrito eliminado correctamente.",
-            deleted: cart
-        });
+        cart.is_deleted = true;
+        await cart.save();
+
+        return successResponse(res, 200, "Carrito eliminado correctamente (soft delete).", { id_cart: id });
     } catch (error) {
-        console.error("Error al eliminar carrito:", error);
-        return res.status(500).json({ error: "Error interno del servidor", description: error.message });
+        console.error("Error al eliminar el carrito:", error);
+        return errorResponse(res, 500, "Error al eliminar el carrito.", error.message);
     }
 };
 
