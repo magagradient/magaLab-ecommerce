@@ -2,34 +2,35 @@ const express = require("express");
 const router = express.Router();
 
 // get
-const index = require("../controllers/cartItems/get/index");
-const show = require("../controllers/cartItems/get/show");
+const index = require("../controllers/cartItems/get/index"); 
+const summary = require("../controllers/cartItems/get/summary");
 
 // post
-const create = require("../controllers/cartItems/post/create");
-
+const create = require("../controllers/cartItems/post/create"); 
 
 // put
-const update = require("../controllers/cartItems/put/update");
+const update = require("../controllers/cartItems/put/update"); 
 
 // delete
-const destroy = require("../controllers/cartItems/delete/destroy");
+const destroy = require("../controllers/cartItems/delete/destroy"); 
+const clearCartItems = require("../controllers/cartItems/delete/clearAll"); 
 
 /*-------------------------------------------------*/ 
 
 
 // get
-router.get("/", index);
-router.get("/:id", show);
+router.get("/", index); 
+router.get("/summary", summary);
 
 // post
-router.post("/", create);
+router.post("/", create); 
 
 // put
-router.put("/:id", update);
+router.put("/:id", update); 
 
 // delete
-router.delete("/:id", destroy);
+router.delete("/:id", destroy); 
+router.delete("/", clearCartItems); 
 
 
 module.exports = router;

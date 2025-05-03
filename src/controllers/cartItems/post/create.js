@@ -1,24 +1,47 @@
 const { CartItems } = require("../../../database/indexModels");
+const responseHelper = require("../../../utils/responseHelper");
 
-const create = async (req, res) => {
+const createCartItem = async (req, res) => {
+    const { id_cart, id_product, quantity = 1 } = req.body;
+
+    if (!id_cart || !id_product) {
+        return responseHelper.errorResponse(
+            res,
+            "bad_request",
+            "Faltan parámetros obligatorios: id_cart o id_product.",
+            "cart_item_create",
+            400
+        );
+    }
+
     try {
-        const { id_cart, id_product, quantity } = req.body;
+        const existingItem = await CartItems.findOne({
+            where: { id_cart, id_product }
+        });
 
-        if (!id_cart || !id_product) {
-            return res.status(400).json({ error: "Los campos 'id_cart' y 'id_product' son obligatorios." });
+        if (existingItem) {
+            existingItem.quantity += quantity;
+            await existingItem.save();
+            return responseHelper.successResponse(res, existingItem, "cart_item_create");
         }
 
         const newItem = await CartItems.create({
             id_cart,
             id_product,
-            quantity: quantity ?? 1
+            quantity
         });
 
-        return res.status(201).json(newItem);
+        return responseHelper.successResponse(res, newItem, "cart_item_create");
     } catch (error) {
-        console.error("Error al crear ítem:", error);
-        return res.status(500).json({ error: "Error interno del servidor", description: error.message });
+        console.error("Error al agregar ítem al carrito:", error);
+        return responseHelper.errorResponse(
+            res,
+            "server_error",
+            error.message,
+            "cart_item_create",
+            500
+        );
     }
 };
 
-module.exports = create;
+module.exports = createCartItem;

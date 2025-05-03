@@ -1,25 +1,39 @@
 const { CartItems } = require("../../../database/indexModels");
+const responseHelper = require("../../../utils/responseHelper");
 
-const destroy = async (req, res) => {
+const deleteCartItem = async (req, res) => {
+    const { id } = req.params;
+
     try {
-        const item = await CartItems.findByPk(req.params.id);
+        const item = await CartItems.findByPk(id);
 
         if (!item) {
-            return res.status(404).json({ error: "Ítem no encontrado." });
+            return responseHelper.errorResponse(
+                res,
+                "not_found",
+                "Ítem del carrito no encontrado.",
+                "cart_item_delete",
+                404
+            );
         }
 
         await item.destroy();
 
-        return res.status(200).json({
-            message: "Ítem eliminado correctamente.",
-            deleted: item
-        });
+        return responseHelper.successResponse(
+            res,
+            { message: `Ítem con id ${id} eliminado.` },
+            "cart_item_delete"
+        );
     } catch (error) {
-        console.error("Error al eliminar ítem:", error);
-        return res.status(500).json({ error: "Error interno del servidor", description: error.message });
+        console.error("Error al eliminar ítem del carrito:", error);
+        return responseHelper.errorResponse(
+            res,
+            "server_error",
+            error.message,
+            "cart_item_delete",
+            500
+        );
     }
 };
 
-module.exports = destroy;
-
-
+module.exports = deleteCartItem;

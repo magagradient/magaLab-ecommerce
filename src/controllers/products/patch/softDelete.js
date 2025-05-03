@@ -10,12 +10,10 @@ const softDelete = async (req, res) => {
             return res.status(404).json({ error: "Producto no encontrado" });
         }
 
-        if (product.is_deleted) {
-            return res.status(400).json({ error: "El producto ya está marcado como eliminado" });
-        }
+        // No es necesario verificar si ya está eliminado, ya que Sequelize lo maneja automáticamente
+        // Cuando usamos paranoid, el producto se marca automáticamente como "eliminado".
 
-        product.is_deleted = true;
-        await product.save();
+        await product.destroy(); // Soft delete
 
         return res.status(200).json({
             message: "Producto marcado como eliminado (soft delete)",

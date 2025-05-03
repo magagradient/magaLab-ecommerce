@@ -70,7 +70,7 @@ module.exports = (sequelize) => {
         tableName: 'products',
         timestamps: true,  // Esto indica que el modelo usará createdAt y updatedAt automáticamente
         underscored: true, // Esto cambiará el nombre de las columnas a snake_case (created_at, updated_at)
-        paranoid: true,    // Soft delete: marca los productos como eliminados sin borrarlos físicamente
+        paranoid: false,    // Soft delete: marca los productos como eliminados sin borrarlos físicamente
     });
 
     return Products;

@@ -17,9 +17,6 @@ const index = async (req, res) => {
 
         const productsData = products.map(product => product.get({ plain: true }));
 
-        // DEBUG: mostrar asociaciones de Products.
-        // console.log("Asociaciones de Products:", Products.associations);
-
         if (productsData.length === 0) {
             return res.status(404).json({ error: "No hay productos disponibles." });
         }
@@ -41,5 +38,7 @@ const index = async (req, res) => {
         });
     }
 };
+
+
 
 module.exports = index;
