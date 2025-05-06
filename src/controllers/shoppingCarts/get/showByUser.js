@@ -10,9 +10,11 @@ const getActiveCartByUser = async (req, res) => {
             include: [
                 {
                     model: CartItems,
+                    as: 'cartItems',
                     include: [
                         {
-                            model: Products
+                            model: Products,
+                            as: 'product'
                         }
                     ]
                 }

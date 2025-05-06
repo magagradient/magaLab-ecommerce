@@ -20,7 +20,7 @@ const destroy = require("../controllers/shoppingCarts/delete/destroy");
 
 // get
 router.get("/:id", show); 
-router.get("/:id_user", getActiveCartByUser); 
+router.get("/user/:id_user", getActiveCartByUser); 
 
 // post
 router.post("/", create); 
