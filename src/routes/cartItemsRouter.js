@@ -19,7 +19,7 @@ const clearCartItems = require("../controllers/cartItems/delete/clearAll");
 
 
 // get
-router.get("/", index); 
+router.get("/", index);  // /api/cart_items?user_id=13
 router.get("/summary", summary);
 
 // post
