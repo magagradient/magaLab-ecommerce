@@ -3,6 +3,8 @@ const responseHelper = require("../../../utils/responseHelper");
 
 const clearCartItems = async (req, res) => {
     const { id_cart } = req.body;
+    
+    console.log("id_cart recibido:", id_cart); 
 
     if (!id_cart) {
         return responseHelper.errorResponse(
