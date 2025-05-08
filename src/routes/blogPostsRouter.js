@@ -19,9 +19,9 @@ const destroy = require("../controllers/blogPosts/delete/destroy")
 /* --------------------------------------- */
 
 // get
+router.get('/search', search);
 router.get("/author/:authorId", byAuthor); 
 router.get("/:id", show); 
-router.get('/search/:query', search);
 router.get('/', index);
 
 // post

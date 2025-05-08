@@ -5,6 +5,11 @@ const update = async (req, res) => {
     const { id } = req.params;
     const { title, content, author_id } = req.body;
 
+    // Verificamos si se proporcionaron datos para la actualización
+    if (!title && !content && !author_id) {
+        return responseHelper.errorResponse(res, "missing_fields", "Debes proporcionar al menos un campo para actualizar.", "blogPosts_update", 400);
+    }
+
     try {
         const post = await BlogPosts.findByPk(id);
 
@@ -12,6 +17,7 @@ const update = async (req, res) => {
             return responseHelper.errorResponse(res, "not_found", "Post no encontrado.", "blogPosts_update", 404);
         }
 
+        // Actualizamos solo los campos que hayan sido enviados
         await post.update({
             title: title ?? post.title,
             content: content ?? post.content,

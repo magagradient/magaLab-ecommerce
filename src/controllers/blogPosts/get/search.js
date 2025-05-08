@@ -1,5 +1,6 @@
 const { BlogPosts } = require("../../../database/indexModels");
 const responseHelper = require('../../../utils/responseHelper');
+const { Op } = require("sequelize");
 
 const search = async (req, res) => {
     const { query } = req.query;  // Tomamos la consulta de búsqueda desde los parámetros de la query

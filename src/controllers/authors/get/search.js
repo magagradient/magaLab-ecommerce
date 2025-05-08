@@ -1,24 +1,31 @@
-const { Authors } = require("../../../database/indexModels"); 
-const responseHelper = require('../../../utils/responseHelper'); 
+const { Authors } = require("../../../database/indexModels");
+const responseHelper = require('../../../utils/responseHelper');
+const { Op } = require("sequelize");
 
 const search = async (req, res) => {
-    const { query } = req.query; 
-    const timestamp = new Date().toISOString(); 
+    const { query } = req.query;
+    const timestamp = new Date().toISOString();
 
-    if (!query) {
-        return responseHelper.errorResponse(res, "missing_query", "Se debe proporcionar un término de búsqueda.", "authors_search", 400);
+    if (!query || query.trim() === "") {
+        return responseHelper.errorResponse(
+            res,
+            "missing_query",
+            "Se debe proporcionar un término de búsqueda.",
+            "authors_search",
+            400
+        );
+        
     }
-
     try {
         const authors = await Authors.findAll({
             where: {
                 [Op.or]: [
-                    { name: { [Op.iLike]: `%${query}%` } },
-                    { bio: { [Op.iLike]: `%${query}%` } }   
+                    { name: { [Op.like]: `%${query}%` } },
+                    { bio: { [Op.like]: `%${query}%` } }
                 ]
             },
-            attributes: ["author_id", "name", "bio", "avatar_url", "created_at", "updated_at"], 
-            raw: true, 
+            attributes: ["author_id", "name", "bio", "avatar_url", "created_at", "updated_at"],
+            raw: true,
         });
 
         if (authors.length === 0) {

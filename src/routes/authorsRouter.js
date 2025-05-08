@@ -20,9 +20,9 @@ const destroy = require("../controllers/authors/delete/destroy")
 /* ---------------------------------------------- */
 
 //get
+router.get("/search", search);
 router.get('/', index);
 router.get("/:id", show);
-router.get("/search/:query", search);
 
 // post
 router.post("/", create);
