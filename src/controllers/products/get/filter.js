@@ -90,12 +90,12 @@ const filter = async (req, res) => {
 
         include.push(...dynamicInclude);
 
-        // ejecutar búsqueda
+
         const products = await Products.findAll({
             where,
             include,
             attributes: {
-                exclude: ['created_at', 'updated_at'] // excluir timestamps si no se necesitan
+                exclude: ['created_at', 'updated_at'] 
             }
         });
 

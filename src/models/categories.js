@@ -17,13 +17,5 @@ module.exports = (sequelize) => {
         timestamps: false
     });
 
-    Categories.associate = (models) => {
-        // Relaciones de categorías con productos
-        Categories.hasMany(models.Products, {
-            foreignKey: 'id_category',
-            as: 'products'
-        });
-    };
-
     return Categories;
 };
