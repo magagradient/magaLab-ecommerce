@@ -25,12 +25,16 @@ const applyCoupon = async (req, res) => {
         }
 
         // Asociar el cupón al usuario
-        await UserCoupons.create({
+        const newUserCoupon = await UserCoupons.create({
             id_user: userId,
             id_coupon: couponId,
         });
 
-        return responseHelper.successResponse(res, [], "apply_coupon");
+        return responseHelper.successResponse(res, {
+            userCoupon: newUserCoupon,
+            user,
+            coupon
+        }, "apply_coupon");
 
     } catch (error) {
         console.error("Error al aplicar el cupón al usuario:", error);

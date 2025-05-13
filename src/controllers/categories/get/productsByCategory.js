@@ -9,7 +9,7 @@ const productsByCategory = async (req, res) => {
             include: {
                 model: Products,
                 as: "products",
-                attributes: ["id_product", "title", "price", "stock", "description"],
+                attributes: ["id_product", "title", "price", "description"],
             }
         });
 

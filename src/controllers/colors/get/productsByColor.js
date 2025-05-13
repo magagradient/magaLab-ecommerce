@@ -1,4 +1,4 @@
-const { Colors } = require("../../../database/indexModels");
+const { Colors, Products } = require("../../../database/indexModels");
 const responseHelper = require("../../../utils/responseHelper");
 
 const productsByColor = async (req, res) => {
@@ -9,7 +9,7 @@ const productsByColor = async (req, res) => {
             include: {
                 model: Products,
                 as: "products", 
-                attributes: ["id_product", "title", "price", "stock", "description"],
+                attributes: ["id_product", "title", "price", "description"],
             }
         });
 

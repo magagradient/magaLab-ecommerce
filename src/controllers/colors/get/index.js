@@ -1,9 +1,16 @@
-const { Colors } = require("../../../database/indexModels");
+const { Colors, Products } = require("../../../database/indexModels");
 const responseHelper = require("../../../utils/responseHelper");
 
 const index = async (req, res) => {
     try {
-        const colors = await Colors.findAll();
+        console.log("Ejecutando controlador index...");
+        const colors = await Colors.findAll({
+            include: {
+                model: Products,
+                as: 'products',
+                attributes: ['id_product', 'title', 'price']
+            }
+        });
 
         if (colors.length === 0) {
             return responseHelper.successResponse(res, [], "colors_index");
@@ -15,5 +22,6 @@ const index = async (req, res) => {
         return responseHelper.errorResponse(res, "server_error", error.message, "colors_index", 500);
     }
 };
+
 
 module.exports = index;

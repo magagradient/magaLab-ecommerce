@@ -14,7 +14,6 @@ const userCoupons = async (req, res) => {
                     attributes: ["id_coupon", "code", "discount", "expiration_date"],
                 },
             ],
-            raw: true,
         });
 
         if (userCouponsList.length === 0) {

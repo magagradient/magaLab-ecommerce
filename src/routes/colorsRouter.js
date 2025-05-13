@@ -3,8 +3,8 @@ const router = express.Router();
 
 // get
 const productsByColor = require("../controllers/colors/get/productsByColor");
-const index = require("../controllers/colors/get/productsByColor");
-const show = require("../controllers/colors/get/productsByColor");
+const index = require("../controllers/colors/get/index");
+const show = require("../controllers/colors/get/show");
 
 // post
 const create = require("../controllers/colors/post/create");
@@ -19,9 +19,9 @@ const destroy = require("../controllers/colors/delete/destroy");
 /*-------------------------------------------*/
 
 // get
-router.get("/", index); 
-router.get("/:id", show); 
-router.get("/:id/products", productsByColor); 
+router.get("/", index);        
+router.get("/:id", show);     
+router.get("/:id/products", productsByColor);  
 
 // post
 router.post("/", create); 

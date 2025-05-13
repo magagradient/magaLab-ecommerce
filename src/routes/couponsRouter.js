@@ -21,7 +21,7 @@ const destroy = require("../controllers/coupons/delete/detroy");
 
 // GET 
 router.get("/", index);
-router.get("/users/:userId", userCoupons);
+router.get("/users/:userId/coupons", userCoupons);
 router.get("/:id", show);
 
 // POST 
