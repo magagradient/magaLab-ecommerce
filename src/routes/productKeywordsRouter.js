@@ -1,11 +1,20 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const controller = require('../controllers/productKeywordsController')
+// Controllers
+const index = require("../controllers/productKeywords/get/index");
+const byProduct = require("../controllers/productKeywords/get/byProduct");
 
-router.get('/', controller.index);
-router.get("/:id_product/:id_keyword", controller.show);
-router.post("/", controller.create);
-router.delete("/:id_product/:id_keyword", controller.destroy);
+const create = require("../controllers/productKeywords/post/create");
 
-module.exports = router; 
+const destroy = require("../controllers/productKeywords/delete/destroy");
+
+// Routes
+router.get("/", index);
+router.get("/product/:id_product", byProduct);
+
+router.post("/", create);
+
+router.delete("/:id_product/:id_keyword", destroy);
+
+module.exports = router;

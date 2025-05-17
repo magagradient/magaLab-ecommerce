@@ -1,14 +1,27 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const controller = require('../controllers/ordersControllers');
+// Controllers
+const index = require("../controllers/orders/get/index");
+const show = require("../controllers/orders/get/show");
+const byUser = require("../controllers/orders/get/byUser");
 
-router.get("/", controller.index);
-router.get("/search/:query", controller.search);
-router.get("/status/:query", controller.search);
-router.get("/:id", controller.show);
-router.post("/", controller.create);
-router.put("/:id", controller.update);
-router.delete("/:id", controller.destroy);
+const create = require("../controllers/orders/post/create");
+
+const update = require("../controllers/orders/put/update");
+
+const destroy = require("../controllers/orders/delete/destroy");
+
+
+// Routes
+router.get("/", index);
+router.get("/:id", show);
+router.get("/user/:id_user", byUser);
+
+router.post("/", create);
+
+router.put("/:id", update);
+
+router.delete("/:id", destroy);
 
 module.exports = router;
