@@ -7,7 +7,9 @@ const byProduct = async (req, res) => {
     try {
         const result = await ProductKeywords.findAll({
             where: { id_product },
-            include: [{ model: Keywords, attributes: ["id_keyword", "name"] }]
+            include: [{ model: Keywords,
+                as: "keyword", 
+                attributes: ["id_keyword", "name"] }]
         });
 
         return responseHelper.successResponse(res, result, "product_keywords_by_product");

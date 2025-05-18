@@ -1,10 +1,10 @@
-const { Order } = require("../../../database/indexModels");
+const { Orders } = require("../../../database/indexModels");
 const responseHelper = require("../../../utils/responseHelper");
 
 const byUser = async (req, res) => {
     const { id_user } = req.params;
     try {
-        const orders = await Order.findAll({
+        const orders = await Orders.findAll({
             where: { id_user },
             order: [["order_date", "DESC"]],
         });

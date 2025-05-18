@@ -1,11 +1,11 @@
-const { Order } = require("../../../database/indexModels");
+const { Orders } = require("../../../database/indexModels");
 const responseHelper = require("../../../utils/responseHelper");
 
 const create = async (req, res) => {
     try {
         const { id_user, total, status } = req.body;
 
-        const newOrder = await Order.create({
+        const newOrder = await Orders.create({
             id_user,
             total,
             status: status || "pending",

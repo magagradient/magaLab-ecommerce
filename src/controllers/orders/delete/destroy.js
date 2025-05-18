@@ -1,11 +1,11 @@
-const { Order } = require("../../../database/indexModels");
+const { Orders } = require("../../../database/indexModels");
 const responseHelper = require("../../../utils/responseHelper");
 
 const destroy = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const order = await Order.findByPk(id);
+        const order = await Orders.findByPk(id);
         if (!order) {
             return responseHelper.errorResponse(res, "not_found", "Order not found", "orders_destroy", 404);
         }

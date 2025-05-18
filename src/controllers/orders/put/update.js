@@ -1,4 +1,4 @@
-const { Order } = require("../../../database/indexModels");
+const { Orders } = require("../../../database/indexModels");
 const responseHelper = require("../../../utils/responseHelper");
 
 const update = async (req, res) => {
@@ -6,7 +6,7 @@ const update = async (req, res) => {
     const { total, status } = req.body;
 
     try {
-        const order = await Order.findByPk(id);
+        const order = await Orders.findByPk(id);
 
         if (!order) {
             return responseHelper.errorResponse(res, "not_found", "Order not found", "orders_update", 404);

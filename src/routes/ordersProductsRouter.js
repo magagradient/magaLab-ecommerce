@@ -13,7 +13,7 @@ const destroy = require("../controllers/ordersProducts/delete/destroy");
 
 // Routes
 router.get("/", index);
-router.get("/order/:id_order", byOrder);
+router.get("/:id_order", byOrder);
 
 router.post("/", create);
 
