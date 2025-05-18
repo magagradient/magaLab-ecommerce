@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const controller = require('../controllers/paymentMethodsController');
+// Controladores:
+const index = require("../controllers/paymentMethods/get/index");
+const create = require("../controllers/paymentMethods/post/create");
+const update = require("../controllers/paymentMethods/put/update");
+const destroy = require("../controllers/paymentMethods/delete/destroy");
 
-router.get("/", controller.index);
-router.get("/:id", controller.show);
-router.post("/", controller.create);
-router.put("/:id", controller.update);
-router.delete("/:id", controller.destroy);
-
+// Rutas:
+router.get("/", index);
+router.post("/", create);
+router.put("/:id", update);
+router.delete("/:id", destroy);
 
 module.exports = router;
