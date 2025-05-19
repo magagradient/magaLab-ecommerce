@@ -23,7 +23,6 @@ const productColorsRouter = require("./productColorsRouter");
 const productImagesRouter = require("./productImagesRouter");
 const productKeywordsRouter = require("./productKeywordsRouter");
 const productStylesRouter = require("./productStylesRouter");
-const productVariantsRouter = require("./productVariantsRouter");
 const seriesRouter = require("./seriesRouter")
 const stylesRouter = require("./stylesRouter");
 const shoppingCartsRouter = require("./shoppingCartsRouter");
@@ -58,7 +57,6 @@ router.use("/product_colors", productColorsRouter);
 router.use("/product_images", productImagesRouter);
 router.use("/product_keywords", productKeywordsRouter);
 router.use("/product_styles", productStylesRouter);
-router.use("/product_variants", productVariantsRouter);
 router.use("/series", seriesRouter);
 router.use("/styles", stylesRouter);
 router.use("/shopping_carts", shoppingCartsRouter);

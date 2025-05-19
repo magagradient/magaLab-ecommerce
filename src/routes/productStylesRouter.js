@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-const controller = require('../controllers/productStylesController');
+// controllers
+const list = require("../controllers/productStyles/get/list");
+const create = require("../controllers/productStyles/post/create");
+const destroy = require("../controllers/productStyles/delete/destroy");
 
-router.get("/", controller.index);
-router.get("/:id", controller.show);
-router.post("/", controller.create);
-router.put("/:id", controller.update);
-router.put('/:id_product/:id_style', controller.update);
-
-router.delete("/:id_product/:id_style", controller.destroy);
+// rutas
+router.get("/:id/styles", list);
+router.post("/:id/styles", create);
+router.delete("/:id/styles/:styleId", destroy);
 
 module.exports = router;

@@ -16,7 +16,6 @@ const ProductImagesModel = require("../models/product_images");
 const ProductKeywordsModel = require("../models/product_keywords");
 const ProductStylesModel = require("../models/product_styles");
 const ProductThemesModel = require("../models/product_themes");
-const ProductVariantsModel = require("../models/product_variants")
 
 // Atributos :
 const ColorsModel = require("../models/colors");
@@ -74,7 +73,6 @@ const models = {
     ProductKeywords: ProductKeywordsModel(sequelize, DataTypes),
     ProductStyles: ProductStylesModel(sequelize, DataTypes),
     ProductThemes: ProductThemesModel(sequelize, DataTypes),
-    ProductVariants: ProductVariantsModel(sequelize, DataTypes),
     Products: ProductsModel(sequelize, DataTypes),
     Series: SeriesModel(sequelize, DataTypes),
     ShoppingCarts: ShoppingCartsModel(sequelize, DataTypes),
