@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const validateSchema = require("../middlewares/validateSchema");
+const productSchema = require("../validators/productSchema");
 
 const upload = require("../middlewares/multerConfig"); 
 
@@ -21,6 +23,8 @@ const create = require("../controllers/products/post/create");
 const bulkCreateProducts = require("../controllers/products/post/bulkCreateProducts");
 const uploadImage = require("../controllers/products/post/uploadImage");
 
+
+
 // put
 const assignRelation = require("../controllers/products/put/assignRelation")
 const update = require("../controllers/products/put/update")
@@ -29,6 +33,7 @@ const updateRelations = require("../controllers/products/put/updateRelations")
 // delete
 const destroy = require("../controllers/products/delete/destroy")
 const removeRelation = require("../controllers/products/delete/removeRelation");
+
 
 
 
@@ -51,7 +56,7 @@ router.patch("/:id/soft-delete", softDelete);
 
 
 // post
-router.post("/", create);
+router.post("/", validateSchema(productSchema), create);
 router.post('/bulk-create', bulkCreateProducts);
 router.post("/:id/upload-image", upload.single("image"), uploadImage);
 
@@ -63,5 +68,8 @@ router.put("/:id/relations", updateRelations);
 // delete
 router.delete("/:id", destroy);
 router.delete("/:idProduct/remove/:relationType/:relationId", removeRelation);
+
+
+
 
 module.exports = router;

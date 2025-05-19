@@ -1,20 +1,23 @@
 const { Products, Categories, Series, Keywords, Styles, Colors, Themes } = require("../../../database/indexModels");
 const { Op, fn, col, where } = require("sequelize");
+const { successResponse, errorResponse } = require("../../../utils/responseHelper");
 
 const search = async (req, res) => {
     const { term } = req.query;
 
     if (!term || term.trim() === "") {
-        return res.status(400).json({
-            message: "Se requiere un término de búsqueda.",
-            timestamp: new Date()
-        });
+        return errorResponse(
+            res,
+            "bad_request",
+            "Se requiere un término de búsqueda.",
+            "products_search",
+            400
+        );
     }
 
     const searchTerm = term.toLowerCase();
 
     try {
-        // primero busca por título y descripción
         const products = await Products.findAll({
             where: {
                 [Op.or]: [
@@ -39,7 +42,6 @@ const search = async (req, res) => {
             ]
         });
 
-        // después filtra en memoria por relaciones
         const extendedResults = products.filter(product => {
             const fields = [
                 product.category?.name,
@@ -52,26 +54,25 @@ const search = async (req, res) => {
             return fields.some(f => f?.toLowerCase().includes(searchTerm));
         });
 
-        // evitar duplicados
         const totalResults = [
             ...products,
             ...extendedResults.filter(r => !products.includes(r))
         ];
 
-        return res.status(200).json({
-            message: "Resultados de la búsqueda.",
+        return successResponse(res, {
             results: totalResults,
-            total: totalResults.length,
-            timestamp: new Date()
-        });
+            total: totalResults.length
+        }, "products_search");
 
     } catch (error) {
-        console.error("Error en búsqueda:", error);
-        return res.status(500).json({
-            message: "Error al realizar la búsqueda.",
-            error: error.message,
-            timestamp: new Date()
-        });
+        console.error("🔴 Error en búsqueda:", error);
+        return errorResponse(
+            res,
+            "server_error",
+            "Error al realizar la búsqueda.",
+            "products_search",
+            500
+        );
     }
 };
 

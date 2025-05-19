@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 
 // controllers:
-const index = require("../controllers/styles/get/index");
-const show = require("../controllers/styles/get/show");
+const index = require("../controllers/series/get/index");
+const show = require("../controllers/series/get/show");
 
-const create = require("../controllers/styles/post/create");
+const create = require("../controllers/series/post/create");
 
-const update = require("../controllers/styles/put/update");
+const update = require("../controllers/series/put/update");
 
-const destroy = require("../controllers/styles/delete/destroy");
+const destroy = require("../controllers/series/delete/destroy");
 
 
 // rutas:

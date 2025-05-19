@@ -1,4 +1,5 @@
 const { Products, Categories, Series } = require("../../../database/indexModels");
+const { successResponse, errorResponse } = require("../../../utils/responseHelper");
 
 const create = async (req, res) => {
     try {
@@ -12,9 +13,8 @@ const create = async (req, res) => {
             id_series
         } = req.body;
 
-
-        if (!title || !price) {
-            return res.status(400).json({ error: "Faltan campos obligatorios: title y price." });
+        if (!title || price === undefined) {
+            return errorResponse(res, "bad_request", "Faltan campos obligatorios: title y price.", "products/create", 400);
         }
 
         const newProduct = await Products.create({
@@ -34,10 +34,10 @@ const create = async (req, res) => {
             ]
         });
 
-        return res.status(201).json(createdProduct);
+        return successResponse(res, createdProduct, "products/create");
     } catch (error) {
         console.error("Error al crear producto:", error);
-        return res.status(500).json({ error: "Error interno del servidor", description: error.message });
+        return errorResponse(res, "server_error", "Error interno del servidor", "products/create", 500);
     }
 };
 

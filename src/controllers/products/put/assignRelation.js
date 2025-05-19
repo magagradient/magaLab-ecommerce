@@ -1,33 +1,41 @@
 const { Products } = require("../../../database/indexModels");
+const {
+    Tags,
+    Styles,
+    Colors,
+    Themes,
+    Keywords,
+} = require("../../../database/indexModels");
+const { successResponse, errorResponse } = require("../../../utils/responseHelper");
 
 const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
 const relationMap = {
     tags: {
-        model: require("../../../database/indexModels").Tags,
+        model: Tags,
         alias: "tags",
-        idField: "id_tag"
+        idField: "id_tag",
     },
     styles: {
-        model: require("../../../database/indexModels").Styles,
+        model: Styles,
         alias: "styles",
-        idField: "id_style"
+        idField: "id_style",
     },
     colors: {
-        model: require("../../../database/indexModels").Colors,
+        model: Colors,
         alias: "colors",
-        idField: "id_color"
+        idField: "id_color",
     },
     themes: {
-        model: require("../../../database/indexModels").Themes,
+        model: Themes,
         alias: "themes",
-        idField: "id_theme"
+        idField: "id_theme",
     },
     keywords: {
-        model: require("../../../database/indexModels").Keywords,
+        model: Keywords,
         alias: "keywords",
-        idField: "id_keyword"
-    }
+        idField: "id_keyword",
+    },
 };
 
 const assignRelation = async (req, res) => {
@@ -36,66 +44,42 @@ const assignRelation = async (req, res) => {
 
     try {
         if (!Array.isArray(ids) || ids.length === 0) {
-            return res.status(400).json({
-                message: 'Se requiere un array de IDs para asignar.',
-                timestamp: new Date()
-            });
+            return errorResponse(res, "bad_request", "Se requiere un array de IDs para asignar.", "products/assignRelation", 400);
         }
 
         const relation = relationMap[relationType];
         if (!relation) {
-            return res.status(400).json({
-                message: `Tipo de relación '${relationType}' no es válido.`,
+            return errorResponse(res, "bad_request", `Tipo de relación '${relationType}' no es válido.`, "products/assignRelation", 400, {
                 validRelations: Object.keys(relationMap),
-                timestamp: new Date()
             });
         }
 
         const product = await Products.findByPk(idProduct);
         if (!product) {
-            return res.status(404).json({
-                message: 'Producto no encontrado.',
-                timestamp: new Date()
-            });
+            return errorResponse(res, "not_found", "Producto no encontrado.", "products/assignRelation", 404);
         }
 
-        // verificación más precisa de los elementos relacionados
         const items = await relation.model.findAll({
             where: {
-                [relation.idField]: ids
-            }
+                [relation.idField]: ids,
+            },
         });
 
         if (items.length !== ids.length) {
-            return res.status(400).json({
-                message: 'Uno o más IDs proporcionados no son válidos.',
-                timestamp: new Date()
-            });
+            return errorResponse(res, "bad_request", "Uno o más IDs proporcionados no son válidos.", "products/assignRelation", 400);
         }
 
-        // establecer las relaciones en el producto usando los modelos completos
         await product[`set${capitalize(relation.alias)}`](items);
 
-        // obtener el producto actualizado con las relaciones asignadas
         const updatedProduct = await Products.findByPk(idProduct, {
-            include: [relation.alias]
+            include: [relation.alias],
         });
 
-        return res.status(200).json({
-            message: `Relación '${relation.alias}' asignada correctamente.`,
-            data: updatedProduct,
-            timestamp: new Date()
-        });
-
+        return successResponse(res, updatedProduct, "products/assignRelation", `Relación '${relation.alias}' asignada correctamente.`);
     } catch (error) {
         console.error(error);
-        return res.status(500).json({
-            message: `Error al asignar relación '${relationType}' al producto.`,
-            error: error.message,
-            timestamp: new Date()
-        });
+        return errorResponse(res, "server_error", `Error al asignar relación '${relationType}' al producto.`, "products/assignRelation", 500, { error: error.message });
     }
 };
 
 module.exports = assignRelation;
-

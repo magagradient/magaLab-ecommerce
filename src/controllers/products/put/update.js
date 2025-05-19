@@ -1,6 +1,6 @@
 const { Products, Categories, Series } = require("../../../database/indexModels");
+const { successResponse, errorResponse } = require("../../../utils/responseHelper");
 
-// actualizar:
 const update = async (req, res) => {
     try {
         const {
@@ -10,13 +10,13 @@ const update = async (req, res) => {
             is_sold,
             sold_at,
             id_category,
-            id_series
+            id_series,
         } = req.body;
 
         const product = await Products.findByPk(req.params.id);
 
         if (!product) {
-            return res.status(404).json({ error: "Producto no encontrado." });
+            return errorResponse(res, "not_found", "Producto no encontrado.", "products/update", 404);
         }
 
         product.title = title ?? product.title;
@@ -30,17 +30,18 @@ const update = async (req, res) => {
         await product.save();
 
         const updatedProduct = await Products.findByPk(product.id_product, {
+            attributes: { exclude: ["created_at", "updated_at"] },
             include: [
-                { model: Categories, as: "category" },
-                { model: Series, as: "series" }
-            ]
+                { model: Categories, as: "category", attributes: { exclude: ["created_at", "updated_at"] } },
+                { model: Series, as: "series", attributes: { exclude: ["created_at", "updated_at"] } },
+            ],
         });
 
-        return res.status(200).json(updatedProduct);
+        return successResponse(res, updatedProduct, "products/update", "Producto actualizado correctamente.");
     } catch (error) {
         console.error("Error al actualizar producto:", error);
-        return res.status(500).json({ error: "Error interno del servidor", description: error.message });
+        return errorResponse(res, "server_error", "Error interno del servidor", "products/update", 500, { description: error.message });
     }
 };
 
-module.exports = update; 
+module.exports = update;

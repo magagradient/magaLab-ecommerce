@@ -1,10 +1,10 @@
 const { Products, Keywords, Styles, Colors, Themes, Series, ProductImages, Categories } = require("../../../database/indexModels");
+const responseHelper = require("../../../utils/responseHelper");
 
 const getRelations = async (req, res) => {
     const { id } = req.params;
 
     try {
-
         const product = await Products.findByPk(id, {
             include: [
                 { model: Keywords, as: "keywords" },
@@ -18,35 +18,38 @@ const getRelations = async (req, res) => {
         });
 
         if (!product) {
-            return res.status(404).json({
-                message: "Producto no encontrado.",
-                timestamp: new Date()
-            });
+            return responseHelper.errorResponse(
+                res,
+                "not_found",
+                "Producto no encontrado.",
+                "products_getRelations",
+                404
+            );
         }
 
-        return res.status(200).json({
-            message: "Relaciones del producto obtenidas correctamente.",
-            data: {
-                id: product.id_product,
-                titulo: product.title || product.titulo || null,
-                keywords: product.keywords,
-                styles: product.styles,
-                colors: product.colors,
-                themes: product.themes,
-                series: product.series,
-                images: product.images,
-                category: product.category
-            },
-            timestamp: new Date()
-        });
+        const relations = {
+            id: product.id_product,
+            title: product.title || product.titulo || null,
+            keywords: product.keywords,
+            styles: product.styles,
+            colors: product.colors,
+            themes: product.themes,
+            series: product.series,
+            images: product.images,
+            category: product.category
+        };
+
+        return responseHelper.successResponse(res, relations, "products_getRelations");
 
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({
-            message: "Error al obtener relaciones del producto.",
-            error: error.message,
-            timestamp: new Date()
-        });
+        console.error("🔴 Error al obtener relaciones del producto:", error);
+        return responseHelper.errorResponse(
+            res,
+            "server_error",
+            "Error al obtener relaciones del producto.",
+            "products_getRelations",
+            500
+        );
     }
 };
 

@@ -1,4 +1,5 @@
 const { Products, Categories, Series, Keywords, Styles, Colors, Themes } = require("../../../database/indexModels");
+const { successResponse, errorResponse } = require("../../../utils/responseHelper");
 
 const index = async (req, res) => {
     try {
@@ -18,27 +19,26 @@ const index = async (req, res) => {
         const productsData = products.map(product => product.get({ plain: true }));
 
         if (productsData.length === 0) {
-            return res.status(404).json({ error: "No hay productos disponibles." });
+            return errorResponse(
+                res,
+                "not_found",
+                "No hay productos disponibles.",
+                "products_index",
+                404
+            );
         }
 
-        const timestamp = new Date().toISOString();
-
-        return res.status(200).json({
-            status: "success",
-            data: productsData,
-            total: productsData.length,
-            source: "products",
-            timestamp
-        });
+        return successResponse(res, productsData, "products_index");
     } catch (error) {
-        console.error("Error al obtener productos:", error);
-        return res.status(500).json({
-            error: "Error interno del servidor",
-            description: error.message
-        });
+        console.error("🔴 Error al obtener productos:", error);
+        return errorResponse(
+            res,
+            "server_error",
+            "Error interno del servidor.",
+            "products_index",
+            500
+        );
     }
 };
-
-
 
 module.exports = index;

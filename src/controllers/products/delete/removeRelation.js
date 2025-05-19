@@ -28,57 +28,74 @@ const relationMap = {
     }
 };
 
+// Función helper para respuestas uniformes
+const successResponse = (res, message, data = null) => {
+    return res.status(200).json({
+        status: "success",
+        message,
+        data,
+        timestamp: new Date().toISOString()
+    });
+};
+
+const errorResponse = (res, statusCode, message, error = null) => {
+    const response = {
+        status: "error",
+        message,
+        timestamp: new Date().toISOString()
+    };
+    if (error) response.error = error;
+    return res.status(statusCode).json(response);
+};
+
 const removeRelation = async (req, res) => {
     const { idProduct, relationType, relationId } = req.params;
+
+    // Validar que los IDs sean números válidos
+    if (isNaN(idProduct) || isNaN(relationId)) {
+        return errorResponse(res, 400, "IDs inválidos. Deben ser números.");
+    }
 
     try {
         const relation = relationMap[relationType];
 
         if (!relation) {
-            return res.status(400).json({
-                message: `Tipo de relación '${relationType}' no es válido.`,
-                validRelations: Object.keys(relationMap),
-                timestamp: new Date()
+            return errorResponse(res, 400, `Tipo de relación '${relationType}' no es válido.`, {
+                validRelations: Object.keys(relationMap)
             });
         }
 
         const product = await Products.findByPk(idProduct);
 
         if (!product) {
-            return res.status(404).json({
-                message: 'Producto no encontrado.',
-                timestamp: new Date()
-            });
+            return errorResponse(res, 404, "Producto no encontrado.");
         }
 
         const item = await relation.model.findByPk(relationId);
 
         if (!item) {
-            return res.status(404).json({
-                message: `Elemento con ID '${relationId}' no encontrado en '${relationType}'.`,
-                timestamp: new Date()
-            });
+            return errorResponse(res, 404, `Elemento con ID '${relationId}' no encontrado en '${relationType}'.`);
         }
 
-        await product[`remove${capitalize(relation.alias)}`](relationId);
+        // Validar que el método para remover exista en la instancia
+        const methodName = `remove${capitalize(relation.alias)}`;
+        if (typeof product[methodName] !== "function") {
+            return errorResponse(res, 500, `No se puede eliminar la relación '${relationType}' porque el método '${methodName}' no existe.`);
+        }
 
-        const updatedProduct = await Products.findByPk(idProduct, {
-            include: [relation.alias]
-        });
+        await product[methodName](relationId);
 
-        return res.status(200).json({
-            message: `Relación '${relation.alias}' con ID '${relationId}' eliminada correctamente.`,
-            data: updatedProduct,
-            timestamp: new Date()
+        return successResponse(res, `Relación '${relation.alias}' con ID '${relationId}' eliminada correctamente.`, {
+            productId: idProduct,
+            removedRelation: {
+                type: relation.alias,
+                id: relationId
+            }
         });
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({
-            message: `Error al eliminar la relación '${relationType}'.`,
-            error: error.message,
-            timestamp: new Date()
-        });
+        return errorResponse(res, 500, `Error al eliminar la relación '${relationType}'.`, error.message);
     }
 };
 

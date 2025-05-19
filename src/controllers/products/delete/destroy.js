@@ -1,4 +1,5 @@
 const { Products, Categories, Series } = require("../../../database/indexModels");
+const { successResponse, errorResponse } = require("../../../utils/responseHelper");
 
 const destroy = async (req, res) => {
     try {
@@ -10,20 +11,17 @@ const destroy = async (req, res) => {
         });
 
         if (!product) {
-            return res.status(404).json({ error: "Producto no encontrado." });
+            return errorResponse(res, "not_found", "Producto no encontrado.", "products_destroy", 404);
         }
 
         await product.destroy();
 
-        return res.status(200).json({
-            message: "Producto eliminado correctamente.",
-            deleted: product
-        });
+        return successResponse(res, { id: product.id_product }, "products_destroy", "Producto eliminado correctamente.");
+
     } catch (error) {
         console.error("Error al eliminar producto:", error);
-        return res.status(500).json({ error: "Error interno del servidor", description: error.message });
+        return errorResponse(res, "server_error", "Error interno del servidor", "products_destroy", 500, error.message);
     }
 };
 
 module.exports = destroy;
-

@@ -1,15 +1,13 @@
 const path = require("path");
 const fs = require("fs");
 const { Products } = require("../../../database/indexModels");
+const { successResponse, errorResponse } = require("../../../utils/responseHelper");
 
 const uploadImage = async (req, res) => {
     const { id } = req.params;
 
     if (!req.file) {
-        return res.status(400).json({
-            message: "No se subió ninguna imagen.",
-            timestamp: new Date()
-        });
+        return errorResponse(res, "bad_request", "No se subió ninguna imagen.", "products/uploadImage", 400);
     }
 
     try {
@@ -19,29 +17,17 @@ const uploadImage = async (req, res) => {
             // Borra la imagen subida si no hay producto
             fs.unlinkSync(req.file.path);
 
-            return res.status(404).json({
-                message: "Producto no encontrado.",
-                timestamp: new Date()
-            });
+            return errorResponse(res, "not_found", "Producto no encontrado.", "products/uploadImage", 404);
         }
 
-        // Guardar la imagen en el campo correspondiente (ej: 'image' o 'poster')
+        // Guardar la imagen en el campo correspondiente (ej: 'poster')
         product.poster = req.file.filename;
         await product.save();
 
-        return res.status(200).json({
-            message: "Imagen subida correctamente.",
-            data: product,
-            timestamp: new Date()
-        });
-
+        return successResponse(res, product, "products/uploadImage");
     } catch (error) {
         console.error("Error al subir imagen:", error);
-        return res.status(500).json({
-            message: "Error al subir la imagen.",
-            error: error.message,
-            timestamp: new Date()
-        });
+        return errorResponse(res, "server_error", "Error al subir la imagen.", "products/uploadImage", 500);
     }
 };
 

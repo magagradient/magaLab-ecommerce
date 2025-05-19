@@ -8,6 +8,7 @@ const {
     Themes
 } = require("../../../database/indexModels");
 
+const { successResponse, errorResponse } = require("../../../utils/responseHelper");
 
 const show = async (req, res) => {
     try {
@@ -26,28 +27,30 @@ const show = async (req, res) => {
         });
 
         if (!product) {
-            return res.status(404).json({
-                status: "error",
-                message: "Producto no encontrado.",
-                timestamp: new Date().toISOString()
-            });
+            return errorResponse(
+                res,
+                "not_found",
+                "Producto no encontrado.",
+                "products_show",
+                404
+            );
         }
 
-        return res.status(200).json({
-            status: "success",
-            product,
-            source: "products/:id",
-            message: "Producto encontrado.",
-            timestamp: new Date().toISOString()
-        });
+        return successResponse(
+            res,
+            { product, source: "products/:id" },
+            "products_show"
+        );
+
     } catch (error) {
         console.error("Error al obtener producto:", error);
-        return res.status(500).json({
-            status: "error",
-            message: "Error interno del servidor",
-            error: error.message,
-            timestamp: new Date().toISOString()
-        });
+        return errorResponse(
+            res,
+            "server_error",
+            "Error interno del servidor",
+            "products_show",
+            500
+        );
     }
 };
 

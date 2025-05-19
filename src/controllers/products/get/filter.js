@@ -1,5 +1,6 @@
 const { Products, Categories, Series, Keywords, Styles, Colors, Themes } = require("../../../database/indexModels");
 const { Op } = require("sequelize");
+const responseHelper = require("../../../utils/responseHelper");
 
 const filter = async (req, res) => {
     try {
@@ -20,7 +21,7 @@ const filter = async (req, res) => {
         const where = {};
         const include = [];
 
-        // busqueda por texto
+        // Búsqueda por texto
         if (title || description) {
             where[Op.or] = [];
 
@@ -33,7 +34,7 @@ const filter = async (req, res) => {
             }
         }
 
-        // filtros simples
+        // Filtros simples
         if (price_min || price_max) {
             where.price = {};
             if (price_min) where.price[Op.gte] = price_min;
@@ -44,7 +45,7 @@ const filter = async (req, res) => {
             where.is_sold = is_sold === 'true';
         }
 
-        // asociaciones condicionales
+        // Relaciones condicionales
         const dynamicInclude = [
             {
                 model: Categories,
@@ -90,33 +91,29 @@ const filter = async (req, res) => {
 
         include.push(...dynamicInclude);
 
-
         const products = await Products.findAll({
             where,
             include,
             attributes: {
-                exclude: ['created_at', 'updated_at'] 
+                exclude: ['created_at', 'updated_at']
             }
         });
 
-        return res.status(200).json({
-            status: 'success',
-            results: products,
-            total: products.length,
-            source: 'products/filter',
-            message: products.length
-                ? 'Productos filtrados correctamente.'
-                : 'No se encontraron productos con esos filtros.',
-            timestamp: new Date().toISOString()
-        });
+        return responseHelper.successResponse(
+            res,
+            products,
+            "products_filter"
+        );
 
     } catch (error) {
         console.error("🔴 Error en filtro de productos:", error);
-        return res.status(500).json({
-            status: 500,
-            message: 'Error al filtrar productos',
-            error: error.message
-        });
+        return responseHelper.errorResponse(
+            res,
+            "server_error",
+            "Error al filtrar productos.",
+            "products_filter",
+            500
+        );
     }
 };
 

@@ -1,4 +1,5 @@
 const { Products } = require("../../../database/indexModels");
+const { successResponse, errorResponse } = require("../../../utils/responseHelper");
 
 const softDelete = async (req, res) => {
     const { id } = req.params;
@@ -7,24 +8,14 @@ const softDelete = async (req, res) => {
         const product = await Products.findByPk(id);
 
         if (!product) {
-            return res.status(404).json({ error: "Producto no encontrado" });
+            return errorResponse(res, "not_found", "Producto no encontrado", "products/softDelete", 404);
         }
-
-        // No es necesario verificar si ya está eliminado, ya que Sequelize lo maneja automáticamente
-        // Cuando usamos paranoid, el producto se marca automáticamente como "eliminado".
 
         await product.destroy(); // Soft delete
 
-        return res.status(200).json({
-            message: "Producto marcado como eliminado (soft delete)",
-            data: product,
-        });
-
+        return successResponse(res, product, "products/softDelete");
     } catch (error) {
-        return res.status(500).json({
-            error: "Error al realizar el soft delete",
-            details: error.message,
-        });
+        return errorResponse(res, "server_error", "Error al realizar el soft delete: " + error.message, "products/softDelete", 500);
     }
 };
 
