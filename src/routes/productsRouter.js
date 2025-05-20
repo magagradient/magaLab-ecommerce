@@ -1,9 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const validateSchema = require("../middlewares/validateSchema");
-const productSchema = require("../validators/productSchema");
 
-const upload = require("../middlewares/multerConfig"); 
+const validateSchema = require("../middlewares/validateSchema");
+const upload = require("../middlewares/multerConfig");
+
+const {
+    productCreateSchema,
+    productUpdateSchema,
+    productFilterSchema,
+    productSearchSchema
+} = require("../validators/products");
 
 // get
 const index = require("../controllers/products/get/index");
@@ -24,7 +30,6 @@ const bulkCreateProducts = require("../controllers/products/post/bulkCreateProdu
 const uploadImage = require("../controllers/products/post/uploadImage");
 
 
-
 // put
 const assignRelation = require("../controllers/products/put/assignRelation")
 const update = require("../controllers/products/put/update")
@@ -35,10 +40,7 @@ const destroy = require("../controllers/products/delete/destroy")
 const removeRelation = require("../controllers/products/delete/removeRelation");
 
 
-
-
-/*-------------------------------------------------*/ 
-
+/*-------------------------------------------------*/
 
 
 //get
@@ -46,17 +48,16 @@ router.get("/filter", filter);
 router.get("/search", search);
 router.get("/status/:type", status);
 router.get("/:id/related", related);
-router.get("/:id/relations", getRelations); // 👈 TAMBIÉN ANTES DE /:id
-router.get("/:id", show);                   // 👈 ESTA SIEMPRE ÚLTIMA
-router.get("/", index);                     // puede ir primero o último
+router.get("/:id/relations", getRelations);
+router.get("/:id", show);
+router.get("/", index);
 
 // patch
 router.patch('/:id/toggle-sold', toggleSold);
 router.patch("/:id/soft-delete", softDelete);
 
-
 // post
-router.post("/", validateSchema(productSchema), create);
+router.post("/", validateSchema(productCreateSchema), create);
 router.post('/bulk-create', bulkCreateProducts);
 router.post("/:id/upload-image", upload.single("image"), uploadImage);
 
@@ -68,8 +69,6 @@ router.put("/:id/relations", updateRelations);
 // delete
 router.delete("/:id", destroy);
 router.delete("/:idProduct/remove/:relationType/:relationId", removeRelation);
-
-
 
 
 module.exports = router;
