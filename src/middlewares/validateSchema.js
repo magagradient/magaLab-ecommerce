@@ -1,6 +1,11 @@
-const validateSchema = (schema) => {
+const validateSchema = (schema, property = 'body') => {
     return (req, res, next) => {
-        const { error, value } = schema.validate(req.body, { abortEarly: false, allowUnknown: false });
+        const data = req[property];
+
+        const { error, value } = schema.validate(data, {
+            abortEarly: false,
+            allowUnknown: false,
+        });
 
         if (error) {
             return res.status(400).json({
@@ -10,8 +15,9 @@ const validateSchema = (schema) => {
             });
         }
 
-        // Reemplazamos req.body por los datos validados
-        req.body = value;
+        // Actualiza solo la propiedad validada
+        req[property] = value;
+
         next();
     };
 };

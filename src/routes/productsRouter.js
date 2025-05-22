@@ -7,9 +7,14 @@ const upload = require("../middlewares/multerConfig");
 const {
     productCreateSchema,
     productUpdateSchema,
+    updateRelationsSchema,
     productFilterSchema,
-    productSearchSchema
-} = require("../validators/products");
+    productSearchSchema,
+    idParamSchema,
+    deleteRelationSchema,
+    assignRelationParamsSchema,
+    assignRelationSchema 
+} = require("../validators");
 
 // get
 const index = require("../controllers/products/get/index");
@@ -44,31 +49,32 @@ const removeRelation = require("../controllers/products/delete/removeRelation");
 
 
 //get
-router.get("/filter", filter);
-router.get("/search", search);
+router.get("/filter", validateSchema(productFilterSchema, 'query'), filter);
+router.get("/search", validateSchema(productSearchSchema, 'query'), search);
 router.get("/status/:type", status);
 router.get("/:id/related", related);
 router.get("/:id/relations", getRelations);
-router.get("/:id", show);
+router.get("/:id", validateSchema(idParamSchema, "params"), show);
 router.get("/", index);
 
 // patch
-router.patch('/:id/toggle-sold', toggleSold);
-router.patch("/:id/soft-delete", softDelete);
+router.patch("/:id/toggle-sold", validateSchema(idParamSchema, "params"), toggleSold);
+router.patch("/:id/soft-delete", validateSchema(idParamSchema, "params"), softDelete);
 
 // post
 router.post("/", validateSchema(productCreateSchema), create);
-router.post('/bulk-create', bulkCreateProducts);
+router.post('/bulk-create', validateSchema(productCreateSchema), bulkCreateProducts);
 router.post("/:id/upload-image", upload.single("image"), uploadImage);
 
 // put
-router.put('/:idProduct/assign/:relationType', assignRelation);
-router.put("/:id", update);
-router.put("/:id/relations", updateRelations);
+router.put(
+    '/:idProduct/assign/:relationType', validateSchema(assignRelationParamsSchema, 'params'), validateSchema(assignRelationSchema, 'body'), assignRelation);
+router.put("/:id", validateSchema(idParamSchema, "params"), validateSchema(productUpdateSchema), update);
+router.put("/:id/relations", validateSchema(updateRelationsSchema), updateRelations);
 
 // delete
-router.delete("/:id", destroy);
-router.delete("/:idProduct/remove/:relationType/:relationId", removeRelation);
+router.delete("/:id", validateSchema(idParamSchema, "params"), destroy);
+router.delete("/:idProduct/remove/:relationType/:relationId", validateSchema(deleteRelationSchema, "params"), removeRelation);
 
 
 module.exports = router;

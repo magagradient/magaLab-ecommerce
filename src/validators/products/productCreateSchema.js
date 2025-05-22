@@ -54,4 +54,13 @@ const productSchema = Joi.object({
         }),
 });
 
-module.exports = productSchema;
+// Schema para validar un array de productos (para bulk create)
+const productsArraySchema = Joi.array().items(productSchema).min(1).messages({
+    'array.base': `"products" debe ser un arreglo de productos`,
+    'array.min': `"products" debe contener al menos un producto`
+});
+
+module.exports = {
+    productSchema,
+    productsArraySchema
+};

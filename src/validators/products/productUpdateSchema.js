@@ -1,0 +1,55 @@
+const Joi = require('joi');
+
+const productUpdateSchema = Joi.object({
+    title: Joi.string()
+        .min(3)
+        .max(200)
+        .messages({
+            'string.base': `"title" debe ser un texto`,
+            'string.empty': `"title" no puede estar vacío`,
+            'string.min': `"title" debe tener al menos {#limit} caracteres`,
+            'string.max': `"title" no puede tener más de {#limit} caracteres`,
+        }),
+    description: Joi.string()
+        .allow(null, '')
+        .max(500)
+        .messages({
+            'string.base': `"description" debe ser un texto`,
+            'string.max': `"description" no puede tener más de {#limit} caracteres`,
+        }),
+    price: Joi.number()
+        .positive()
+        .messages({
+            'number.base': `"price" debe ser un número`,
+            'number.positive': `"price" debe ser un número positivo`,
+        }),
+    id_category: Joi.number()
+        .integer()
+        .allow(null)
+        .messages({
+            'number.base': `"id_category" debe ser un número`,
+            'number.integer': `"id_category" debe ser un entero`,
+        }),
+    id_series: Joi.number()
+        .integer()
+        .allow(null)
+        .messages({
+            'number.base': `"id_series" debe ser un número`,
+            'number.integer': `"id_series" debe ser un entero`,
+        }),
+    is_sold: Joi.boolean()
+        .messages({
+            'boolean.base': `"is_sold" debe ser verdadero o falso`,
+        }),
+    sold_at: Joi.date()
+        .allow(null)
+        .messages({
+            'date.base': `"sold_at" debe ser una fecha válida`,
+        }),
+    visible_in_portfolio: Joi.boolean()
+        .messages({
+            'boolean.base': `"visible_in_portfolio" debe ser verdadero o falso`,
+        }),
+});
+
+module.exports = productUpdateSchema;
