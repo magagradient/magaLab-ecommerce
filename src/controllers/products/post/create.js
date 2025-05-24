@@ -13,10 +13,25 @@ const create = async (req, res) => {
             id_series
         } = req.body;
 
-        if (!title || price === undefined) {
-            return errorResponse(res, "bad_request", "Faltan campos obligatorios: title y price.", "products/create", 400);
+        if (!title || price === undefined || id_category === undefined) {
+            return errorResponse(res, "bad_request", "Faltan campos obligatorios: title, price e id_category.", "products/create", 400);
         }
 
+        // Validar que la categoría exista
+        const categoryExists = await Categories.findByPk(id_category);
+        if (!categoryExists) {
+            return errorResponse(res, "bad_request", `La categoría con id ${id_category} no existe.`, "products/create", 400);
+        }
+
+        // Validar que la serie exista, solo si viene id_series
+        if (id_series !== undefined && id_series !== null) {
+            const seriesExists = await Series.findByPk(id_series);
+            if (!seriesExists) {
+                return errorResponse(res, "bad_request", `La serie con id ${id_series} no existe.`, "products/create", 400);
+            }
+        }
+
+        // Crear producto si todo ok
         const newProduct = await Products.create({
             title,
             description,

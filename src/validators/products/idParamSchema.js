@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-module.exports = Joi.object({
+const idParamSchema = Joi.object({
     id: Joi.number().integer().positive().required().messages({
         "any.required": "El parámetro 'id' es obligatorio.",
         "number.base": "El parámetro 'id' debe ser un número.",
@@ -8,3 +8,5 @@ module.exports = Joi.object({
         "number.positive": "El parámetro 'id' debe ser un número positivo."
     })
 });
+
+module.exports = idParamSchema;

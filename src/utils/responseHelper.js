@@ -24,7 +24,19 @@ const errorResponse = (res, error = "server_error", description = "", source = "
     });
 };
 
+// Nueva función para errores de validación
+const validationErrorResponse = (res, details = [], source = "") => {
+    return res.status(400).json({
+        status: "fail",
+        message: "Error de validación.",
+        details,  // array con objetos {field, message, type}
+        source,
+        timestamp: new Date().toISOString(),
+    });
+};
+
 module.exports = {
     successResponse,
     errorResponse,
+    validationErrorResponse,
 };

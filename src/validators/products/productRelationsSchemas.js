@@ -1,15 +1,18 @@
 const Joi = require('joi');
 
-// Schema que ya tenés para body (asignar una sola relación)
 const assignRelationSchema = Joi.object({
-    id_related: Joi.number()
-        .integer()
+    ids: Joi.array()
+        .items(Joi.number().integer().positive().messages({
+            'number.base': `"ids" debe contener solo números`,
+            'number.integer': `"ids" debe contener solo enteros positivos`
+        }))
+        .min(1)
         .required()
         .messages({
-            'number.base': `"id_related" debe ser un número`,
-            'number.integer': `"id_related" debe ser un entero`,
-            'any.required': `"id_related" es obligatorio`
-        }),
+            'array.base': `"ids" debe ser un array`,
+            'array.min': `"ids" debe tener al menos un elemento`,
+            'any.required': `"ids" es obligatorio`
+        })
 });
 
 // Schema que ya tenés para actualizar varias relaciones en body
@@ -47,7 +50,7 @@ const updateRelationsSchema = Joi.object({
 
 // **Nuevo schema para validar los params de la ruta assignRelation**
 const assignRelationParamsSchema = Joi.object({
-    idProduct: Joi.number().integer().positive().required().messages({
+    id: Joi.number().integer().positive().required().messages({
         'number.base': '"idProduct" debe ser un número',
         'number.integer': '"idProduct" debe ser un entero',
         'number.positive': '"idProduct" debe ser un número positivo',

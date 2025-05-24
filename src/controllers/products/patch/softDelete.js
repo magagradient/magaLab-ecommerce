@@ -13,10 +13,18 @@ const softDelete = async (req, res) => {
 
         await product.destroy(); // Soft delete
 
-        return successResponse(res, product, "products/softDelete");
+        return successResponse(
+            res,
+            `Producto con id ${id} eliminado (soft delete) correctamente.`,
+            "products/softDelete",
+            { product }
+        );
+
     } catch (error) {
+        console.error(error);
         return errorResponse(res, "server_error", "Error al realizar el soft delete: " + error.message, "products/softDelete", 500);
     }
 };
+
 
 module.exports = softDelete;

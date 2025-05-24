@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const validateSchema = require("../middlewares/validateSchema");
+const validateCategoryAndSeriesExist = require('../middlewares/validateCategoryAndSeriesExist');
 const upload = require("../middlewares/multerConfig");
 
 const {
@@ -13,7 +14,8 @@ const {
     idParamSchema,
     deleteRelationSchema,
     assignRelationParamsSchema,
-    assignRelationSchema 
+    assignRelationSchema,
+    productsArraySchema
 } = require("../validators");
 
 // get
@@ -62,15 +64,29 @@ router.patch("/:id/toggle-sold", validateSchema(idParamSchema, "params"), toggle
 router.patch("/:id/soft-delete", validateSchema(idParamSchema, "params"), softDelete);
 
 // post
-router.post("/", validateSchema(productCreateSchema), create);
-router.post('/bulk-create', validateSchema(productCreateSchema), bulkCreateProducts);
+router.post(
+    '/',
+    validateSchema(productCreateSchema),  // valida tipos y estructura con Joi
+    validateCategoryAndSeriesExist,       // valida existencia en DB
+    create                         
+);
+router.post('/bulk-create', validateSchema(productsArraySchema), bulkCreateProducts);
 router.post("/:id/upload-image", upload.single("image"), uploadImage);
 
 // put
 router.put(
-    '/:idProduct/assign/:relationType', validateSchema(assignRelationParamsSchema, 'params'), validateSchema(assignRelationSchema, 'body'), assignRelation);
-router.put("/:id", validateSchema(idParamSchema, "params"), validateSchema(productUpdateSchema), update);
-router.put("/:id/relations", validateSchema(updateRelationsSchema), updateRelations);
+    '/:id/assign/:relationType',
+    validateSchema(assignRelationParamsSchema, 'params'),
+    validateSchema(assignRelationSchema, 'body'),
+    assignRelation
+);
+router.put(
+    '/:id',
+    validateSchema(idParamSchema, 'params'),
+    validateSchema(productUpdateSchema, 'body'),
+    update
+);
+router.put("/:id/relations", validateSchema(idParamSchema, "params"), validateSchema(updateRelationsSchema), updateRelations);
 
 // delete
 router.delete("/:id", validateSchema(idParamSchema, "params"), destroy);

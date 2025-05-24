@@ -1,4 +1,3 @@
-// validators/statusParamSchema.js
 const Joi = require('joi');
 
 const statusParamSchema = Joi.object({

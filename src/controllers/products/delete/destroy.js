@@ -1,14 +1,9 @@
-const { Products, Categories, Series } = require("../../../database/indexModels");
+const { Products } = require("../../../database/indexModels");
 const { successResponse, errorResponse } = require("../../../utils/responseHelper");
 
 const destroy = async (req, res) => {
     try {
-        const product = await Products.findByPk(req.params.id, {
-            include: [
-                { model: Categories, as: "category" },
-                { model: Series, as: "series" }
-            ]
-        });
+        const product = await Products.findByPk(req.params.id);
 
         if (!product) {
             return errorResponse(res, "not_found", "Producto no encontrado.", "products_destroy", 404);

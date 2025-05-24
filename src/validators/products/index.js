@@ -6,6 +6,7 @@ const deleteRelationSchema = require('./deleteRelationSchema');
 const productRelationSchemas = require('./productRelationsSchemas');
 const statusParamSchema = require('./statusParamSchema');
 const idParamSchema = require('./idParamSchema');
+const productsArraySchema  = require('./productsArraySchema');  
 
 module.exports = {
     productCreateSchema,
@@ -15,5 +16,6 @@ module.exports = {
     deleteRelationSchema,
     productRelationSchemas,
     statusParamSchema,
-    idParamSchema
+    idParamSchema,
+    productsArraySchema,  
 };

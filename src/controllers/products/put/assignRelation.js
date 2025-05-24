@@ -1,6 +1,5 @@
-const { Products } = require("../../../database/indexModels");
 const {
-    Tags,
+    Products,
     Styles,
     Colors,
     Themes,
@@ -11,11 +10,6 @@ const { successResponse, errorResponse } = require("../../../utils/responseHelpe
 const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
 const relationMap = {
-    tags: {
-        model: Tags,
-        alias: "tags",
-        idField: "id_tag",
-    },
     styles: {
         model: Styles,
         alias: "styles",
@@ -44,19 +38,38 @@ const assignRelation = async (req, res) => {
 
     try {
         if (!Array.isArray(ids) || ids.length === 0) {
-            return errorResponse(res, "bad_request", "Se requiere un array de IDs para asignar.", "products/assignRelation", 400);
+            return errorResponse(
+                res,
+                "bad_request",
+                "Se requiere un array de IDs para asignar.",
+                "products/assignRelation",
+                400
+            );
         }
 
         const relation = relationMap[relationType];
         if (!relation) {
-            return errorResponse(res, "bad_request", `Tipo de relación '${relationType}' no es válido.`, "products/assignRelation", 400, {
-                validRelations: Object.keys(relationMap),
-            });
+            return errorResponse(
+                res,
+                "bad_request",
+                `Tipo de relación '${relationType}' no es válido.`,
+                "products/assignRelation",
+                400,
+                {
+                    validRelations: Object.keys(relationMap),
+                }
+            );
         }
 
         const product = await Products.findByPk(idProduct);
         if (!product) {
-            return errorResponse(res, "not_found", "Producto no encontrado.", "products/assignRelation", 404);
+            return errorResponse(
+                res,
+                "not_found",
+                "Producto no encontrado.",
+                "products/assignRelation",
+                404
+            );
         }
 
         const items = await relation.model.findAll({
@@ -66,19 +79,50 @@ const assignRelation = async (req, res) => {
         });
 
         if (items.length !== ids.length) {
-            return errorResponse(res, "bad_request", "Uno o más IDs proporcionados no son válidos.", "products/assignRelation", 400);
+            return errorResponse(
+                res,
+                "bad_request",
+                "Uno o más IDs proporcionados no son válidos.",
+                "products/assignRelation",
+                400
+            );
         }
 
-        await product[`set${capitalize(relation.alias)}`](items);
+        const capitalizedAlias = capitalize(relation.alias); // Ej: 'styles'
+        const methodToUse = `set${capitalizedAlias}`; // Ej: 'setStyles'
+
+        if (typeof product[methodToUse] !== "function") {
+            return errorResponse(
+                res,
+                "server_error",
+                `No se encontró el método ${methodToUse} para asignar relación.`,
+                "products/assignRelation",
+                500
+            );
+        }
+
+        await product[methodToUse](items);
 
         const updatedProduct = await Products.findByPk(idProduct, {
-            include: [relation.alias],
+            include: [{ association: relation.alias }],
         });
 
-        return successResponse(res, updatedProduct, "products/assignRelation", `Relación '${relation.alias}' asignada correctamente.`);
+        return successResponse(
+            res,
+            updatedProduct,
+            "products/assignRelation",
+            `Relación '${relation.alias}' asignada correctamente.`
+        );
     } catch (error) {
         console.error(error);
-        return errorResponse(res, "server_error", `Error al asignar relación '${relationType}' al producto.`, "products/assignRelation", 500, { error: error.message });
+        return errorResponse(
+            res,
+            "server_error",
+            `Error al asignar relación '${relationType}' al producto.`,
+            "products/assignRelation",
+            500,
+            { error: error.message }
+        );
     }
 };
 
