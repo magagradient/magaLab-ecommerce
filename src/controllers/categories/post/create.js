@@ -5,16 +5,6 @@ const create = async (req, res) => {
     const { name } = req.body;
 
     try {
-        if (!name || typeof name !== "string" || name.trim() === "") {
-            return responseHelper.errorResponse(
-                res,
-                "invalid_data",
-                "El campo 'name' es obligatorio y debe ser un string no vacío.",
-                "categories_create",
-                400
-            );
-        }
-
         const [category, created] = await Categories.findOrCreate({
             where: { name: name.trim() },
             defaults: { name: name.trim() },

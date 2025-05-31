@@ -11,6 +11,13 @@ const {
     productsArraySchema,   
 } = require('./products/index');  
 
+const {
+    idParamSchema: categoryIdParamSchema,
+    categoryCreateSchema,
+    categoryUpdateSchema
+
+} = require('./categories');
+
 module.exports = {
     productCreateSchema,
     productUpdateSchema,
@@ -21,5 +28,10 @@ module.exports = {
     statusParamSchema,
     idParamSchema,
     updateRelationsSchema,
-    productsArraySchema,   
+    productsArraySchema,
+
+        // Schemas categories
+    categoryIdParamSchema,
+    categoryCreateSchema,
+    categoryUpdateSchema
 };

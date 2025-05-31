@@ -1,6 +1,18 @@
 const express = require("express");
 const router = express.Router();
 
+const validateSchema = require("../middlewares/validateSchema");
+
+// IMPORTACIONES VALIDACIONES
+const {
+    idParamSchema,
+    categoryCreateSchema,
+    categoryUpdateSchema
+} = require("../validators");
+
+/* ------------------------------- */
+
+// IMPORTACIONES CONTROLLERS
 // get
 const index = require("../controllers/categories/get/index");
 const show = require("../controllers/categories/get/show");
@@ -17,18 +29,22 @@ const destroy = require("../controllers/categories/delete/destroy");
 
 /* ------------------------------- */
 
+//RUTAS
 // get
-router.get("/:id", show);
-router.get("/:id/products", productsByCategory);
+router.get("/:id", validateSchema(idParamSchema, "params"), show);
+router.get('/:id/products', validateSchema(idParamSchema, 'params'), productsByCategory);
 router.get("/", index);
 
 // post
-router.post("/", create);
+router.post("/", validateSchema(categoryCreateSchema, "body"), create);
 
 // put
-router.put("/:id", update);
+router.put('/:id', 
+    validateSchema(idParamSchema, 'params'), 
+    validateSchema(categoryUpdateSchema, 'body'), 
+    update);
 
 // delete
-router.delete("/:id", destroy);
+router.delete('/:id', validateSchema(idParamSchema, 'params'), destroy);
 
 module.exports = router;
