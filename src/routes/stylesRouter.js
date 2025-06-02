@@ -1,6 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
+// IMPORTACIONES VALIDACIONES
+const validateSchema = require("../middlewares/validateSchema");
+const {
+    createStyleSchema,
+    updateStyleSchema,
+    styleIdParamSchema,
+} = require("../validators");
+
+// Controllers
 const index = require("../controllers/styles/get/index");
 const show = require("../controllers/styles/get/show");
 
@@ -13,12 +22,12 @@ const destroy = require("../controllers/styles/delete/destroy");
 
 // rutas:
 router.get("/", index);
-router.get("/:id", show);
+router.get("/:id", validateSchema(styleIdParamSchema, "params"), show);
 
-router.post("/", create);
+router.post("/", validateSchema(createStyleSchema), create);
 
-router.put("/:id", update);
+router.put("/:id", validateSchema(styleIdParamSchema, "params"), validateSchema(updateStyleSchema), update);
 
-router.delete("/:id", destroy);
+router.delete("/:id", validateSchema(styleIdParamSchema, "params"), destroy);
 
 module.exports = router;

@@ -18,7 +18,6 @@ const update = async (req, res) => {
             );
         }
 
-        // Verificar si el nuevo nombre ya existe
         const existingColor = await Colors.findOne({ where: { name } });
         if (existingColor) {
             return responseHelper.errorResponse(

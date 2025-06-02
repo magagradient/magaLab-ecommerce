@@ -1,3 +1,4 @@
+// products
 const {
     productCreateSchema,
     productUpdateSchema,
@@ -8,15 +9,31 @@ const {
     statusParamSchema,
     idParamSchema,
     updateRelationsSchema,
-    productsArraySchema,   
-} = require('./products/index');  
+    productsArraySchema,
+} = require('./products/index');
 
+// categories
 const {
     idParamSchema: categoryIdParamSchema,
     categoryCreateSchema,
     categoryUpdateSchema
 
 } = require('./categories');
+
+// colors
+const {
+    colorCreateSchema,
+    colorUpdateSchema,
+    idParamSchema: colorIdParamSchema
+} = require('./colors');
+
+// styles
+const {
+    createStyleSchema,
+    updateStyleSchema,
+    idParamSchema: styleIdParamSchema
+} = require('./colors');
+
 
 module.exports = {
     productCreateSchema,
@@ -30,8 +47,18 @@ module.exports = {
     updateRelationsSchema,
     productsArraySchema,
 
-        // Schemas categories
+    // Schemas categories
     categoryIdParamSchema,
     categoryCreateSchema,
-    categoryUpdateSchema
+    categoryUpdateSchema,
+
+      // Schemas colors
+    colorCreateSchema,
+    colorUpdateSchema,
+    colorIdParamSchema,
+
+    // schmas styles
+    createStyleSchema,
+    updateStyleSchema,
+    styleIdParamSchema,
 };
