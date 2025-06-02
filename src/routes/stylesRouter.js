@@ -24,7 +24,7 @@ const destroy = require("../controllers/styles/delete/destroy");
 router.get("/", index);
 router.get("/:id", validateSchema(styleIdParamSchema, "params"), show);
 
-router.post("/", validateSchema(createStyleSchema), create);
+router.post("/", validateSchema(createStyleSchema, "body"), create);
 
 router.put("/:id", validateSchema(styleIdParamSchema, "params"), validateSchema(updateStyleSchema), update);
 

@@ -1,6 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
+const validateSchema = require("../middlewares/validateSchema");
+
+// Schemas
+const {
+    createSeriesSchema,
+    updateSeriesSchema,
+    seriesIdParamSchema
+} = require("../validators");
+
 // controllers:
 const index = require("../controllers/series/get/index");
 const show = require("../controllers/series/get/show");
@@ -12,14 +21,19 @@ const update = require("../controllers/series/put/update");
 const destroy = require("../controllers/series/delete/destroy");
 
 
-// rutas:
+// Rutas
 router.get("/", index);
-router.get("/:id", show);
+router.get("/:id", validateSchema(seriesIdParamSchema, "params"), show);
 
-router.post("/", create);
+router.post("/", validateSchema(createSeriesSchema, "body"), create);
 
-router.put("/:id", update);
+router.put(
+    "/:id",
+    validateSchema(seriesIdParamSchema, "params"),
+    validateSchema(updateSeriesSchema, "body"),
+    update
+);
 
-router.delete("/:id", destroy);
+router.delete("/:id", validateSchema(seriesIdParamSchema, "params"), destroy);
 
 module.exports = router;

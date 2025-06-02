@@ -32,7 +32,28 @@ const {
     createStyleSchema,
     updateStyleSchema,
     idParamSchema: styleIdParamSchema
-} = require('./colors');
+} = require('./styles');
+
+// themes
+const {
+    createThemeSchema,
+    updateThemeSchema,
+    idParamSchema: themeIdParamSchema
+} = require("./themes");
+
+// keywords
+const {
+    createKeywordSchema,
+    updateKeywordSchema,
+    idParamSchema: keywordIdParamSchema
+} = require('./keywords');
+
+// series
+const {
+    createSeriesSchema,
+    updateSeriesSchema,
+    idParamSchema: seriesIdParamSchema,
+} = require("./series");
 
 
 module.exports = {
@@ -52,7 +73,7 @@ module.exports = {
     categoryCreateSchema,
     categoryUpdateSchema,
 
-      // Schemas colors
+    // Schemas colors
     colorCreateSchema,
     colorUpdateSchema,
     colorIdParamSchema,
@@ -61,4 +82,19 @@ module.exports = {
     createStyleSchema,
     updateStyleSchema,
     styleIdParamSchema,
+
+    // schemas themes
+    createThemeSchema,
+    updateThemeSchema,
+    themeIdParamSchema,
+
+    // schemas keywords
+    createKeywordSchema,
+    updateKeywordSchema,
+    keywordIdParamSchema,
+
+    // schemas series
+    createSeriesSchema,
+    updateSeriesSchema,
+    seriesIdParamSchema,
 };

@@ -1,6 +1,17 @@
 const express = require("express");
 const router = express.Router();
 
+// Middleware de validación
+const validateSchema = require("../middlewares/validateSchema");
+
+// Schemas
+const {
+    createKeywordSchema,
+    updateKeywordSchema,
+    keywordIdParamSchema,
+} = require("../validators");
+
+
 // Controllers
 const index = require("../controllers/keywords/get/index");
 const show = require("../controllers/keywords/get/show");
@@ -11,14 +22,19 @@ const update = require("../controllers/keywords/put/update");
 
 const destroy = require("../controllers/keywords/delete/destroy");
 
-// Routes
+// Rutas
 router.get("/", index);
-router.get("/:id", show);
+router.get("/:id", validateSchema(keywordIdParamSchema, "params"), show);
 
-router.post("/", create);
+router.post("/", validateSchema(createKeywordSchema, "body"), create);
 
-router.put("/:id", update);
+router.put(
+    "/:id",
+    validateSchema(keywordIdParamSchema, "params"),
+    validateSchema(updateKeywordSchema, "body"),
+    update
+);
 
-router.delete("/:id", destroy);
+router.delete("/:id", validateSchema(keywordIdParamSchema, "params"), destroy);
 
 module.exports = router;
