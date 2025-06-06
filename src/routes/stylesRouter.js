@@ -8,6 +8,7 @@ const {
     updateStyleSchema,
     styleIdParamSchema,
 } = require("../validators");
+const idParamSchema = require("../validators/shared/idParamSchema"); 
 
 // Controllers
 const index = require("../controllers/styles/get/index");
@@ -22,12 +23,12 @@ const destroy = require("../controllers/styles/delete/destroy");
 
 // rutas:
 router.get("/", index);
-router.get("/:id", validateSchema(styleIdParamSchema, "params"), show);
+router.get("/:id", validateSchema(idParamSchema, "params"), show);
 
 router.post("/", validateSchema(createStyleSchema, "body"), create);
 
-router.put("/:id", validateSchema(styleIdParamSchema, "params"), validateSchema(updateStyleSchema), update);
+router.put("/:id", validateSchema(idParamSchema, "params"), validateSchema(updateStyleSchema), update);
 
-router.delete("/:id", validateSchema(styleIdParamSchema, "params"), destroy);
+router.delete("/:id", validateSchema(idParamSchema, "params"), destroy);
 
 module.exports = router;

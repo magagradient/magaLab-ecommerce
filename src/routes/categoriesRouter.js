@@ -5,10 +5,10 @@ const validateSchema = require("../middlewares/validateSchema");
 
 // IMPORTACIONES VALIDACIONES
 const {
-    idParamSchema,
     categoryCreateSchema,
-    categoryUpdateSchema
+    categoryUpdateSchema,
 } = require("../validators");
+const idParamSchema = require("../validators/shared/idParamSchema"); 
 
 /* ------------------------------- */
 

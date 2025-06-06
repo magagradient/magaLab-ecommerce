@@ -5,7 +5,7 @@ const productSearchSchema = require('./productSearchSchema');
 const deleteRelationSchema = require('./deleteRelationSchema');
 const productRelationSchemas = require('./productRelationsSchemas');
 const statusParamSchema = require('./statusParamSchema');
-const idParamSchema = require('./idParamSchema');
+const idParamSchema = require('../shared/idParamSchema');
 const productsArraySchema  = require('./productsArraySchema');  
 
 module.exports = {

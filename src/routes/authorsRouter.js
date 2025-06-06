@@ -1,6 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
+const validateSchema = require("../middlewares/validateSchema");
+
+const {
+    createAuthorSchema,
+    updateAuthorSchema,
+} = require("../validators/authors");
+const idParamSchema = require("../validators/shared/idParamSchema"); 
+
 
 // get
 const index = require("../controllers/authors/get/index")
@@ -22,15 +30,23 @@ const destroy = require("../controllers/authors/delete/destroy")
 //get
 router.get("/search", search);
 router.get('/', index);
-router.get("/:id", show);
+router.get("/:id", validateSchema(idParamSchema, "params"), show);
 
 // post
-router.post("/", create);
+router.post("/", validateSchema(createAuthorSchema, "body"), create);
 
 // put
-router.put("/:id", update);
+router.put("/:id",
+    validateSchema(idParamSchema, "params"),
+    validateSchema(updateAuthorSchema, "body"),
+    update);
 
 // delete
-router.delete("/:id", destroy);
+router.delete("/:id", validateSchema(idParamSchema, "params"), destroy);
 
 module.exports = router;
+
+
+
+
+

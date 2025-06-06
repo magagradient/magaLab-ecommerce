@@ -1,6 +1,6 @@
 const createThemeSchema = require("./createThemeSchema");
 const updateThemeSchema = require("./updateThemeSchema");
-const idParamSchema = require("./idParamSchema");
+const idParamSchema = require("../shared/idParamSchema");
 
 module.exports = {
     createThemeSchema,

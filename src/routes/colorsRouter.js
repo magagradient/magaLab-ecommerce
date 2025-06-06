@@ -6,8 +6,8 @@ const validateSchema = require("../middlewares/validateSchema");
 const {
     colorCreateSchema,
     colorUpdateSchema,
-    colorIdParamSchema,
 } = require("../validators");
+const idParamSchema = require("../validators/shared/idParamSchema"); 
 
 /* ----------------------------------- */
 // IMPORTACIONES CONTROLLERS
@@ -29,16 +29,16 @@ const destroy = require("../controllers/colors/delete/destroy");
 //RUTAS
 // get
 router.get("/", index);
-router.get("/:id", validateSchema(colorIdParamSchema, "params"), show);
-router.get("/:id/products", validateSchema(colorIdParamSchema, "params"), productsByColor);
+router.get("/:id", validateSchema(idParamSchema, "params"), show);
+router.get("/:id/products", validateSchema(idParamSchema, "params"), productsByColor);
 
 // post
 router.post("/", validateSchema(colorCreateSchema, "body"), create);
 
 // put
-router.put("/:id", validateSchema(colorIdParamSchema, "params"), validateSchema(colorUpdateSchema, "body"), update);
+router.put("/:id", validateSchema(idParamSchema, "params"), validateSchema(colorUpdateSchema, "body"), update);
 
 // delete
-router.delete("/:id", validateSchema(colorIdParamSchema, "params"), destroy);
+router.delete("/:id", validateSchema(idParamSchema, "params"), destroy);
 
 module.exports = router; 

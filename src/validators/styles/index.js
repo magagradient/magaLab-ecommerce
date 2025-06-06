@@ -1,6 +1,6 @@
 const createStyleSchema = require('./createStyleSchema');
 const updateStyleSchema = require('./updateStyleSchema');
-const idParamSchema = require('./idParamSchema');
+const idParamSchema = require('../shared/idParamSchema');
 
 module.exports = {
     createStyleSchema,

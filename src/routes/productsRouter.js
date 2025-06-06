@@ -11,12 +11,12 @@ const {
     updateRelationsSchema,
     productFilterSchema,
     productSearchSchema,
-    idParamSchema,
     deleteRelationSchema,
     assignRelationParamsSchema,
     assignRelationSchema,
     productsArraySchema
 } = require("../validators");
+const idParamSchema = require("../validators/shared/idParamSchema"); 
 
 // get
 const index = require("../controllers/products/get/index");

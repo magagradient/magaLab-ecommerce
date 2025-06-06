@@ -8,8 +8,8 @@ const validateSchema = require("../middlewares/validateSchema");
 const {
     createKeywordSchema,
     updateKeywordSchema,
-    keywordIdParamSchema,
 } = require("../validators");
+const idParamSchema = require("../validators/shared/idParamSchema"); 
 
 
 // Controllers
@@ -24,17 +24,17 @@ const destroy = require("../controllers/keywords/delete/destroy");
 
 // Rutas
 router.get("/", index);
-router.get("/:id", validateSchema(keywordIdParamSchema, "params"), show);
+router.get("/:id", validateSchema(idParamSchema, "params"), show);
 
 router.post("/", validateSchema(createKeywordSchema, "body"), create);
 
 router.put(
     "/:id",
-    validateSchema(keywordIdParamSchema, "params"),
+    validateSchema(idParamSchema, "params"),
     validateSchema(updateKeywordSchema, "body"),
     update
 );
 
-router.delete("/:id", validateSchema(keywordIdParamSchema, "params"), destroy);
+router.delete("/:id", validateSchema(idParamSchema, "params"), destroy);
 
 module.exports = router;

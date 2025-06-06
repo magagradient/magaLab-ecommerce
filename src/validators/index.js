@@ -7,56 +7,58 @@ const {
     deleteRelationSchema,
     productRelationSchemas,
     statusParamSchema,
-    idParamSchema,
     updateRelationsSchema,
     productsArraySchema,
-} = require('./products/index');
+} = require('./products');
 
 // categories
 const {
-    idParamSchema: categoryIdParamSchema,
     categoryCreateSchema,
     categoryUpdateSchema
-
 } = require('./categories');
 
 // colors
 const {
     colorCreateSchema,
-    colorUpdateSchema,
-    idParamSchema: colorIdParamSchema
+    colorUpdateSchema
 } = require('./colors');
 
 // styles
 const {
     createStyleSchema,
-    updateStyleSchema,
-    idParamSchema: styleIdParamSchema
+    updateStyleSchema
 } = require('./styles');
 
 // themes
 const {
     createThemeSchema,
-    updateThemeSchema,
-    idParamSchema: themeIdParamSchema
+    updateThemeSchema
 } = require("./themes");
 
 // keywords
 const {
     createKeywordSchema,
-    updateKeywordSchema,
-    idParamSchema: keywordIdParamSchema
+    updateKeywordSchema
 } = require('./keywords');
 
 // series
 const {
     createSeriesSchema,
-    updateSeriesSchema,
-    idParamSchema: seriesIdParamSchema,
+    updateSeriesSchema
 } = require("./series");
 
+// authors
+const {
+    createAuthorSchema,
+    updateAuthorSchema
+} = require('./authors');
 
+// shared
+const idParamSchema = require('./shared/idParamSchema');
+
+// export general
 module.exports = {
+    // products
     productCreateSchema,
     productUpdateSchema,
     productFilterSchema,
@@ -64,37 +66,37 @@ module.exports = {
     deleteRelationSchema,
     productRelationSchemas,
     statusParamSchema,
-    idParamSchema,
     updateRelationsSchema,
     productsArraySchema,
 
-    // Schemas categories
-    categoryIdParamSchema,
+    // categories
     categoryCreateSchema,
     categoryUpdateSchema,
 
-    // Schemas colors
+    // colors
     colorCreateSchema,
     colorUpdateSchema,
-    colorIdParamSchema,
 
-    // schmas styles
+    // styles
     createStyleSchema,
     updateStyleSchema,
-    styleIdParamSchema,
 
-    // schemas themes
+    // themes
     createThemeSchema,
     updateThemeSchema,
-    themeIdParamSchema,
 
-    // schemas keywords
+    // keywords
     createKeywordSchema,
     updateKeywordSchema,
-    keywordIdParamSchema,
 
-    // schemas series
+    // series
     createSeriesSchema,
     updateSeriesSchema,
-    seriesIdParamSchema,
+
+    // authors
+    createAuthorSchema,
+    updateAuthorSchema,
+
+    // shared
+    idParamSchema,
 };

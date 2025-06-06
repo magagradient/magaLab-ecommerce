@@ -7,8 +7,8 @@ const validateSchema = require("../middlewares/validateSchema");
 const {
     createSeriesSchema,
     updateSeriesSchema,
-    seriesIdParamSchema
 } = require("../validators");
+const idParamSchema = require("../validators/shared/idParamSchema"); 
 
 // controllers:
 const index = require("../controllers/series/get/index");
@@ -23,17 +23,17 @@ const destroy = require("../controllers/series/delete/destroy");
 
 // Rutas
 router.get("/", index);
-router.get("/:id", validateSchema(seriesIdParamSchema, "params"), show);
+router.get("/:id", validateSchema(idParamSchema, "params"), show);
 
 router.post("/", validateSchema(createSeriesSchema, "body"), create);
 
 router.put(
     "/:id",
-    validateSchema(seriesIdParamSchema, "params"),
+    validateSchema(idParamSchema, "params"),
     validateSchema(updateSeriesSchema, "body"),
     update
 );
 
-router.delete("/:id", validateSchema(seriesIdParamSchema, "params"), destroy);
+router.delete("/:id", validateSchema(idParamSchema, "params"), destroy);
 
 module.exports = router;
