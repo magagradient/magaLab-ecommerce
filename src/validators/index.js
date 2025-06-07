@@ -1,3 +1,6 @@
+// shared
+const idParamSchema = require('./shared/idParamSchema');
+
 // products
 const {
     productCreateSchema,
@@ -53,8 +56,18 @@ const {
     updateAuthorSchema
 } = require('./authors');
 
-// shared
-const idParamSchema = require('./shared/idParamSchema');
+// blogPosts
+const {
+    createBlogPostSchema,
+    updateBlogPostSchema
+} = require('./blogPost');
+
+// productColors
+const {
+    createProductColorSchema,
+    deleteProductColorSchema,
+    productColorParamsSchema
+} = require('./productColor');
 
 // export general
 module.exports = {
@@ -99,4 +112,13 @@ module.exports = {
 
     // shared
     idParamSchema,
+
+    // blogPost
+    createBlogPostSchema,
+    updateBlogPostSchema,
+
+    // productColor
+    createProductColorSchema,
+    deleteProductColorSchema,
+    productColorParamsSchema
 };
