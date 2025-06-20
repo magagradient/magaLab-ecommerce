@@ -1,38 +1,61 @@
 const express = require('express');
 const router = express.Router();
 
-// GET
+// Middlewares
+const validateSchema = require("../middlewares/validateSchema");
+
+// Schemas
+const idParamSchema = require("../validators/shared/idParamSchema");
+const createCouponSchema = require("../validators/coupons/createCouponSchema");
+const updateCouponSchema = require("../validators/coupons/updateCouponSchema");
+const userCouponParamsSchema = require("../validators/coupons/userCouponParamsSchema");
+
+// Controllers
 const index = require("../controllers/coupons/get/index");
 const userCoupons = require("../controllers/coupons/get/userCoupons");
 const show = require("../controllers/coupons/get/show");
 
-// POST
 const create = require("../controllers/coupons/post/create");
 const applyCoupon = require("../controllers/coupons/post/applyCoupon");
 
-// PUT
 const update = require("../controllers/coupons/put/update");
 
-// DELETE
 const destroy = require("../controllers/coupons/delete/detroy");
-
 
 /* --------------------------------------- */
 
-// GET 
+// GET
 router.get("/", index);
-router.get("/users/:userId/coupons", userCoupons);
-router.get("/:id", show);
+router.get("/users/:userId/coupons",
+    validateSchema(userCouponParamsSchema, "params"),
+    userCoupons
+);
+router.get("/:id",
+    validateSchema(idParamSchema, "params"),
+    show
+);
 
-// POST 
-router.post("/", create);
-router.post("/users/:userId/coupons/:couponId", applyCoupon);
+// POST
+router.post("/",
+    validateSchema(createCouponSchema, "body"),
+    create
+);
+router.post("/users/:userId/coupons/:couponId",
+    validateSchema(userCouponParamsSchema, "params"),
+    applyCoupon
+);
 
-// PUT 
-router.put("/:id", update);
+// PUT
+router.put("/:id",
+    validateSchema(idParamSchema, "params"),
+    validateSchema(updateCouponSchema, "body"),
+    update
+);
 
-// DELETE 
-router.delete("/:id", destroy);
+// DELETE
+router.delete("/:id",
+    validateSchema(idParamSchema, "params"),
+    destroy
+);
 
-
-module.exports = router; 
+module.exports = router;

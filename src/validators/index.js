@@ -80,6 +80,27 @@ const {
     idProductParamSchema
 } = require('./productKeywords');
 
+// cartItems
+const {
+    createCartItemSchema,
+    updateCartItemSchema
+} = require('./cartItems');
+
+// coupons
+const {
+    createCouponSchema,
+    updateCouponSchema,
+    userCouponParamsSchema,
+} = require('./coupons');
+
+// downloadLinks
+const {
+    createDownloadLinkSchema,
+    updateDownloadLinkSchema,
+    userIdParamSchema,
+    productIdParamSchema
+} = require('./downloadLinks')
+
 // export general
 module.exports = {
     // products
@@ -138,6 +159,20 @@ module.exports = {
     // productKeywords
     createProductKeywordSchema,
     paramsProductKeywordSchema,
-    idProductParamSchema
+    idProductParamSchema,
 
+    // cartItems
+    createCartItemSchema,
+    updateCartItemSchema,
+
+    // coupons
+    createCouponSchema,
+    updateCouponSchema,
+    userCouponParamsSchema,
+
+    // downloadLinks
+    createDownloadLinkSchema,
+    updateDownloadLinkSchema,
+    userIdParamSchema,
+    productIdParamSchema
 };
