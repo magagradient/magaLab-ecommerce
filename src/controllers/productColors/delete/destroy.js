@@ -2,13 +2,13 @@ const { ProductColors } = require("../../../database/indexModels");
 const responseHelper = require("../../../utils/responseHelper");
 
 const destroy = async (req, res) => {
-    const { id, colorId } = req.params;
+    const { id, id_color } = req.params;
 
     try {
         const deleted = await ProductColors.destroy({
             where: {
                 id_product: id,
-                id_color: colorId
+                id_color: id_color
             }
         });
 

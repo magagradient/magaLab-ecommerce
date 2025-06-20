@@ -1,9 +1,5 @@
-const createProductColorSchema = require("./createProductColorSchema");
-const deleteProductColorSchema = require("./deleteProductColorSchema");
-const productColorParamsSchema = require("./deleteProductColorSchema");
+const productColorParamsSchema = require("./productColorParamsSchema");
 
 module.exports = {
-    createProductColorSchema,
-    deleteProductColorSchema,
     productColorParamsSchema
 };

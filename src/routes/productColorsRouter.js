@@ -3,18 +3,16 @@ const router = express.Router();
 
 const validateSchema = require("../middlewares/validateSchema");
 
-// Esquemas de validación
+// esquemas de validación
 const idParamSchema = require("../validators/shared/idParamSchema"); // para :id
 
 const {
-    createProductColorSchema,
-    deleteProductColorSchema,
     productColorParamsSchema
 } = require("../validators/productColor");
 
 /* --------------------------------------------- */
 
-// Controladores
+// controladores
 const index = require("../controllers/productColors/get/index");
 const create = require("../controllers/productColors/post/create");
 const destroy = require("../controllers/productColors/delete/destroy");
@@ -22,7 +20,7 @@ const clear = require("../controllers/productColors/delete/clear");
 
 /* --------------------------------------------- */
 
-// Obtener todos los colores asociados a un producto
+// obtener todos los colores asociados a un producto
 router.get("/:id/colors",
     validateSchema(idParamSchema, "params"),
     index

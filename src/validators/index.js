@@ -64,10 +64,21 @@ const {
 
 // productColors
 const {
-    createProductColorSchema,
-    deleteProductColorSchema,
     productColorParamsSchema
 } = require('./productColor');
+
+// productImages
+const {
+    createProductImageSchema,
+    productImageParamsSchema
+} = require('./productImages');
+
+// productKeywords
+const {
+    createProductKeywordSchema,
+    paramsProductKeywordSchema,
+    idProductParamSchema
+} = require('./productKeywords');
 
 // export general
 module.exports = {
@@ -118,7 +129,15 @@ module.exports = {
     updateBlogPostSchema,
 
     // productColor
-    createProductColorSchema,
-    deleteProductColorSchema,
-    productColorParamsSchema
+    productColorParamsSchema,
+
+    // productimages
+    createProductImageSchema,
+    productImageParamsSchema,
+
+    // productKeywords
+    createProductKeywordSchema,
+    paramsProductKeywordSchema,
+    idProductParamSchema
+
 };
