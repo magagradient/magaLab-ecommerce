@@ -1,6 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
+const validateSchema = require("../middlewares/validateSchema");
+const {
+    ordersProductsParamsSchema,
+    ordersProductsCreateSchema,
+    ordersProductsUpdateSchema
+} = require("../validators/ordersProducts");
+
+
 // Controllers
 const index = require("../controllers/ordersProducts/get/index");
 const byOrder = require("../controllers/ordersProducts/get/byOrder");
@@ -11,14 +19,18 @@ const update = require("../controllers/ordersProducts/put/update");
 
 const destroy = require("../controllers/ordersProducts/delete/destroy");
 
+/* ---------------------------------- */
+
 // Routes
-router.get("/", index);
-router.get("/:id_order", byOrder);
+router.get("/:id_order", validateSchema(ordersProductsParamsSchema, "params"), byOrder);
 
-router.post("/", create);
+router.post("/", validateSchema(ordersProductsCreateSchema, "body"), create);
 
-router.put("/:id_order/:id_product", update);
+router.put("/:id_order/:id_product",
+    validateSchema(ordersProductsParamsSchema, "params"),
+    validateSchema(ordersProductsUpdateSchema, "body"),
+    update);
 
-router.delete("/:id_order/:id_product", destroy);
+router.delete("/:id_order/:id_product", validateSchema(ordersProductsParamsSchema, "params"), destroy);
 
 module.exports = router;

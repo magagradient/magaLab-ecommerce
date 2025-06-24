@@ -1,6 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
+const validateSchema = require("../middlewares/validateSchema");
+
+// Esquemas de validación
+const {
+    favoriteSeriesCreateSchema,
+    favoriteSeriesParamsSchema,
+    idParamSchema
+} = require("../validators/favoriteSeries");
+
 // get
 const index = require("../controllers/favoriteSeries/get/index");
 const show = require("../controllers/favoriteSeries/get/show");
@@ -14,16 +23,29 @@ const byUserAndSeries = require("../controllers/favoriteSeries/delete/byUserAndS
 
 /* ------------------------------- */
 
-// get
+// GET
 router.get("/", index);
-router.get("/:id", show);
+router.get("/:id",
+    validateSchema(idParamSchema, "params"),
+    show
+);
 
-// post
-router.post("/", create);
+// POST
+router.post("/",
+    validateSchema(favoriteSeriesCreateSchema, "body"),
+    create
+);
 
-// delete
-router.delete("/:id", destroy);
-router.delete("/user/:id_user/serie/:id_series", byUserAndSeries);
+// DELETE
+router.delete("/:id",
+    validateSchema(idParamSchema, "params"),
+    destroy
+);
+
+router.delete("/user/:id_user/serie/:id_series",
+    validateSchema(favoriteSeriesParamsSchema, "params"),
+    byUserAndSeries
+);
 
 
 module.exports = router;

@@ -1,5 +1,6 @@
 // shared
 const idParamSchema = require('./shared/idParamSchema');
+const userIdParamSchema = require('./shared/userIdParamSchema');
 
 // products
 const {
@@ -97,9 +98,44 @@ const {
 const {
     createDownloadLinkSchema,
     updateDownloadLinkSchema,
-    userIdParamSchema,
-    productIdParamSchema
+    productIdParamSchema,
 } = require('./downloadLinks')
+
+// favoriteImages
+const {
+    createFavoriteImageSchema,
+    imageIdParamSchema,
+} = require('./favoriteImages')
+
+// favoriteSeries
+const {
+    favoriteSeriesCreateSchema,
+    favoriteSeriesParamsSchema,
+} = require('./favoriteSeries')
+
+// invoices
+const {
+    invoiceCreateSchema,
+    invoiceUpdateSchema,
+} = require('./invoices')
+
+// orders
+const {
+    orderCreateSchema,
+    orderUpdateSchema,
+} = require('./orders')
+
+const {
+    ordersProductsParamsSchema,
+    ordersProductsCreateSchema,
+    ordersProductsUpdateSchema,
+} = require('./ordersProducts')
+
+// payments
+const {
+    paymentCreateSchema,
+    paymentUpdateSchema,
+} = require("./payments");
 
 // export general
 module.exports = {
@@ -144,6 +180,7 @@ module.exports = {
 
     // shared
     idParamSchema,
+    userIdParamSchema,
 
     // blogPost
     createBlogPostSchema,
@@ -173,6 +210,32 @@ module.exports = {
     // downloadLinks
     createDownloadLinkSchema,
     updateDownloadLinkSchema,
-    userIdParamSchema,
-    productIdParamSchema
+    productIdParamSchema,
+
+    // favoriteImages
+    createFavoriteImageSchema,
+    imageIdParamSchema,
+
+    // favoriteImages
+    favoriteSeriesCreateSchema,
+    favoriteSeriesParamsSchema,
+
+    // invoices
+    invoiceCreateSchema,
+    invoiceUpdateSchema,
+
+    // orders
+    orderCreateSchema,
+    orderUpdateSchema,
+
+    // ordersProducts
+    ordersProductsParamsSchema,
+    ordersProductsCreateSchema,
+    ordersProductsUpdateSchema,
+
+    // payments
+    paymentCreateSchema,
+    paymentUpdateSchema,
 };
+
+

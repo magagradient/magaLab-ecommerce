@@ -1,6 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
+const validateSchema = require("../middlewares/validateSchema");
+
+const {
+    createFavoriteImageSchema,
+    idParamSchema,
+    imageIdParamSchema
+} = require("../validators/favoriteImages");
+
 // get
 const allFavorites = require("../controllers/favoriteImages/get/allFavorites");
 const byUser = require("../controllers/favoriteImages/get/byUser");
@@ -16,13 +24,28 @@ const byUserAndImage = require("../controllers/favoriteImages/delete/byUserAndIm
 
 // GET
 router.get("/", allFavorites);
-router.get("/user/:userId", byUser);
+router.get("/user/:userId",
+    validateSchema(idParamSchema, "params"),
+    byUser
+);
 
 // POST
-router.post("/", create);
+router.post("/",
+    validateSchema(createFavoriteImageSchema, "body"),
+    create
+);
 
 // DELETE
-router.delete("/:id", byId);
-router.delete("/user/:userId/image/:imageId", byUserAndImage);
+router.delete("/:id",
+    validateSchema(idParamSchema, "params"),
+    byId
+);
+
+router.delete("/user/:userId/image/:imageId",
+    validateSchema(idParamSchema, "params"),
+    validateSchema(imageIdParamSchema, "params"),
+    byUserAndImage
+);
+
 
 module.exports = router;
