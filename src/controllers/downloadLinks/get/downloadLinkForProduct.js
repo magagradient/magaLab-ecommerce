@@ -2,11 +2,11 @@ const { DownloadLinks, Products } = require("../../../database/indexModels");
 const responseHelper = require('../../../utils/responseHelper');
 
 const downloadLinkForProduct = async (req, res) => {
-    const { productId } = req.params;
+    const { id_product } = req.params;
 
     try {
         // Buscar el producto
-        const product = await Products.findByPk(productId);
+        const product = await Products.findByPk(id_product);
 
         if (!product) {
             return responseHelper.errorResponse(res, "product_not_found", "Producto no encontrado.", "get_download_link_for_product", 404);
@@ -15,7 +15,7 @@ const downloadLinkForProduct = async (req, res) => {
         // Obtener el enlace de descarga para el producto
         const downloadLink = await DownloadLinks.findOne({
             where: {
-                id_product: productId,
+                id_product: id_product,
                 used: false, // Suponiendo que no se haya usado el enlace aún
             }
         });

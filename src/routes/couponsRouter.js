@@ -6,9 +6,12 @@ const validateSchema = require("../middlewares/validateSchema");
 
 // Schemas
 const idParamSchema = require("../validators/shared/idParamSchema");
+const userIdParamSchema = require("../validators/shared/userIdParamSchema");
 const createCouponSchema = require("../validators/coupons/createCouponSchema");
 const updateCouponSchema = require("../validators/coupons/updateCouponSchema");
 const userCouponParamsSchema = require("../validators/coupons/userCouponParamsSchema");
+
+
 
 // Controllers
 const index = require("../controllers/coupons/get/index");
@@ -26,8 +29,8 @@ const destroy = require("../controllers/coupons/delete/detroy");
 
 // GET
 router.get("/", index);
-router.get("/users/:userId/coupons",
-    validateSchema(userCouponParamsSchema, "params"),
+router.get("/users/:id_user/coupons",
+    validateSchema(userIdParamSchema, "params"),
     userCoupons
 );
 router.get("/:id",
@@ -40,7 +43,7 @@ router.post("/",
     validateSchema(createCouponSchema, "body"),
     create
 );
-router.post("/users/:userId/coupons/:couponId",
+router.post("/users/:id_user/coupons/:id_coupon",
     validateSchema(userCouponParamsSchema, "params"),
     applyCoupon
 );

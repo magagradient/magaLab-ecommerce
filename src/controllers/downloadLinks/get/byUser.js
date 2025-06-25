@@ -2,11 +2,11 @@ const { DownloadLinks, Users } = require("../../../database/indexModels");
 const responseHelper = require('../../../utils/responseHelper');
 
 const ByUser = async (req, res) => {
-    const { userId } = req.params;
+    const { id_user } = req.params;
 
     try {
         // Verificar si el usuario existe
-        const user = await Users.findByPk(userId);
+        const user = await Users.findByPk(id_user);
 
         if (!user) {
             return responseHelper.errorResponse(res, "user_not_found", "Usuario no encontrado.", "download_links_get_by_user", 404);
@@ -15,7 +15,7 @@ const ByUser = async (req, res) => {
         // Recuperar todos los enlaces de descarga del usuario
         const downloadLinks = await DownloadLinks.findAll({
             where: {
-                id_user: userId,
+                id_user: id_user,
             },
         });
 

@@ -105,6 +105,7 @@ const {
 const {
     createFavoriteImageSchema,
     imageIdParamSchema,
+    deleteByUserAndImageParamsSchema,
 } = require('./favoriteImages')
 
 // favoriteSeries
@@ -215,6 +216,7 @@ module.exports = {
     // favoriteImages
     createFavoriteImageSchema,
     imageIdParamSchema,
+    deleteByUserAndImageParamsSchema,
 
     // favoriteImages
     favoriteSeriesCreateSchema,

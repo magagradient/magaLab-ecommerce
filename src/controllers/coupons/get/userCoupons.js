@@ -2,11 +2,11 @@ const { UserCoupons, Coupons } = require("../../../database/indexModels");
 const responseHelper = require('../../../utils/responseHelper');
 
 const userCoupons = async (req, res) => {
-    const { userId } = req.params;
+    const { id_user} = req.params;
 
     try {
         const userCouponsList = await UserCoupons.findAll({
-            where: { id_user: userId },
+            where: { id_user: id_user },
             include: [
                 {
                     model: Coupons,

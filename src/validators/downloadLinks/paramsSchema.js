@@ -1,20 +1,20 @@
 const Joi = require("joi");
 
 const userIdParamSchema = Joi.object({
-    userId: Joi.number().integer().positive().required().messages({
-        "any.required": `"userId" es obligatorio.`,
-        "number.base": `"userId" debe ser un número.`,
-        "number.integer": `"userId" debe ser un número entero.`,
-        "number.positive": `"userId" debe ser un número positivo.`
+    id_user: Joi.number().integer().positive().required().messages({
+        "any.required": `"id_user" es obligatorio.`,
+        "number.base": `"id_user" debe ser un número.`,
+        "number.integer": `"id_user" debe ser un número entero.`,
+        "number.positive": `"id_user" debe ser un número positivo.`
     })
 });
 
 const productIdParamSchema = Joi.object({
-    productId: Joi.number().integer().positive().required().messages({
-        "any.required": `"productId" es obligatorio.`,
-        "number.base": `"productId" debe ser un número.`,
-        "number.integer": `"productId" debe ser un número entero.`,
-        "number.positive": `"productId" debe ser un número positivo.`
+    id_product: Joi.number().integer().positive().required().messages({
+        "any.required": `"id_product" es obligatorio.`,
+        "number.base": `"id_product" debe ser un número.`,
+        "number.integer": `"id_product" debe ser un número entero.`,
+        "number.positive": `"id_product" debe ser un número positivo.`
     })
 });
 

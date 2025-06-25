@@ -2,12 +2,14 @@ const express = require("express");
 const router = express.Router();
 
 const validateSchema = require("../middlewares/validateSchema");
-
+const idParamSchema = require('../validators/shared/idParamSchema');
+const userIdParamSchema = require('../validators/shared/userIdParamSchema');
+const deleteByUserAndImageParamsSchema = require("../validators/favoriteImages/deleteByUserAndImageParamsSchema");
 const {
     createFavoriteImageSchema,
-    idParamSchema,
-    imageIdParamSchema
 } = require("../validators/favoriteImages");
+
+/* ------------------------------------------ */
 
 // get
 const allFavorites = require("../controllers/favoriteImages/get/allFavorites");
@@ -20,12 +22,13 @@ const create = require("../controllers/favoriteImages/post/create");
 const byId = require("../controllers/favoriteImages/delete/byId");
 const byUserAndImage = require("../controllers/favoriteImages/delete/byUserAndImage");
 
+
 /* ------------------------------------------ */
 
 // GET
 router.get("/", allFavorites);
-router.get("/user/:userId",
-    validateSchema(idParamSchema, "params"),
+router.get("/user/:id_user",
+    validateSchema(userIdParamSchema, "params"),
     byUser
 );
 
@@ -41,11 +44,9 @@ router.delete("/:id",
     byId
 );
 
-router.delete("/user/:userId/image/:imageId",
-    validateSchema(idParamSchema, "params"),
-    validateSchema(imageIdParamSchema, "params"),
+router.delete("/user/:id_user/image/:id_image",
+    validateSchema(deleteByUserAndImageParamsSchema, "params"),
     byUserAndImage
 );
-
 
 module.exports = router;

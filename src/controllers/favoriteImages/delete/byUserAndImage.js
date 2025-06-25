@@ -2,13 +2,13 @@ const { FavoriteImages } = require("../../../database/indexModels");
 const responseHelper = require('../../../utils/responseHelper');
 
 const byUserAndImage = async (req, res) => {
-    const { userId, imageId } = req.params;
+    const { id_user, id_image } = req.params;
 
     try {
         const deleted = await FavoriteImages.destroy({
             where: {
-                id_user: userId,
-                id_image: imageId
+                id_user: id_user,
+                id_image: id_image
             }
         });
 

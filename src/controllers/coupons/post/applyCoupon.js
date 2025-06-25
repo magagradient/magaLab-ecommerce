@@ -2,11 +2,11 @@ const { UserCoupons, Coupons, Users } = require("../../../database/indexModels")
 const responseHelper = require('../../../utils/responseHelper');
 
 const applyCoupon = async (req, res) => {
-    const { userId, couponId } = req.params;
+    const { id_user, id_coupon } = req.params;
 
     try {
-        const user = await Users.findByPk(userId);
-        const coupon = await Coupons.findByPk(couponId);
+        const user = await Users.findByPk(id_user);
+        const coupon = await Coupons.findByPk(id_coupon);
 
         if (!user || !coupon) {
             return responseHelper.errorResponse(res, "user_or_coupon_not_found", "Usuario o cupón no encontrado.", "apply_coupon", 404);
@@ -15,8 +15,8 @@ const applyCoupon = async (req, res) => {
         // Verificar si el cupón ya fue usado por este usuario (opcional)
         const existingCoupon = await UserCoupons.findOne({
             where: {
-                id_user: userId,
-                id_coupon: couponId,
+                id_user: id_user,
+                id_coupon: id_coupon,
             },
         });
 
@@ -26,8 +26,8 @@ const applyCoupon = async (req, res) => {
 
         // Asociar el cupón al usuario
         const newUserCoupon = await UserCoupons.create({
-            id_user: userId,
-            id_coupon: couponId,
+            id_user: id_user,
+            id_coupon: id_coupon,
         });
 
         return responseHelper.successResponse(res, {

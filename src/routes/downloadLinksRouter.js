@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const validateSchema = require("../middlewares/validateSchema");
+const idParamSchema = require('../validators/shared/idParamSchema');
 const {
-    idParamSchema,
     userIdParamSchema,
     productIdParamSchema
 } = require("../validators/downloadLinks/paramsSchema");
@@ -29,8 +29,8 @@ const destroy = require("../controllers/downloadLinks/delete/destroy");
 /* ------------------------------------------------------ */
 
 // get
-router.get('/user/:userId', validateSchema(userIdParamSchema, "params"), byUser);
-router.get('/product/:productId', validateSchema(productIdParamSchema, "params"), downloadLinkForProduct);
+router.get('/user/:id_user', validateSchema(userIdParamSchema, "params"), byUser);
+router.get('/product/:id_product', validateSchema(productIdParamSchema, "params"), downloadLinkForProduct);
 router.get('/', allDownloadLinks);
 router.get("/:id", validateSchema(idParamSchema, "params"), byId);
 

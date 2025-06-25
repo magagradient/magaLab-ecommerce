@@ -1,9 +1,9 @@
 const Joi = require("joi");
 
 const userCouponParamsSchema = Joi.object({
-    userId: Joi.number().integer().positive().required()
+    id_user: Joi.number().integer().positive().required()
         .messages({ "any.required": `"userId" es obligatorio.` }),
-    couponId: Joi.number().integer().positive().required()
+    id_coupon: Joi.number().integer().positive().required()
         .messages({ "any.required": `"couponId" es obligatorio.` }),
 });
 

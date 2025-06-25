@@ -2,11 +2,11 @@ const { FavoriteImages } = require("../../../database/indexModels");
 const responseHelper = require('../../../utils/responseHelper');
 
 const byUser = async (req, res) => {
-    const { userId } = req.params;
+    const { id_user } = req.params;
 
     try {
         const favorites = await FavoriteImages.findAll({
-            where: { id_user: userId }
+            where: { id_user: id_user }
         });
 
         return responseHelper.successResponse(res, favorites, "favorite_images_by_user");
