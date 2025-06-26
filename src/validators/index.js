@@ -153,6 +153,16 @@ const {
     productStyleCreateSchema
 } = require("./productStyle");
 
+const {
+    createShoppingCartSchema
+} = require('./shoppingCarts');
+
+// userCoupons
+const {
+    createUserCouponSchema,
+    updateUserCouponSchema
+} = require('./userCoupons')
+
 // export general
 module.exports = {
     // products
@@ -262,7 +272,14 @@ module.exports = {
     // productStyles
     productStyleParamsSchema,
     productStyleIdParamSchema,
-    productStyleCreateSchema
+    productStyleCreateSchema,
+
+    // shoppingCarts
+    createShoppingCartSchema,
+
+    // userCoupons
+    createUserCouponSchema,
+    updateUserCouponSchema
 };
 
 

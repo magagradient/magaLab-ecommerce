@@ -2,13 +2,13 @@ const { ProductThemes } = require("../../../database/indexModels");
 const responseHelper = require("../../../utils/responseHelper");
 
 const destroy = async (req, res) => {
-    const { id, themeId } = req.params;
+    const { id, id_theme } = req.params;
 
     try {
         const deleted = await ProductThemes.destroy({
             where: {
                 id_product: id,
-                id_theme: themeId
+                id_theme: id_theme
             }
         });
 
