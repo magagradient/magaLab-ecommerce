@@ -140,6 +140,19 @@ const {
     paymentUpdateSchema,
 } = require("./payments");
 
+// paymentsMethods
+const {
+    paymentMethodCreateSchema,
+    paymentMethodUpdateSchema
+} = require("./paymentMethods");
+
+// productStyles
+const {
+    productStyleParamsSchema,
+    productStyleIdParamSchema,
+    productStyleCreateSchema
+} = require("./productStyle");
+
 // export general
 module.exports = {
     // products
@@ -241,6 +254,15 @@ module.exports = {
     // payments
     paymentCreateSchema,
     paymentUpdateSchema,
+
+    // paymentMethods
+    paymentMethodCreateSchema,
+    paymentMethodUpdateSchema,
+
+    // productStyles
+    productStyleParamsSchema,
+    productStyleIdParamSchema,
+    productStyleCreateSchema
 };
 
 
