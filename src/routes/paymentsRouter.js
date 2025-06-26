@@ -6,7 +6,7 @@ const {
     paymentCreateSchema,
     paymentUpdateSchema,
     idParamSchema
-} = require("../validators/ordersProducts");
+} = require("../validators/payments");
 
 
 // Controllers
@@ -28,4 +28,5 @@ router.put("/:id",
 );
 
 router.delete("/:id", validateSchema(idParamSchema, "params"), destroy);
+
 module.exports = router;

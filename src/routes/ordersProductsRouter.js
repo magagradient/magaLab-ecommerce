@@ -5,7 +5,8 @@ const validateSchema = require("../middlewares/validateSchema");
 const {
     ordersProductsParamsSchema,
     ordersProductsCreateSchema,
-    ordersProductsUpdateSchema
+    ordersProductsUpdateSchema,
+    ordersProductsOnlyOrderParamSchema
 } = require("../validators/ordersProducts");
 
 
@@ -22,7 +23,8 @@ const destroy = require("../controllers/ordersProducts/delete/destroy");
 /* ---------------------------------- */
 
 // Routes
-router.get("/:id_order", validateSchema(ordersProductsParamsSchema, "params"), byOrder);
+router.get("/", index);
+router.get("/:id_order", validateSchema(ordersProductsOnlyOrderParamSchema, "params"), byOrder);
 
 router.post("/", validateSchema(ordersProductsCreateSchema, "body"), create);
 

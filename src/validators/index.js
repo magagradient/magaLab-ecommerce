@@ -126,10 +126,12 @@ const {
     orderUpdateSchema,
 } = require('./orders')
 
+// ordersProducts
 const {
     ordersProductsParamsSchema,
     ordersProductsCreateSchema,
     ordersProductsUpdateSchema,
+    ordersProductsOnlyOrderParamSchema
 } = require('./ordersProducts')
 
 // payments
@@ -234,6 +236,7 @@ module.exports = {
     ordersProductsParamsSchema,
     ordersProductsCreateSchema,
     ordersProductsUpdateSchema,
+    ordersProductsOnlyOrderParamSchema,
 
     // payments
     paymentCreateSchema,
