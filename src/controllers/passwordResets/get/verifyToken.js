@@ -6,42 +6,35 @@ const verifyPasswordResetToken = async (req, res) => {
         const { token } = req.params;
 
         if (!token) {
+            return responseHelper.errorResponse(res, "bad_request", "El token es requerido.", "password_reset_verify", 400);
+        }
+
+        const resetEntry = await PasswordResets.findOne({ where: { token, used: false } });
+
+        if (!resetEntry) {
+            return responseHelper.errorResponse(res, "invalid_token", "Token inválido o ya utilizado.", "password_reset_verify", 400);
+        }
+
+        // ✅ Verificación de expiración
+        const now = new Date();
+        if (resetEntry.expires_at < now) {
             return responseHelper.errorResponse(
                 res,
-                "bad_request",
-                "El token es requerido.",
+                "expired_token",
+                "El token ha expirado.",
                 "password_reset_verify",
                 400
             );
         }
 
-        const resetRequest = await PasswordResets.findOne({ where: { token } });
-
-        if (!resetRequest) {
-            return responseHelper.errorResponse(
-                res,
-                "not_found",
-                "Token inválido o inexistente.",
-                "password_reset_verify",
-                404
-            );
-        }
-
         return responseHelper.successResponse(
             res,
-            { message: "Token válido." },
+            { message: "Token verificado con éxito." },
             "password_reset_verify"
         );
-
     } catch (error) {
-        console.error("Error al verificar el token de reseteo:", error);
-        return responseHelper.errorResponse(
-            res,
-            "server_error",
-            error.message,
-            "password_reset_verify",
-            500
-        );
+        console.error("Error al verificar el token:", error);
+        return responseHelper.errorResponse(res, "server_error", error.message, "password_reset_verify", 500);
     }
 };
 

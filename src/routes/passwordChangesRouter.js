@@ -2,17 +2,17 @@ const express = require('express');
 const router = express.Router();
 
 // get
-const verifyPasswordChange = require("../controllers/passwordChanges/get/verifyPasswordChange");
+const index = require("../controllers/passwordChanges/get/index");
 
 // post
-const requestPasswordChange = require("../controllers/passwordChanges/post/request");
+const create = require("../controllers/passwordChanges/post/create");
 
 /*-------------------------------------------------*/
 
 // get
-router.get("/verify/:token", verifyPasswordChange);
+router.get("/:id", index);
 
 // post
-router.post("/request", requestPasswordChange);
+router.post("/", create);
 
 module.exports = router;
