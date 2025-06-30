@@ -1,8 +1,9 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
+const morgan = require("morgan");
 
-const dbMiddleware = require("./src/middlewares/db_middleware");
+const errorHandler = require("./src/middlewares/errorHandler");
 const routes = require("./src/routes/indexRouter");
 const { connectDB } = require("./src/database/indexModels");
 
@@ -12,21 +13,16 @@ const PORT = process.env.PORT || 3000;
 // seguridad y cors
 app.use(helmet());
 app.use(cors());
+app.use(morgan("dev")); // "dev" es el formato de logs para desarrollo
 
 // middleware
 app.use(express.json());
-app.use(dbMiddleware);
 
 // rutas
 app.use("/api", routes);
 
 // middleware de manejo de errores global
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res
-    .status(500)
-    .json({ error: "Error interno del servidor" });
-});
+app.use(errorHandler);
 
 // conectar a la base de datos y luego iniciar el servidor
 connectDB()

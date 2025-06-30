@@ -3,13 +3,13 @@ const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: process.env.MAIL_USER, // por ej: "tucuenta@gmail.com"
-        pass: process.env.MAIL_PASS  // contraseña o app password
+        user: process.env.MAIL_USER, 
+        pass: process.env.MAIL_PASS  
     }
 });
 
 const sendResetEmail = async (to, token) => {
-    const resetLink = `http://localhost:3000/reset-password?token=${token}`; // en producción cambiar esto
+    const resetLink = `http://localhost:3000/reset-password?token=${token}`; 
     const mailOptions = {
         from: `"Magalab" <${process.env.MAIL_USER}>`,
         to,
