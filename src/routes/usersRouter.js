@@ -4,12 +4,10 @@ const upload = require("../middlewares/multerConfig");
 const authMiddleware = require("../middlewares/authMiddleware");
 const validateSchema = require("../middlewares/validateSchema");
 
-const {
-    loginSchema,
-    createUserSchema,
-    updateUserSchema,
-    idParamSchema
-} = require("../validators/auth");
+const updateUserSchema = require('../validators/users/updateUserSchema');
+const registerSchema = require('../validators/users/registerSchema');
+const loginSchema = require('../validators/users/loginSchema');
+const idParamSchema = require('../validators/shared/idParamSchema');
 
 // controllers
 const index = require("../controllers/users/get/index");
@@ -43,7 +41,10 @@ router.get("/:id/password-changes", authMiddleware, validateSchema(idParamSchema
 
 // post (pública, para crear usuario)
 router.post("/login", validateSchema(loginSchema, "body"), login);
-router.post("/", validateSchema(createUserSchema, "body"), create);
+router.post("/",
+    validateSchema(registerSchema, "body"),
+    create
+);
 
 // put (protegida)
 router.put("/:id", authMiddleware, validateSchema(idParamSchema, "params"), validateSchema(updateUserSchema, "body"), update);
@@ -53,6 +54,6 @@ router.patch("/:id/avatar", authMiddleware, validateSchema(idParamSchema, "param
 router.patch("/:id/role", authMiddleware, validateSchema(idParamSchema, "params"), updateRole);
 
 // delete (protegida)
-router.delete("/:id", authMiddleware, validateSchema(idParamSchema, "params"), destroy);
+router.delete("/:id", authMiddleware, destroy);
 
 module.exports = router;

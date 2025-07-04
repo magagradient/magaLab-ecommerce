@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const authMiddleware = require("../middlewares/authMiddleware");
 const validateSchema = require("../middlewares/validateSchema");
 const idParamSchema = require("../validators/shared/idParamSchema");
 
@@ -20,28 +21,31 @@ const update = require("../controllers/userCoupons/put/update");
 const destroy = require("../controllers/userCoupons/delete/destroy");
 
 // rutas
-router.get("/", index);
+router.get("/", authMiddleware, index);
 
 router.get("/:id",
+    authMiddleware,
     validateSchema(idParamSchema, "params"),
     show
 );
 
 router.post("/",
+    authMiddleware,
     validateSchema(createUserCouponSchema, "body"),
     create
 );
 
 router.put("/:id",
+    authMiddleware,
     validateSchema(idParamSchema, "params"),
     validateSchema(updateUserCouponSchema, "body"),
     update
 );
 
 router.delete("/:id",
+    authMiddleware,
     validateSchema(idParamSchema, "params"),
     destroy
 );
-
 
 module.exports = router;

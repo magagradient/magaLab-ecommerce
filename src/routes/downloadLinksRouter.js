@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const authMiddleware = require("../middlewares/authMiddleware");
 const validateSchema = require("../middlewares/validateSchema");
 const idParamSchema = require('../validators/shared/idParamSchema');
 const {
@@ -11,36 +12,62 @@ const {
 const createDownloadLinkSchema = require("../validators/downloadLinks/createDownloadLinkSchema");
 const updateDownloadLinkSchema = require("../validators/downloadLinks/updateDownloadLinkSchema");
 
-// get
+// controllers
 const byUser = require("../controllers/downloadLinks/get/byUser");
 const downloadLinkForProduct = require("../controllers/downloadLinks/get/downloadLinkForProduct");
 const allDownloadLinks = require("../controllers/downloadLinks/get/allDownloadLinks");
 const byId = require("../controllers/downloadLinks/get/byId");
 
-// post
 const create = require("../controllers/downloadLinks/post/create");
-
-// put
 const update = require("../controllers/downloadLinks/put/update");
-
-// delete
 const destroy = require("../controllers/downloadLinks/delete/destroy");
 
 /* ------------------------------------------------------ */
 
 // get
-router.get('/user/:id_user', validateSchema(userIdParamSchema, "params"), byUser);
-router.get('/product/:id_product', validateSchema(productIdParamSchema, "params"), downloadLinkForProduct);
-router.get('/', allDownloadLinks);
-router.get("/:id", validateSchema(idParamSchema, "params"), byId);
+router.get('/user/:id_user',
+    authMiddleware,
+    validateSchema(userIdParamSchema, "params"),
+    byUser
+);
+
+router.get('/product/:id_product',
+    authMiddleware,
+    validateSchema(productIdParamSchema, "params"),
+    downloadLinkForProduct
+);
+
+router.get('/',
+    authMiddleware,
+    allDownloadLinks
+);
+
+router.get("/:id",
+    authMiddleware,
+    validateSchema(idParamSchema, "params"),
+    byId
+);
 
 // post
-router.post("/", validateSchema(createDownloadLinkSchema), create);
+router.post("/",
+    authMiddleware,
+    validateSchema(createDownloadLinkSchema),
+    create
+);
 
 // put
-router.put('/:id', validateSchema(idParamSchema, "params"), validateSchema(updateDownloadLinkSchema), update);
+router.put('/:id',
+    authMiddleware,
+    validateSchema(idParamSchema, "params"),
+    validateSchema(updateDownloadLinkSchema),
+    update
+);
 
 // delete
-router.delete('/:id', validateSchema(idParamSchema, "params"), destroy);
+router.delete('/:id',
+    authMiddleware,
+    validateSchema(idParamSchema, "params"),
+    destroy
+);
 
-module.exports = router; 
+module.exports = router;

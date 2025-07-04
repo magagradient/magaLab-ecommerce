@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const authMiddleware = require("../middlewares/authMiddleware");
 const validateSchema = require("../middlewares/validateSchema");
 const {
     paymentCreateSchema,
@@ -17,16 +18,25 @@ const destroy = require("../controllers/payments/delete/destroy");
 
 
 // Rutas
-router.get("/", index);
+// Rutas protegidas
+router.get("/", authMiddleware, index);
 
-router.post("/", validateSchema(paymentCreateSchema, "body"), create);
+router.post("/",
+    authMiddleware,
+    validateSchema(paymentCreateSchema, "body"),
+    create
+);
 
 router.put("/:id",
+    authMiddleware,
     validateSchema(idParamSchema, "params"),
     validateSchema(paymentUpdateSchema, "body"),
     update
 );
 
-router.delete("/:id", validateSchema(idParamSchema, "params"), destroy);
-
+router.delete("/:id",
+    authMiddleware,
+    validateSchema(idParamSchema, "params"),
+    destroy
+);
 module.exports = router;

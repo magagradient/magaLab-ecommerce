@@ -167,9 +167,8 @@ const {
 const {
     loginSchema,
     registerSchema,
-    passwordResetRequestSchema,
-    passwordResetConfirmSchema,
-} = require('./auth');
+    updateUserSchema,
+} = require('./users');
 
 // passwordChanges
 const createPasswordChangeSchema = require('./passwordChanges');
@@ -179,7 +178,7 @@ const {
     confirmPasswordResetSchema,
     requestPasswordResetSchema,
     tokenParamSchema,
- } = require('./passwordResets')
+} = require('./passwordResets')
 
 
 // export general
@@ -303,8 +302,7 @@ module.exports = {
     // auth
     loginSchema,
     registerSchema,
-    passwordResetRequestSchema,
-    passwordResetConfirmSchema,
+    updateUserSchema,
 
     // PasswordChanges
     createPasswordChangeSchema,

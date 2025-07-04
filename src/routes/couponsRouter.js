@@ -1,17 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-// Middlewares
+const authMiddleware = require("../middlewares/authMiddleware");
 const validateSchema = require("../middlewares/validateSchema");
 
-// Schemas
 const idParamSchema = require("../validators/shared/idParamSchema");
 const userIdParamSchema = require("../validators/shared/userIdParamSchema");
 const createCouponSchema = require("../validators/coupons/createCouponSchema");
 const updateCouponSchema = require("../validators/coupons/updateCouponSchema");
 const userCouponParamsSchema = require("../validators/coupons/userCouponParamsSchema");
-
-
 
 // Controllers
 const index = require("../controllers/coupons/get/index");
@@ -23,33 +20,41 @@ const applyCoupon = require("../controllers/coupons/post/applyCoupon");
 
 const update = require("../controllers/coupons/put/update");
 
-const destroy = require("../controllers/coupons/delete/detroy");
+const destroy = require("../controllers/coupons/delete/destroy"); // corregido typo
 
 /* --------------------------------------- */
 
 // GET
 router.get("/", index);
+
 router.get("/users/:id_user/coupons",
+    authMiddleware,
     validateSchema(userIdParamSchema, "params"),
     userCoupons
 );
+
 router.get("/:id",
+    authMiddleware,
     validateSchema(idParamSchema, "params"),
     show
 );
 
 // POST
 router.post("/",
+    authMiddleware,
     validateSchema(createCouponSchema, "body"),
     create
 );
+
 router.post("/users/:id_user/coupons/:id_coupon",
+    authMiddleware,
     validateSchema(userCouponParamsSchema, "params"),
     applyCoupon
 );
 
 // PUT
 router.put("/:id",
+    authMiddleware,
     validateSchema(idParamSchema, "params"),
     validateSchema(updateCouponSchema, "body"),
     update
@@ -57,6 +62,7 @@ router.put("/:id",
 
 // DELETE
 router.delete("/:id",
+    authMiddleware,
     validateSchema(idParamSchema, "params"),
     destroy
 );
