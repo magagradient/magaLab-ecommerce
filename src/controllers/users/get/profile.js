@@ -1,6 +1,7 @@
 const { Users } = require("../../../database/indexModels");
+const responseHelper = require("../../../utils/responseHelper");
 
-module.exports = async (req, res, next) => {
+const getProfile = async (req, res) => {
     try {
         const { id_user } = req.user;
 
@@ -14,17 +15,36 @@ module.exports = async (req, res, next) => {
                 "avatar_url",
                 "registration_date"
             ],
+            raw: true,
         });
 
         if (!user) {
-            return res.status(404).json({ message: "Usuario no encontrado." });
+            return responseHelper.errorResponse(
+                res,
+                "not_found",
+                "Usuario no encontrado.",
+                "user_profile",
+                404
+            );
         }
 
-        res.json({
-            message: "Perfil del usuario autenticado",
+        return responseHelper.successResponse(
+            res,
             user,
-        });
+            "user_profile"
+        );
+
     } catch (error) {
-        next(error);
+        console.error("Error al obtener el perfil del usuario:", error);
+
+        return responseHelper.errorResponse(
+            res,
+            "server_error",
+            error.message,
+            "user_profile",
+            500
+        );
     }
 };
+
+module.exports = getProfile;

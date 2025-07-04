@@ -1,29 +1,56 @@
 const express = require('express');
 const router = express.Router();
 
-// get
+const authMiddleware = require('../middlewares/authMiddleware');
+const validateSchema = require('../middlewares/validateSchema');
+
+const userIdParamSchema = require('../validators/shared/userIdParamSchema');
+const confirmPasswordResetSchema = require('../validators/passwordResets/confirmPasswordResetSchema');
+const requestPasswordResetSchema = require('../validators/passwordResets/requestPasswordResetSchema');
+const tokenParamSchema = require('../validators/passwordResets/tokenParamSchema');
+    
+
+// controllers
 const passwordResetsByUser = require("../controllers/passwordResets/get/byUser");
 const verifyToken = require("../controllers/passwordResets/get/verifyToken");
-
-// post
 const request = require("../controllers/passwordResets/post/request");
 const confirm = require("../controllers/passwordResets/post/confirm");
-
-// patch
 const invalidateToken = require("../controllers/passwordResets/patch/invalidate");
 
-/////////////////////////////////////////////// 
+/* ------------------------- Rutas ------------------------- */
 
-// get
-router.get("/user/:id", passwordResetsByUser);
-router.get("/verify/:token", verifyToken);
+// GET
+router.get(
+    "/user/:id",
+    authMiddleware,
+    validateSchema(userIdParamSchema, "params"),
+    passwordResetsByUser
+);
 
-// post
-router.post("/request", request);
-router.post("/confirm", confirm);
+router.get(
+    "/verify/:token",
+    validateSchema(tokenParamSchema, "params"),
+    verifyToken
+);
 
-//patch
-router.patch("/invalidate/:token", invalidateToken);
+// POST
+router.post(
+    "/request",
+    validateSchema(requestPasswordResetSchema, "body"),
+    request
+);
 
+router.post(
+    "/confirm",
+    validateSchema(confirmPasswordResetSchema, "body"),
+    confirm
+);
 
-module.exports = router; 
+// PATCH
+router.patch(
+    "/invalidate/:token",
+    validateSchema(tokenParamSchema, "params"),
+    invalidateToken
+);
+
+module.exports = router;

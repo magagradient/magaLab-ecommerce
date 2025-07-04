@@ -160,8 +160,27 @@ const {
 // userCoupons
 const {
     createUserCouponSchema,
-    updateUserCouponSchema
-} = require('./userCoupons')
+    updateUserCouponSchema,
+} = require('./userCoupons');
+
+// auth
+const {
+    loginSchema,
+    registerSchema,
+    passwordResetRequestSchema,
+    passwordResetConfirmSchema,
+} = require('./auth');
+
+// passwordChanges
+const createPasswordChangeSchema = require('./passwordChanges');
+
+// passwordReset
+const {
+    confirmPasswordResetSchema,
+    requestPasswordResetSchema,
+    tokenParamSchema,
+ } = require('./passwordResets')
+
 
 // export general
 module.exports = {
@@ -279,7 +298,21 @@ module.exports = {
 
     // userCoupons
     createUserCouponSchema,
-    updateUserCouponSchema
+    updateUserCouponSchema,
+
+    // auth
+    loginSchema,
+    registerSchema,
+    passwordResetRequestSchema,
+    passwordResetConfirmSchema,
+
+    // PasswordChanges
+    createPasswordChangeSchema,
+
+    // passwordReset
+    confirmPasswordResetSchema,
+    requestPasswordResetSchema,
+    tokenParamSchema,
 };
 
 
