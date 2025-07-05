@@ -84,7 +84,8 @@ const {
 // cartItems
 const {
     createCartItemSchema,
-    updateCartItemSchema
+    updateCartItemSchema,
+    cartItemsQuerySchema
 } = require('./cartItems');
 
 // coupons
@@ -118,12 +119,14 @@ const {
 const {
     invoiceCreateSchema,
     invoiceUpdateSchema,
+    invoicesQuerySchema
 } = require('./invoices')
 
 // orders
 const {
     orderCreateSchema,
     orderUpdateSchema,
+    ordersPaginationSchema
 } = require('./orders')
 
 // ordersProducts
@@ -168,6 +171,7 @@ const {
     loginSchema,
     registerSchema,
     updateUserSchema,
+    usersPaginationSchema
 } = require('./users');
 
 // passwordChanges
@@ -245,6 +249,7 @@ module.exports = {
     // cartItems
     createCartItemSchema,
     updateCartItemSchema,
+    cartItemsQuerySchema,
 
     // coupons
     createCouponSchema,
@@ -268,10 +273,12 @@ module.exports = {
     // invoices
     invoiceCreateSchema,
     invoiceUpdateSchema,
+    invoicesQuerySchema,
 
     // orders
     orderCreateSchema,
     orderUpdateSchema,
+    ordersPaginationSchema,
 
     // ordersProducts
     ordersProductsParamsSchema,
@@ -299,10 +306,11 @@ module.exports = {
     createUserCouponSchema,
     updateUserCouponSchema,
 
-    // auth
+    // users
     loginSchema,
     registerSchema,
     updateUserSchema,
+    usersPaginationSchema,
 
     // PasswordChanges
     createPasswordChangeSchema,

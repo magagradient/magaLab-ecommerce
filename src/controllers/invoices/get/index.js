@@ -2,10 +2,20 @@ const { Invoices } = require("../../../database/indexModels");
 const responseHelper = require("../../../utils/responseHelper");
 
 const index = async (req, res) => {
-    const timestamp = new Date().toISOString();
-
     try {
-        const invoices = await Invoices.findAll({ raw: true });
+        const {
+            limit = 10,
+            page = 1
+        } = req.query;
+
+        const offset = (Number(page) - 1) * Number(limit);
+
+        const invoices = await Invoices.findAll({
+            order: [["invoice_date", "DESC"]],
+            limit: Number(limit),
+            offset: Number(offset),
+            raw: true
+        });
 
         return responseHelper.successResponse(res, invoices, "invoices_index");
 

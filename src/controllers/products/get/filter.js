@@ -7,44 +7,42 @@ const filter = async (req, res) => {
         const {
             title,
             description,
-            keyword,
+            keywords,
             category,
             series,
-            style,
-            color,
-            theme,
+            styles,
+            colors,
+            themes,
             price_min,
             price_max,
             is_sold,
             visible_in_portfolio,
-            sort_by = 'created_at',
+            sort_by = 'createdAt',
             order = 'desc',
-            limit = 20,
-            offset = 0
+            limit = 5,
+            page = 1,
         } = req.query;
+
+        const offset = (Number(page) - 1) * Number(limit);
 
         const where = {};
         const include = [];
 
-        // Filtros texto en Products
         if (title || description) {
             where[Op.or] = [];
             if (title) where[Op.or].push({ title: { [Op.like]: `%${title}%` } });
             if (description) where[Op.or].push({ description: { [Op.like]: `%${description}%` } });
         }
 
-        // Filtros rango precio
         if (price_min !== undefined || price_max !== undefined) {
             where.price = {};
             if (price_min !== undefined) where.price[Op.gte] = Number(price_min);
             if (price_max !== undefined) where.price[Op.lte] = Number(price_max);
         }
 
-        // Filtros booleanos
         if (is_sold !== undefined) where.is_sold = is_sold === 'true';
         if (visible_in_portfolio !== undefined) where.visible_in_portfolio = visible_in_portfolio === 'true';
 
-        // Relaciones con búsqueda parcial
         if (category) include.push({
             model: Categories,
             as: 'category',
@@ -59,43 +57,43 @@ const filter = async (req, res) => {
             where: { title: { [Op.like]: `%${series}%` } }
         });
 
-        if (keyword) include.push({
+        if (keywords) include.push({
             model: Keywords,
             as: 'keywords',
             through: { attributes: [] },
             required: true,
-            where: { name: { [Op.like]: `%${keyword}%` } }
+            where: { name: { [Op.like]: `%${keywords}%` } }
         });
 
-        if (style) include.push({
+        if (styles) include.push({
             model: Styles,
             as: 'styles',
             through: { attributes: [] },
             required: true,
-            where: { name: { [Op.like]: `%${style}%` } }
+            where: { name: { [Op.like]: `%${styles}%` } }
         });
 
-        if (color) include.push({
+        if (colors) include.push({
             model: Colors,
             as: 'colors',
             through: { attributes: [] },
             required: true,
-            where: { name: { [Op.like]: `%${color}%` } }
+            where: { name: { [Op.like]: `%${colors}%` } }
         });
 
-        if (theme) include.push({
+        if (themes) include.push({
             model: Themes,
             as: 'themes',
             through: { attributes: [] },
             required: true,
-            where: { name: { [Op.like]: `%${theme}%` } }
+            where: { name: { [Op.like]: `%${themes}%` } }
         });
 
         const products = await Products.findAll({
             where,
             include,
             attributes: { exclude: ['created_at', 'updated_at'] },
-            order: [[sort_by, order]],
+            order: [[sort_by, order.toUpperCase()]],
             limit: Number(limit),
             offset: Number(offset)
         });

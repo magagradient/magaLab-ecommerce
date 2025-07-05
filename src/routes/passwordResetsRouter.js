@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const authMiddleware = require('../middlewares/authMiddleware');
+const passwordResetLimiter = require("../middlewares/passwordResetLimiter");
 const validateSchema = require('../middlewares/validateSchema');
 
 const userIdParamSchema = require('../validators/shared/userIdParamSchema');
@@ -36,6 +37,7 @@ router.get(
 // POST
 router.post(
     "/request",
+    passwordResetLimiter,
     validateSchema(requestPasswordResetSchema, "body"),
     request
 );

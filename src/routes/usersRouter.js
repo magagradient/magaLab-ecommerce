@@ -2,12 +2,15 @@ const express = require("express");
 const router = express.Router();
 const upload = require("../middlewares/multerConfig");
 const authMiddleware = require("../middlewares/authMiddleware");
+const loginLimiter = require("../middlewares/loginLimiter");
+const registerLimiter = require("../middlewares/registerLimiter");
 const validateSchema = require("../middlewares/validateSchema");
 
 const updateUserSchema = require('../validators/users/updateUserSchema');
 const registerSchema = require('../validators/users/registerSchema');
 const loginSchema = require('../validators/users/loginSchema');
 const idParamSchema = require('../validators/shared/idParamSchema');
+const usersPaginationSchema = require('../validators/users/usersPaginationSchema');
 
 // controllers
 const index = require("../controllers/users/get/index");
@@ -30,21 +33,18 @@ const updateRole = require("../controllers/users/patch/updateRole");
 // delete
 const destroy = require("../controllers/users/delete/destroy");
 
-/*-------------------------------------------------*/
+/////////////////////////////////////////////////
 
 // get (protegidas)
-router.get("/", authMiddleware, index);
+router.get("/", authMiddleware, validateSchema(usersPaginationSchema, "query"), index);
 router.get("/status", authMiddleware, status);
 router.get("/profile", authMiddleware, getProfile);
 router.get("/:id", authMiddleware, validateSchema(idParamSchema, "params"), show);
 router.get("/:id/password-changes", authMiddleware, validateSchema(idParamSchema, "params"), passwordChangesIndex);
 
 // post (pública, para crear usuario)
-router.post("/login", validateSchema(loginSchema, "body"), login);
-router.post("/",
-    validateSchema(registerSchema, "body"),
-    create
-);
+router.post("/login", loginLimiter, validateSchema(loginSchema, "body"), login);
+router.post("/", registerLimiter, validateSchema(registerSchema, "body"), create);
 
 // put (protegida)
 router.put("/:id", authMiddleware, validateSchema(idParamSchema, "params"), validateSchema(updateUserSchema, "body"), update);

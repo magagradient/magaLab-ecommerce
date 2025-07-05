@@ -10,6 +10,7 @@ const {
     idParamSchema,
     userIdParamSchema
 } = require("../validators/orders");
+const ordersPaginationSchema = require("../validators/orders/ordersPaginationSchema");
 
 
 // Controllers
@@ -26,7 +27,7 @@ const destroy = require("../controllers/orders/delete/destroy");
 
 // Routes
 // GET all orders
-router.get("/", authMiddleware, index);
+router.get("/", authMiddleware, validateSchema(ordersPaginationSchema, "query"), index);
 
 // GET single order by ID
 router.get("/:id",

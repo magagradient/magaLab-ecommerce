@@ -1,7 +1,8 @@
 const express = require("express");
+const xss = require('xss-clean');
 const helmet = require("helmet");
-const cors = require("cors");
 const morgan = require("morgan");
+const cors = require("./src/middlewares/corsConfig"); 
 
 const errorHandler = require("./src/middlewares/errorHandler");
 const routes = require("./src/routes/indexRouter");
@@ -12,11 +13,12 @@ const PORT = process.env.PORT || 3000;
 
 // seguridad y cors
 app.use(helmet());
-app.use(cors());
+app.use(cors);
 app.use(morgan("dev")); // "dev" es el formato de logs para desarrollo
 
 // middleware
 app.use(express.json());
+app.use(xss()); 
 
 // rutas
 app.use("/api", routes);

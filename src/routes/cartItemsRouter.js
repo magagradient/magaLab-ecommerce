@@ -7,6 +7,7 @@ const validateSchema = require("../middlewares/validateSchema");
 const createCartItemSchema = require("../validators/cartItems/createCartItemSchema");
 const updateCartItemSchema = require("../validators/cartItems/updateCartItemSchema");
 const idParamSchema = require("../validators/shared/idParamSchema");
+const cartItemsQuerySchema = require("../validators/cartItems/cartItemsQuerySchema");
 
 // controllers
 const index = require("../controllers/cartItems/get/index");
@@ -22,7 +23,12 @@ const clearCartItems = require("../controllers/cartItems/delete/clearAll");
 /////////////////////////////////////////////////////////
 
 // get
-router.get("/", authMiddleware, index);  // /api/cart_items?user_id=13
+router.get(
+    "/",
+    authMiddleware,
+    validateSchema(cartItemsQuerySchema, "query"),
+    index
+);
 router.get("/summary", authMiddleware, summary);
 
 // post

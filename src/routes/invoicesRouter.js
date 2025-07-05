@@ -8,6 +8,7 @@ const {
     invoiceUpdateSchema,
     idParamSchema
 } = require("../validators/invoices");
+const invoicesQuerySchema = require("../validators/invoices/invoicesQuerySchema");
 
 // get
 const index = require("../controllers/invoices/get/index");
@@ -25,7 +26,7 @@ const destroy = require("../controllers/invoices/delete/destroy");
 /////////////////////////////////////////////////////////////
 
 // rutas
-router.get("/", authMiddleware, index);
+router.get("/", authMiddleware, validateSchema(invoicesQuerySchema, "query"), index);
 
 router.get("/:id",
     authMiddleware,

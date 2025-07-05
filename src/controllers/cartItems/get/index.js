@@ -2,19 +2,10 @@ const { ShoppingCarts, CartItems, Products } = require("../../../database/indexM
 const responseHelper = require("../../../utils/responseHelper");
 
 const cartItemsIndex = async (req, res) => {
-    const { user_id } = req.query;
+    const { user_id, limit = 10, page = 1 } = req.query;
+    const offset = (Number(page) - 1) * Number(limit);
 
     try {
-        if (!user_id) {
-            return responseHelper.errorResponse(
-                res,
-                "bad_request",
-                "Se requiere el parámetro user_id.",
-                "cart_item_list",
-                400
-            );
-        }
-
         const cart = await ShoppingCarts.findOne({
             where: { id_user: user_id },
             include: {
@@ -23,9 +14,11 @@ const cartItemsIndex = async (req, res) => {
                 include: {
                     model: Products,
                     as: "product",
-                    attributes: { exclude: ["createdAt", "updatedAt"] }
-                }
-            }
+                    attributes: { exclude: ["createdAt", "updatedAt"] },
+                },
+                limit: Number(limit),
+                offset: Number(offset),
+            },
         });
 
         if (!cart || !cart.cartItems || cart.cartItems.length === 0) {

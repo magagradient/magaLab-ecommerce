@@ -3,7 +3,15 @@ const responseHelper = require("../../../utils/responseHelper");
 
 const index = async (req, res) => {
     try {
-        const orders = await Orders.findAll({ order: [["order_date", "DESC"]] });
+        const { limit, page } = req.query;
+        const offset = (page - 1) * limit;
+
+        const orders = await Orders.findAll({
+            order: [["order_date", "DESC"]],
+            limit: Number(limit),
+            offset: Number(offset),
+        });
+
         return responseHelper.successResponse(res, orders, "orders_index");
     } catch (error) {
         console.error("Error fetching orders:", error);
