@@ -1,3 +1,27 @@
-node_modules/
-.env
+# === General ===
+.DS_Store
+Thumbs.db
+
+# === Node modules ===
+**/node_modules/
+
+# === Logs ===
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# === Environment ===
+**/.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# === Backend ===
 config/config.js
+
+# === Frontend ===
+frontend/build/
+frontend/coverage/
+frontend/.pnp
+frontend/.pnp.js
