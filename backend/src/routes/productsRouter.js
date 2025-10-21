@@ -46,9 +46,7 @@ const updateRelations = require("../controllers/products/put/updateRelations")
 const destroy = require("../controllers/products/delete/destroy")
 const removeRelation = require("../controllers/products/delete/removeRelation");
 
-
 /*-------------------------------------------------*/
-
 
 //get
 router.get("/filter", validateSchema(productFilterSchema, 'query'), filter);
@@ -91,6 +89,5 @@ router.put("/:id/relations", validateSchema(idParamSchema, "params"), validateSc
 // delete
 router.delete("/:id", validateSchema(idParamSchema, "params"), destroy);
 router.delete("/:idProduct/remove/:relationType/:relationId", validateSchema(deleteRelationSchema, "params"), removeRelation);
-
 
 module.exports = router;

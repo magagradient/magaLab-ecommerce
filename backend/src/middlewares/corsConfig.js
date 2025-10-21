@@ -2,8 +2,8 @@ const cors = require('cors');
 
 const whitelist = [
     'http://localhost:3000',
+    "http://localhost:3001",
     'https://tu-dominio-produccion.com',
-    // agregá acá otros dominios que quieras permitir
 ];
 
 const corsOptions = {
@@ -17,7 +17,7 @@ const corsOptions = {
             callback(new Error('CORS: Origen no permitido'));
         }
     },
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], // métodos permitidos
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], 
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'], // headers permitidos
     credentials: true, // si querés habilitar cookies o auth con credenciales
     optionsSuccessStatus: 204, // para navegadores legacy (IE11, algunos móviles)
