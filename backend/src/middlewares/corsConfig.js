@@ -3,6 +3,7 @@ const cors = require('cors');
 const whitelist = [
     'http://localhost:3000',
     "http://localhost:3001",
+    'http://localhost:5173',
     'https://tu-dominio-produccion.com',
 ];
 
