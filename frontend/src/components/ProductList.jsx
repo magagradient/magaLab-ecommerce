@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../services/api";
-// import "./ProductList.css"; // si querés agregar estilos separados
+// import "./ProductList.css"; 
 
 export default function ProductList() {
     const [products, setProducts] = useState([]);
