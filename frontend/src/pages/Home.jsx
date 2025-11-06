@@ -9,7 +9,6 @@ export default function Home() {
                     Descubrí productos únicos, creados con dedicación y estilo.
                     Navegá por nuestras categorías y encontrá lo que estás buscando.
                 </p>
-
                 <Link to="/products" className="home-button">
                     Ver productos
                 </Link>
