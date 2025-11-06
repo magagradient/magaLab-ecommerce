@@ -1,11 +1,7 @@
 export default function Footer() {
-    const currentYear = new Date().getFullYear();
-
     return (
-        <footer className="footer">
-            <div className="footer-container">
-                <p>© {currentYear} Mi E-commerce. Todos los derechos reservados.</p>
-            </div>
+        <footer className="bg-black text-white py-6 text-center mt-auto">
+            <p>© {new Date().getFullYear()} PlayDream — Todos los derechos reservados.</p>
         </footer>
     );
 }

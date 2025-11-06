@@ -2,17 +2,17 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
     return (
-        <section className="home">
-            <div className="home-container">
-                <h1>Bienvenido a Mi E-commerce</h1>
-                <p>
-                    Descubrí productos únicos, creados con dedicación y estilo.
-                    Navegá por nuestras categorías y encontrá lo que estás buscando.
-                </p>
-                <Link to="/products" className="home-button">
-                    Ver productos
-                </Link>
-            </div>
+        <section className="text-center py-20">
+            <h1 className="text-4xl font-bold mb-4">Bienvenido a PlayDream</h1>
+            <p className="text-lg mb-6">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi eos eius fuga explicabo veniam veritatis.
+            </p>
+            <Link
+                to="/shop"
+                className="bg-pink-500 text-white px-6 py-3 rounded hover:bg-pink-600"
+            >
+                Ver Tienda
+            </Link>
         </section>
     );
 }

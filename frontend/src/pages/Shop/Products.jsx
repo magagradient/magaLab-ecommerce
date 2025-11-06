@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ProductList from "../components/ProductList";
+import ProductList from "../../components/ProductList";
 
 export default function Products() {
     const [filter, setFilter] = useState("all");
