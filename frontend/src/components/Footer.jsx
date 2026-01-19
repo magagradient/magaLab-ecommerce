@@ -1,7 +1,7 @@
 export default function Footer() {
-    return (
-        <footer className="bg-black text-white py-6 text-center mt-auto">
-            <p>© {new Date().getFullYear()} PlayDream — Todos los derechos reservados.</p>
-        </footer>
-    );
+  return (
+    <div className="bg-red-600 text-white p-10 text-2xl">
+      SI ESTO ES ROJO, TAILWIND ANDA
+    </div>
+  );
 }
