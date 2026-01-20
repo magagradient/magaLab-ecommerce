@@ -1,28 +1,30 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header.jsx";
+
+import TopBar from "./components/TopBar";
+import Navbar from "./components/Navbar";
 import Footer from "./components/Footer.jsx";
 
 // Pages
 import Home from "./pages/Home.jsx";
-import Shop from "./pages/Shop/Shop.jsx";
+
+// Products
+import Products from "./pages/Shop/Products.jsx";
 import Series from "./pages/Shop/Series.jsx";
+import Animations from "./pages/Shop/Animations.jsx";
+import Color from "./pages/Shop/Color.jsx";
 import Style from "./pages/Shop/Style.jsx";
 import Theme from "./pages/Shop/Theme.jsx";
-import Color from "./pages/Shop/Color.jsx";
-import Animations from "./pages/Shop/Animations.jsx";
-import ProductPage from "./pages/Shop/Products.jsx";
-
-import Lab from "./pages/Lab.jsx";
 
 import Sold from "./pages/Sold.jsx";
-
-import Cart from "./pages/Cart/Cart.jsx";
-import Checkout from "./pages/Cart/Checkout.jsx";
-
+import Lab from "./pages/Lab.jsx";
 import Search from "./pages/Search.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 import NotFound from "./pages/NotFound.jsx";
+
+// Cart
+import Cart from "./pages/Cart/Cart.jsx";
+import Checkout from "./pages/Cart/Checkout.jsx";
 
 // Account
 import Login from "./pages/Account/Login.jsx";
@@ -37,23 +39,28 @@ import ResetPassword from "./pages/Account/ResetPassword.jsx";
 function App() {
   return (
     <Router>
-      <div className="app-container flex flex-col min-h-screen">
-        <Header />
+      <div className="flex flex-col min-h-screen">
 
-        <main className="flex-grow">
+        {/* Top layout */}
+        <TopBar />
+        <Navbar />
+
+        {/* Main content */}
+        <main className="pt-28 flex-grow">
           <Routes>
             {/* Home */}
             <Route path="/" element={<Home />} />
 
-            {/* Shop */}
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/shop/series" element={<Series />} />
-            <Route path="/shop/style" element={<Style />} />
-            <Route path="/shop/theme" element={<Theme />} />
-            <Route path="/shop/color" element={<Color />} />
-            <Route path="/shop/animations" element={<Animations />} />
-            <Route path="/shop/sold" element={<Sold />} />
-            <Route path="/product/:id" element={<ProductPage />} />
+            {/* Products */}
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/series" element={<Series />} />
+            <Route path="/products/animations" element={<Animations />} />
+            <Route path="/products/color" element={<Color />} />
+            <Route path="/products/style" element={<Style />} />
+            <Route path="/products/theme" element={<Theme />} />
+
+            {/* Sold */}
+            <Route path="/sold" element={<Sold />} />
 
             {/* Lab */}
             <Route path="/lab" element={<Lab />} />
@@ -65,7 +72,7 @@ function App() {
             {/* Search */}
             <Route path="/search" element={<Search />} />
 
-            {/* Info pages */}
+            {/* Info */}
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
 
@@ -79,11 +86,12 @@ function App() {
             <Route path="/account/forgot-password" element={<ForgotPassword />} />
             <Route path="/account/reset-password/:token" element={<ResetPassword />} />
 
-            {/* Not found */}
+            {/* 404 */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
 
+        {/* Footer */}
         <Footer />
       </div>
     </Router>
