@@ -36,65 +36,69 @@ import ChangePassword from "./pages/Account/ChangePassword.jsx";
 import ForgotPassword from "./pages/Account/ForgotPassword.jsx";
 import ResetPassword from "./pages/Account/ResetPassword.jsx";
 
+import FavoritesProvider from "./context/FavoritesContext";
+
 function App() {
   return (
-    <Router>
-      <div className="flex flex-col min-h-screen">
+    <FavoritesProvider>
+      <Router>
+        <div className="flex flex-col min-h-screen">
 
-        {/* Top layout */}
-        <TopBar />
-        <Navbar />
+          {/* Top layout */}
+          <TopBar />
+          <Navbar />
 
-        {/* Main content */}
-        <main className="pt-28 flex-grow">
-          <Routes>
-            {/* Home */}
-            <Route path="/" element={<Home />} />
+          {/* Main content */}
+          <main className="pt-28 flex-grow">
+            <Routes>
+              {/* Home */}
+              <Route path="/" element={<Home />} />
 
-            {/* Products */}
-            <Route path="/products" element={<Products />} />
-            <Route path="/products/series" element={<Series />} />
-            <Route path="/products/animations" element={<Animations />} />
-            <Route path="/products/color" element={<Color />} />
-            <Route path="/products/style" element={<Style />} />
-            <Route path="/products/theme" element={<Theme />} />
+              {/* Products */}
+              <Route path="/products" element={<Products />} />
+              <Route path="/products/series" element={<Series />} />
+              <Route path="/products/animations" element={<Animations />} />
+              <Route path="/products/color" element={<Color />} />
+              <Route path="/products/style" element={<Style />} />
+              <Route path="/products/theme" element={<Theme />} />
 
-            {/* Sold */}
-            <Route path="/sold" element={<Sold />} />
+              {/* Sold */}
+              <Route path="/sold" element={<Sold />} />
 
-            {/* Lab */}
-            <Route path="/lab" element={<Lab />} />
+              {/* Lab */}
+              <Route path="/lab" element={<Lab />} />
 
-            {/* Cart */}
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/cart/checkout" element={<Checkout />} />
+              {/* Cart */}
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/cart/checkout" element={<Checkout />} />
 
-            {/* Search */}
-            <Route path="/search" element={<Search />} />
+              {/* Search */}
+              <Route path="/search" element={<Search />} />
 
-            {/* Info */}
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+              {/* Info */}
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
 
-            {/* Account */}
-            <Route path="/account/login" element={<Login />} />
-            <Route path="/account/register" element={<Register />} />
-            <Route path="/account/logout" element={<Logout />} />
-            <Route path="/account/profile" element={<Profile />} />
-            <Route path="/account/favorites" element={<Favorites />} />
-            <Route path="/account/change-password" element={<ChangePassword />} />
-            <Route path="/account/forgot-password" element={<ForgotPassword />} />
-            <Route path="/account/reset-password/:token" element={<ResetPassword />} />
+              {/* Account */}
+              <Route path="/account/login" element={<Login />} />
+              <Route path="/account/register" element={<Register />} />
+              <Route path="/account/logout" element={<Logout />} />
+              <Route path="/account/profile" element={<Profile />} />
+              <Route path="/account/favorites" element={<Favorites />} />
+              <Route path="/account/change-password" element={<ChangePassword />} />
+              <Route path="/account/forgot-password" element={<ForgotPassword />} />
+              <Route path="/account/reset-password/:token" element={<ResetPassword />} />
 
-            {/* 404 */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
+              {/* 404 */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
 
-        {/* Footer */}
-        <Footer />
-      </div>
-    </Router>
+          {/* Footer */}
+          <Footer />
+        </div>
+      </Router>
+    </FavoritesProvider>
   );
 }
 

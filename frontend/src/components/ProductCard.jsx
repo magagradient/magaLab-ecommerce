@@ -1,27 +1,44 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function ProductCard({ product }) {
-    return (
-        <div className="product-card">
-            <Link to={`/product/${product.id_product}`} className="product-card-link">
-                <div className="product-image-wrapper">
-                    <img
-                        src={product.image || "/placeholder.jpg"}
-                        alt={product.title}
-                        className="product-image"
-                    />
-                </div>
+  const [fav, setFav] = useState(false);
 
-                <div className="product-info">
-                    <h3 className="product-title">{product.title}</h3>
-                    <p className="product-price">${product.price}</p>
-                </div>
-            </Link>
+  if (!product) return null;
 
-            <div className="product-actions">
-                <button className="buy-button">Comprar</button>
-                <button className="fav-button">♡</button>
-            </div>
-        </div>
-    );
+  return (
+    <div className="bg-zinc-900 rounded-xl p-4 text-white border border-zinc-800">
+      
+      <div className="aspect-square bg-zinc-800 mb-3 overflow-hidden">
+        <img
+          src={
+            product.image ||
+            `https://picsum.photos/500/500?random=${product.id}`
+          }
+          alt={product.title || "producto"}
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      <h3 className="text-sm font-medium mb-2">
+        {product.title || "Producto sin nombre"}
+      </h3>
+
+      <p className="text-emerald-400 mb-3">
+        ${product.price || 0}
+      </p>
+
+      <div className="flex justify-between items-center">
+        <button className="bg-white text-black px-4 py-1 rounded-full text-sm">
+          Comprar
+        </button>
+
+        <button
+          onClick={() => setFav(!fav)}
+          className={fav ? "text-red-500 text-xl" : "text-white text-xl"}
+        >
+          ♥
+        </button>
+      </div>
+    </div>
+  );
 }
