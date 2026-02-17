@@ -31,7 +31,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: "orders_products",
-        timestamps: false // No incluye `createdAt` ni `updatedAt`
+        timestamps: false,
+        freezeTableName: true 
     });
 
     return OrdersProducts;

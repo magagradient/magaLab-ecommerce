@@ -15,7 +15,8 @@ module.exports = (sequelize) => {
         cover_image: DataTypes.STRING
     }, {
         tableName: 'series',
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true 
     });
 
     Series.associate = (models) => {

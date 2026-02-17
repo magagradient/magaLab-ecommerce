@@ -31,7 +31,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: 'coupons',
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true 
     });
 
     return Coupons;

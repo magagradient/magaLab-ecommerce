@@ -14,7 +14,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: 'categories',
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true 
     });
 
     return Categories;

@@ -26,7 +26,8 @@ module.exports = (sequelize) => {
                 unique: true,
                 fields: ['id_product', 'id_keyword'] // Asegura que la combinación sea única
             }
-        ]
+        ],
+        freezeTableName: true 
     });
 
     return ProductKeywords;

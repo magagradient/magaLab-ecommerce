@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: "PaymentMethods",
+                model: "payment_methods", 
                 key: "id_payment_method",
             },
             onDelete: "CASCADE",

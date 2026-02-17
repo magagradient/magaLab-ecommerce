@@ -43,7 +43,7 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: true,
             references: {
-                model: 'Categories',  // Asegúrate que el nombre del modelo sea exacto
+                model: 'categories',  
                 key: 'id_category'
             }
         },
@@ -62,15 +62,16 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: true,
             references: {
-                model: 'Series',  // Asegúrate que el nombre del modelo sea exacto
+                model: 'series', 
                 key: 'id_series'
             }
         }
     }, {
         tableName: 'products',
-        timestamps: true,  // Esto indica que el modelo usará createdAt y updatedAt automáticamente
-        underscored: true, // Esto cambiará el nombre de las columnas a snake_case (created_at, updated_at)
-        paranoid: false,    // Soft delete: marca los productos como eliminados sin borrarlos físicamente
+        timestamps: true,  
+        underscored: true, 
+        paranoid: false,
+        freezeTableName: true     
     });
 
     return Products;

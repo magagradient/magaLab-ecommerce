@@ -51,44 +51,40 @@ const DownloadLinksModel = require("../models/download_links");
 // instanciar modelos:
 
 const models = {
-    Authors: AuthorsModel(sequelize, DataTypes),
-    BlogPosts: BlogPostsModel(sequelize, DataTypes),
-    CartItems: CartItemsModel(sequelize, DataTypes),
-    Categories: CategoriesModel(sequelize, DataTypes),
-    Colors: ColorsModel(sequelize, DataTypes),
-    Coupons: CouponsModel(sequelize, DataTypes),
-    DownloadLinks: DownloadLinksModel(sequelize, DataTypes),
-    FavoriteImages: FavoriteImagesModel(sequelize, DataTypes),
-    FavoriteSeries: FavoriteSeriesModel(sequelize, DataTypes),
-    Invoices: InvoicesModel(sequelize, DataTypes),
-    Keywords: KeywordsModel(sequelize, DataTypes),
-    Orders: OrdersModel(sequelize, DataTypes),
-    OrdersProducts: OrdersProductsModel(sequelize, DataTypes),
-    PasswordChanges: PasswordChangesModel(sequelize, DataTypes),
-    PasswordResets: PasswordResetsModel(sequelize, DataTypes),
-    PaymentMethods: PaymentMethodsModel(sequelize, DataTypes),
-    Payments: PaymentsModel(sequelize, DataTypes),
-    ProductColors: ProductColorsModel(sequelize, DataTypes),
-    ProductImages: ProductImagesModel(sequelize, DataTypes),
-    ProductKeywords: ProductKeywordsModel(sequelize, DataTypes),
-    ProductStyles: ProductStylesModel(sequelize, DataTypes),
-    ProductThemes: ProductThemesModel(sequelize, DataTypes),
-    Products: ProductsModel(sequelize, DataTypes),
-    Series: SeriesModel(sequelize, DataTypes),
-    ShoppingCarts: ShoppingCartsModel(sequelize, DataTypes),
-    Styles: StylesModel(sequelize, DataTypes),
-    Themes: ThemesModel(sequelize, DataTypes),
-    UserCoupons: UserCouponsModel(sequelize, DataTypes),
-    Users: UsersModel(sequelize, DataTypes),
+  Authors: AuthorsModel(sequelize, DataTypes),
+  BlogPosts: BlogPostsModel(sequelize, DataTypes),
+  CartItems: CartItemsModel(sequelize, DataTypes),
+  Categories: CategoriesModel(sequelize, DataTypes),
+  Colors: ColorsModel(sequelize, DataTypes),
+  Coupons: CouponsModel(sequelize, DataTypes),
+  DownloadLinks: DownloadLinksModel(sequelize, DataTypes),
+  FavoriteImages: FavoriteImagesModel(sequelize, DataTypes),
+  FavoriteSeries: FavoriteSeriesModel(sequelize, DataTypes),
+  Invoices: InvoicesModel(sequelize, DataTypes),
+  Keywords: KeywordsModel(sequelize, DataTypes),
+  Orders: OrdersModel(sequelize, DataTypes),
+  OrdersProducts: OrdersProductsModel(sequelize, DataTypes),
+  PasswordChanges: PasswordChangesModel(sequelize, DataTypes),
+  PasswordResets: PasswordResetsModel(sequelize, DataTypes),
+  PaymentMethods: PaymentMethodsModel(sequelize, DataTypes),
+  Payments: PaymentsModel(sequelize, DataTypes),
+  ProductColors: ProductColorsModel(sequelize, DataTypes),
+  ProductImages: ProductImagesModel(sequelize, DataTypes),
+  ProductKeywords: ProductKeywordsModel(sequelize, DataTypes),
+  ProductStyles: ProductStylesModel(sequelize, DataTypes),
+  ProductThemes: ProductThemesModel(sequelize, DataTypes),
+  Products: ProductsModel(sequelize, DataTypes),
+  Series: SeriesModel(sequelize, DataTypes),
+  ShoppingCarts: ShoppingCartsModel(sequelize, DataTypes),
+  Styles: StylesModel(sequelize, DataTypes),
+  Themes: ThemesModel(sequelize, DataTypes),
+  UserCoupons: UserCouponsModel(sequelize, DataTypes),
+  Users: UsersModel(sequelize, DataTypes),
 };
 
 // relaciones: 
 
 relations(models)
-
-
-
-// conexion a base de datos: 
 
 const connectDB = async () => {
     try {
@@ -101,7 +97,7 @@ const connectDB = async () => {
     }
 };
 
-// exportar:
+
 
 module.exports = { sequelize, connectDB, ...models };
 

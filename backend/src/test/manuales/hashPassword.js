@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const { Users } = require('../../database/indexModels'); // ajustá según tu ruta
 
 const emailToUpdate = "carlos@example.com";  // Cambiá por el email que quieras actualizar
-const newPlainPassword = "123456";           // Cambiá por la contraseña nueva que quieras
+const newPlainPassword = "123456";           // Cambiá por la contraseña nueva 
 
 (async () => {
     try {

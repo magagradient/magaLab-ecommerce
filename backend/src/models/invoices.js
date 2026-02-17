@@ -26,7 +26,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: 'invoices',
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true 
     });
 
     return Invoices;

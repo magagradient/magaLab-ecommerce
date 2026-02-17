@@ -21,6 +21,7 @@ module.exports = (sequelize) => {
     }, {
         tableName: "product_styles",
         timestamps: false,
+        freezeTableName: true 
     });
 
     return ProductStyles;

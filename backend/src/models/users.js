@@ -39,11 +39,12 @@ module.exports = (sequelize) => {
         role: {
             type: DataTypes.ENUM('user', 'admin'),
             allowNull: false,
-            defaultValue: 'user', // Por defecto, será 'user'
+            defaultValue: 'user', 
         }
     }, {
         tableName: 'users',
         timestamps: false, 
+        freezeTableName: true 
     });
 
     return Users;

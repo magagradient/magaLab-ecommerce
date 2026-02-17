@@ -14,7 +14,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: "keywords",
-        timestamps: false // No incluye `createdAt` ni `updatedAt`
+        timestamps: false,
+        freezeTableName: true 
     });
 
     return Keywords;

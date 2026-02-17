@@ -29,7 +29,6 @@ const relationMap = {
 };
 
 const removeRelation = async (req, res) => {
-    // ✅ Validación con Joi
     const { error } = deleteRelationSchema.validate(req.params);
     if (error) return errorResponse(res, 400, error.details[0].message);
 

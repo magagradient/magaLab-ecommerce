@@ -14,7 +14,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: "product_themes",
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true 
     });
 
     return ProductThemes ;

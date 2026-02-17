@@ -18,6 +18,7 @@ const seed = async () => {
     try {
         console.log('Conectando a la base de datos...');
         await sequelize.authenticate();
+        await sequelize.sync({ force: true, alter: false });
 
         console.log('Cargando datos de prueba sin resetear la base de datos...');
 

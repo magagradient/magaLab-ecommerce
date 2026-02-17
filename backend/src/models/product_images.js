@@ -21,7 +21,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: "product_images",
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true 
     });
 
     return ProductImages;

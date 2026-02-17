@@ -14,7 +14,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: 'colors',
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true 
     });
     
     return Colors;

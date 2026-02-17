@@ -21,7 +21,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: "favorite_series",
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true 
     });
 
     return FavoriteSeries;

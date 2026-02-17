@@ -29,7 +29,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: "authors",
-        timestamps: false // Porque estás usando created_at y updated_at manualmente
+        timestamps: false, 
+        freezeTableName: true 
     });
 
     return Authors;

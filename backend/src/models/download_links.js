@@ -39,7 +39,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: "download_links",
-        timestamps: false // No incluye `createdAt` y `updatedAt`
+        timestamps: false,
+        freezeTableName: true 
     });
 
     return DownloadLinks;

@@ -13,7 +13,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: "themes",
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true 
     });
 
     return Themes;

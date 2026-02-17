@@ -14,7 +14,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: "payment_methods",
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true 
     });
 
     return PaymentMethods;

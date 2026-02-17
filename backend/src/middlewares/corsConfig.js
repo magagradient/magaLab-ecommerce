@@ -20,7 +20,7 @@ const corsOptions = {
     },
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], 
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'], // headers permitidos
-    credentials: true, // si querés habilitar cookies o auth con credenciales
+    credentials: true, // si quiero habilitar cookies o auth con credenciales
     optionsSuccessStatus: 204, // para navegadores legacy (IE11, algunos móviles)
 };
 

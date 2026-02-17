@@ -34,7 +34,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: "password_resets",
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true 
     });
 
     return PasswordResets;

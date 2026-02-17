@@ -27,7 +27,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: "password_changes",
-        timestamps: false // Evita que Sequelize agregue `createdAt` y `updatedAt`
+        timestamps: false,
+        freezeTableName: true 
     });
 
     return PasswordChanges;

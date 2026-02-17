@@ -31,13 +31,14 @@ module.exports = (sequelize) => {
             defaultValue: 0, // 0 = no usado, 1 = usado
         },
         granted_date: {
-            type: DataTypes.DATE,  // 🔥 Cambiado de TIMESTAMP a DATE
+            type: DataTypes.DATE, 
             allowNull: false,
             defaultValue: DataTypes.NOW,
         },
     }, {
         tableName: "user_coupons",
         timestamps: false,
+        freezeTableName: true 
     });
 
     return UserCoupons;

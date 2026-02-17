@@ -1,7 +1,6 @@
-const path = require("path");
-const fs = require("fs");
-const { Products } = require("../../../database/indexModels");
+const { Products, ProductImages } = require("../../../database/indexModels");
 const { successResponse, errorResponse } = require("../../../utils/responseHelper");
+const cloudinary = require("../../../../config/cloudinary"); 
 
 const uploadImage = async (req, res) => {
     const { id } = req.params;
@@ -12,19 +11,20 @@ const uploadImage = async (req, res) => {
 
     try {
         const product = await Products.findByPk(id);
+        if (!product) return errorResponse(res, "not_found", "Producto no encontrado.", "products/uploadImage", 404);
 
-        if (!product) {
-            // Borra la imagen subida si no hay producto
-            fs.unlinkSync(req.file.path);
+        // Subir a Cloudinary
+        const result = await cloudinary.uploader.upload(req.file.path, {
+            folder: `products/${id}`, // opcional, organiza por producto
+        });
 
-            return errorResponse(res, "not_found", "Producto no encontrado.", "products/uploadImage", 404);
-        }
+        // Guardar la URL en ProductImages
+        await ProductImages.create({
+            id_product: product.id_product,
+            image_url: result.secure_url,
+        });
 
-        // Guardar la imagen en el campo correspondiente (ej: 'poster')
-        product.poster = req.file.filename;
-        await product.save();
-
-        return successResponse(res, product, "products/uploadImage");
+        return successResponse(res, { product, image_url: result.secure_url }, "products/uploadImage");
     } catch (error) {
         console.error("Error al subir imagen:", error);
         return errorResponse(res, "server_error", "Error al subir la imagen.", "products/uploadImage", 500);

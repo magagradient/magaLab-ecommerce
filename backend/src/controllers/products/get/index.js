@@ -27,7 +27,7 @@ const index = async (req, res) => {
             visible_in_portfolio,
             sort_by = "createdAt",
             order = "DESC",
-            limit = 5,
+            limit = 12,
             page = 1,
         } = req.query;
 

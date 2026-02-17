@@ -21,7 +21,8 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: 'cart_items',
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true 
     });
 
     return CartItems;
