@@ -7,12 +7,12 @@ export default function ProductCard({ product }) {
 
   return (
     <div className="bg-zinc-900 rounded-xl p-4 text-white border border-zinc-800">
-      
+
       <div className="aspect-square bg-zinc-800 mb-3 overflow-hidden">
         <img
           src={
-            product.image ||
-            `https://picsum.photos/500/500?random=${product.id}`
+            product.image_url ||
+            `https://picsum.photos/500/500?random=${product.id_product}`
           }
           alt={product.title || "producto"}
           className="w-full h-full object-cover"

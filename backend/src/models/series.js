@@ -10,9 +10,7 @@ module.exports = (sequelize) => {
         title: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        description: DataTypes.TEXT,
-        cover_image: DataTypes.STRING
+        }
     }, {
         tableName: 'series',
         timestamps: false,
