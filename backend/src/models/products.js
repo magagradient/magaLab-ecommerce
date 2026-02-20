@@ -20,10 +20,6 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false
     },
-    image_url: {           
-      type: DataTypes.STRING,
-      allowNull: true
-    },
     is_sold: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,

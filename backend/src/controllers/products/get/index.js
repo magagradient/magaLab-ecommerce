@@ -7,7 +7,9 @@ const {
     Styles,
     Colors,
     Themes,
+    ProductImages 
 } = require("../../../database/indexModels");
+
 const { successResponse, errorResponse } = require("../../../utils/responseHelper");
 
 const index = async (req, res) => {
@@ -46,6 +48,17 @@ const index = async (req, res) => {
         const include = [
             { model: Categories, as: "category" },
             { model: Series, as: "series" },
+
+            {
+                model: ProductImages,
+                as: "images",
+                where: { image_type: "cover" },
+                required: false,
+                separate: true, // evita duplicados por join
+                limit: 1,
+                order: [["id_image", "ASC"]]
+            },
+
             {
                 model: Keywords,
                 as: "keywords",
@@ -85,16 +98,30 @@ const index = async (req, res) => {
             attributes: { exclude: ["created_at", "updated_at"] },
         });
 
-        const productsData = products.map((product) => product.get({ plain: true }));
+        const productsData = products.map((product) =>
+            product.get({ plain: true })
+        );
 
         if (productsData.length === 0) {
-            return errorResponse(res, "not_found", "No hay productos disponibles.", "products_index", 404);
+            return errorResponse(
+                res,
+                "not_found",
+                "No hay productos disponibles.",
+                "products_index",
+                404
+            );
         }
 
         return successResponse(res, productsData, "products_index");
     } catch (error) {
         console.error("🔴 Error al obtener productos:", error);
-        return errorResponse(res, "server_error", "Error interno del servidor.", "products_index", 500);
+        return errorResponse(
+            res,
+            "server_error",
+            "Error interno del servidor.",
+            "products_index",
+            500
+        );
     }
 };
 

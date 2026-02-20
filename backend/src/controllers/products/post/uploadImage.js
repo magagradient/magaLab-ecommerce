@@ -4,6 +4,7 @@ const cloudinary = require("../../../../config/cloudinary");
 
 const uploadImage = async (req, res) => {
     const { id } = req.params;
+    const { type } = req.body; // 👈 importante
 
     if (!req.file) {
         return errorResponse(res, "bad_request", "No se subió ninguna imagen.", "products/uploadImage", 400);
@@ -11,20 +12,29 @@ const uploadImage = async (req, res) => {
 
     try {
         const product = await Products.findByPk(id);
-        if (!product) return errorResponse(res, "not_found", "Producto no encontrado.", "products/uploadImage", 404);
 
-        // Subir a Cloudinary
+        if (!product) {
+            return errorResponse(res, "not_found", "Producto no encontrado.", "products/uploadImage", 404);
+        }
+
+        // subir a cloudinary
         const result = await cloudinary.uploader.upload(req.file.path, {
-            folder: `products/${id}`, // opcional, organiza por producto
+            folder: `products/${id}`,
         });
 
-        // Guardar la URL en ProductImages
-        await ProductImages.create({
-            id_product: product.id_product,
-            image_url: result.secure_url,
+        // guardar en ProductImages
+        const image = await ProductImages.create({
+            product_id: product.id_product,   
+            url: result.secure_url,           
+            type: type || "gallery",          
         });
 
-        return successResponse(res, { product, image_url: result.secure_url }, "products/uploadImage");
+        return successResponse(
+            res,
+            { image },
+            "products/uploadImage"
+        );
+
     } catch (error) {
         console.error("Error al subir imagen:", error);
         return errorResponse(res, "server_error", "Error al subir la imagen.", "products/uploadImage", 500);

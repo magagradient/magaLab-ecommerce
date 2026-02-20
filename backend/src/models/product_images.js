@@ -18,6 +18,11 @@ module.exports = (sequelize) => {
         image_url: {
             type: DataTypes.STRING(255),
             allowNull: false
+        },
+        image_type: {
+            type: DataTypes.ENUM('cover', 'banner', 'gallery'),
+            allowNull: false,
+            defaultValue: 'gallery'
         }
     }, {
         tableName: "product_images",
