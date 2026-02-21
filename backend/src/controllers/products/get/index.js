@@ -50,13 +50,15 @@ const index = async (req, res) => {
             { model: Series, as: "series" },
 
             {
-                model: ProductImages,
-                as: "images",
-                where: { image_type: "cover" },
-                required: false,
-                separate: true, // evita duplicados por join
-                limit: 1,
-                order: [["id_image", "ASC"]]
+              model: ProductImages,
+              as: "images",
+              required: false,
+              separate: true,
+              limit: 4,
+              order: [
+                ["image_type", "DESC"],   // cover primero
+                ["id_image", "ASC"]
+              ]
             },
 
             {

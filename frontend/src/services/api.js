@@ -1,6 +1,6 @@
 const API_URL = "http://localhost:3000/api";
 
-// 🔹 Helper genérico para manejar peticiones
+// helper genérico para manejar peticiones
 async function request(endpoint, options = {}) {
     try {
         const response = await fetch(`${API_URL}${endpoint}`, {
@@ -25,13 +25,13 @@ async function request(endpoint, options = {}) {
 }
 
 //
-// 🛍️ Productos
+// productos
 //
 export const getProducts = () => request("/products");
 
 export const getProductById = (id) => request(`/products/${id}`);
 
-export const searchProducts = (query) => request(`/products/search?q=${encodeURIComponent(query)}`);
+export const searchProducts = (query) => request(`/products/search?term=${encodeURIComponent(query)}`);
 
 export const filterProducts = (filters) =>
     request("/products/filter", {
@@ -40,7 +40,7 @@ export const filterProducts = (filters) =>
     });
 
 //
-// 👤 Usuarios / Cuenta
+// usuarios / cuenta
 //
 export const registerUser = (userData) =>
     request("/users/register", {
@@ -81,7 +81,7 @@ export const resetPassword = (token, newPassword) =>
     });
 
 //
-// ❤️ Favoritos
+//  favoritos
 //
 export const getFavorites = (token) =>
     request("/favorites", {
@@ -102,7 +102,7 @@ export const removeFavorite = (token, productId) =>
     });
 
 //
-// 🛒 Carrito
+//  carrito
 //
 export const getCart = (token) =>
     request("/cart", {

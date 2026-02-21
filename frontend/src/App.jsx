@@ -56,11 +56,9 @@ function App() {
 
               {/* Products */}
               <Route path="/products" element={<Products />} />
-              <Route path="/products/series" element={<Series />} />
-              <Route path="/products/animations" element={<Animations />} />
-              <Route path="/products/color" element={<Color />} />
-              <Route path="/products/style" element={<Style />} />
-              <Route path="/products/theme" element={<Theme />} />
+              {/* <Route path="/products/animations" element={<Animations />} /> */}
+              {/* <Route path="/products/style" element={<Style />} /> */}
+              {/* <Route path="/products/theme" element={<Theme />} /> */}
 
               {/* Sold */}
               <Route path="/sold" element={<Sold />} />

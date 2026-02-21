@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../services/api";
+import { getProducts, searchProducts } from "../services/api";
 import ProductCard from "./ProductCard";
 
-export default function ProductList({ filter }) {
+export default function ProductList({ filter, searchQuery }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    getProducts()
-      .then((data) => {
-        console.log("Cantidad de productos:", data.length);
-        console.log("Productos completos:", data);
-        setProducts(data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+    if (searchQuery) {
+      searchProducts(searchQuery)
+        .then((data) => setProducts(data.results))
+        .catch(console.error);
+    } else {
+      getProducts()
+        .then(setProducts)
+        .catch(console.error);
+    }
+  }, [searchQuery]);
 
-  // (Por ahora no uso filter, pero lo dejo preparado)
   const filteredProducts =
     filter && filter !== "all"
       ? products.filter((p) => p.category === filter)

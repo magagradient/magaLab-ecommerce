@@ -10,20 +10,33 @@ export default function Navbar() {
         <div className="relative group">
           <span className="cursor-pointer">Products</span>
 
-          {/* Dropdown */}
           <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 hidden group-hover:block">
             <div className="bg-neutral-800 rounded shadow-lg">
               <ul className="py-2 text-sm">
-                <li><Link className="block px-4 py-2 hover:bg-neutral-700" to="/products">All</Link></li>
-                <li><Link className="block px-4 py-2 hover:bg-neutral-700" to="/products/series">Series</Link></li>
-                <li><Link className="block px-4 py-2 hover:bg-neutral-700" to="/products/animations">Animations</Link></li>
-                <li><Link className="block px-4 py-2 hover:bg-neutral-700" to="/products/color">Color</Link></li>
-                <li><Link className="block px-4 py-2 hover:bg-neutral-700" to="/products/style">Style</Link></li>
-                <li><Link className="block px-4 py-2 hover:bg-neutral-700" to="/products/theme">Theme</Link></li>
+                <li>
+                  <Link className="block px-4 py-2 hover:bg-neutral-700" to="/products">
+                    All
+                  </Link>
+                </li>
+                <li>
+                  <Link className="block px-4 py-2 hover:bg-neutral-700" to="/products?category=series">
+                    Series
+                  </Link>
+                </li>
+                <li>
+                  <Link className="block px-4 py-2 hover:bg-neutral-700" to="/products?category=keywords">
+                    Keywords
+                  </Link>
+                </li>
+                <li>
+                  <Link className="block px-4 py-2 hover:bg-neutral-700" to="/products?category=color">
+                    Color
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
-        </div> 
+        </div>
 
         <Link to="/sold">Sold</Link>
         <Link to="/about">About</Link>

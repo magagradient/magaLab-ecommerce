@@ -4,7 +4,7 @@ const cloudinary = require("../../../../config/cloudinary");
 
 const uploadImage = async (req, res) => {
     const { id } = req.params;
-    const { type } = req.body; // 👈 importante
+    const { type } = req.body; 
 
     if (!req.file) {
         return errorResponse(res, "bad_request", "No se subió ninguna imagen.", "products/uploadImage", 400);
