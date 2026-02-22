@@ -6,8 +6,9 @@ export default function Products() {
   const params = new URLSearchParams(location.search);
 
   const category = params.get("category") || "all";
-  const query = params.get("term") || "";
-  const colors = params.get("colors") || "";   // 👈 NUEVO
+  const query = params.get("q") || "";
+  const colors = params.get("colors") || "";   
+  const keywords = params.get("keywords") || "";
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-12 text-white">
@@ -18,7 +19,8 @@ export default function Products() {
       <ProductList 
         filter={category} 
         searchQuery={query}
-        colors={colors}   // 👈 NUEVO
+        colors={colors}   
+        keywords={keywords}
       />
     </section>
   );

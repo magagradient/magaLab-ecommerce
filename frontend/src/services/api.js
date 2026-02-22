@@ -30,13 +30,17 @@ export const getProducts = (query = "") => request(`/products${query}`);
 
 export const getProductById = (id) => request(`/products/${id}`);
 
-export const searchProducts = (query) => request(`/products/search?term=${encodeURIComponent(query)}`);
+export const searchProducts = (query) => request(`/products/search?q=${encodeURIComponent(query)}`);
 
 export const filterProducts = (filters) =>
   request("/products/filter", {
     method: "POST",
     body: JSON.stringify(filters),
   });
+
+// categorías
+
+export const getCategories = () => request("/categories");
 
 // colores
 

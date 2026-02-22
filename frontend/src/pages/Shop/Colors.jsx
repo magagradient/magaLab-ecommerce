@@ -24,7 +24,7 @@ function Colors() {
         {colors.map((color) => (
           <div
             key={color.id_color}
-            onClick={() => navigate(`/products?colors=${color.id_color}`)}
+            onClick={() => navigate(`/products?colors=${encodeURIComponent(color.name)}`)}
             className="cursor-pointer rounded-xl h-40 flex items-center justify-center font-medium text-black"
             style={{ backgroundColor: color.name.toLowerCase() }}
           >

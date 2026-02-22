@@ -1,4 +1,4 @@
-const { Op } = require("sequelize");
+const { Op, fn, col, where } = require("sequelize");
 const {
   Products,
   Categories,
@@ -46,9 +46,21 @@ const index = async (req, res) => {
     if (visible_in_portfolio !== undefined) where.visible_in_portfolio = visible_in_portfolio === "true";
 
     const include = [
-      { model: Categories, as: "category" },
-      { model: Series, as: "series" },
-
+      {
+        model: Categories,
+        as: "category",
+        where: category
+          ? {
+              name: {
+                [Op.in]: category.split(",").map(c => c.trim().toLowerCase())
+              }
+            }
+          : undefined,
+        required: !!category,
+      },
+      { 
+        model: Series, as: "series" 
+      },
       {
         model: ProductImages,
         as: "images",
@@ -60,7 +72,6 @@ const index = async (req, res) => {
           ["id_image", "ASC"]
         ]
       },
-
       {
         model: Keywords,
         as: "keywords",
@@ -73,13 +84,12 @@ const index = async (req, res) => {
         as: "colors",
         through: { attributes: [] },
         where: colors
-          ? {
-              id_color: {
-                [Op.in]: colors.split(",").map(id => Number(id.trim()))
-              }
+        ? {
+            name: {
+              [Op.in]: colors.split(",").map(c => c.trim().toLowerCase())
             }
-          : undefined,
-        required: !!colors,
+          }
+        : undefined,
       },
       {
         model: Styles,

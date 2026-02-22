@@ -3,9 +3,9 @@ const { Op, fn, col, where } = require("sequelize");
 const { successResponse, errorResponse } = require("../../../utils/responseHelper");
 
 const search = async (req, res) => {
-  const { term } = req.query;
+  const { q} = req.query;
 
-  if (!term || term.trim() === "") {
+  if (!q || q.trim() === "") {
     return errorResponse(
       res,
       "bad_request",
@@ -15,7 +15,7 @@ const search = async (req, res) => {
     );
   }
 
-  const searchTerm = term.toLowerCase();
+  const searchTerm = q.toLowerCase();
 
   try {
     const products = await Products.findAll({
@@ -37,15 +37,9 @@ const search = async (req, res) => {
           where(fn("LOWER", col("keywords.name")), {
             [Op.like]: `%${searchTerm}%`
           }),
-          // where(fn("LOWER", col("styles.name")), {
-          //   [Op.like]: `%${searchTerm}%`
-          // }),
           where(fn("LOWER", col("colors.name")), {
             [Op.like]: `%${searchTerm}%`
-          }),
-          // where(fn("LOWER", col("themes.name")), {
-          //   [Op.like]: `%${searchTerm}%`
-          // })
+          })
         ]
       },
       attributes: {
@@ -62,36 +56,22 @@ const search = async (req, res) => {
         { model: Series, as: "series" },
         { model: Colors, as: "colors" },
         { model: Keywords, as: "keywords" },
-        { model: Styles, as: "styles" },
-        { model: Themes, as: "themes" }
+        { model: Styles, as: "styles" },  
+        { model: Themes, as: "themes" }    
       ],
-      
       order: [
         [{ model: ProductImages, as: "images" }, "image_type", "ASC"]
       ]
     });
 
-    const extendedResults = products.filter(product => {
-      const fields = [
-        product.category?.name,
-        product.series?.title,
-        ...product.keywords.map(k => k.name),
-        ...product.styles.map(s => s.name),
-        ...product.colors.map(c => c.name),
-        ...product.themes.map(t => t.name)
-      ];
-      return fields.some(f => f?.toLowerCase().includes(searchTerm));
-    });
-
-    const totalResults = [
-      ...products,
-      ...extendedResults.filter(r => !products.includes(r))
-    ];
-
-    return successResponse(res, {
-      results: products,
-      total: products.length
-    }, "products_search");
+    return successResponse(
+      res,
+      {
+        results: products,
+        total: products.length
+      },
+      "products_search"
+    );
 
   } catch (error) {
     console.error("🔴 Error en búsqueda:", error);

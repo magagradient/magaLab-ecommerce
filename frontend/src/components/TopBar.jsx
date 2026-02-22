@@ -11,7 +11,7 @@ export default function TopBar() {
   const handleSearch = (e) => {
     if (e.key === "Enter") {
       if (!searchTerm.trim()) return;
-      navigate(`/products?term=${encodeURIComponent(searchTerm)}`);
+      navigate(`/products?q=${encodeURIComponent(searchTerm)}`);
       setSearchTerm("");
     }
   };

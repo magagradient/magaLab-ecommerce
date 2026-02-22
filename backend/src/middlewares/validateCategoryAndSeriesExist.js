@@ -5,13 +5,11 @@ const validateCategoryAndSeriesExist = async (req, res, next) => {
     try {
         const { id_category, id_series } = req.body;
 
-        // Validar categoría
         const categoryExists = await Categories.findByPk(id_category);
         if (!categoryExists) {
             return errorResponse(res, 'bad_request', `La categoría con id ${id_category} no existe.`, 'products/create', 400);
         }
 
-        // Validar serie (si viene)
         if (id_series !== undefined && id_series !== null) {
             const seriesExists = await Series.findByPk(id_series);
             if (!seriesExists) {
