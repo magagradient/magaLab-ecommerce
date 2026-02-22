@@ -11,7 +11,7 @@ import Home from "./pages/Home.jsx";
 import Products from "./pages/Shop/Products.jsx";
 import Series from "./pages/Shop/Series.jsx";
 import Animations from "./pages/Shop/Animations.jsx";
-import Color from "./pages/Shop/Color.jsx";
+import Colors from "./pages/Shop/Colors.jsx";
 import Style from "./pages/Shop/Style.jsx";
 import Theme from "./pages/Shop/Theme.jsx";
 
@@ -59,6 +59,7 @@ function App() {
               {/* <Route path="/products/animations" element={<Animations />} /> */}
               {/* <Route path="/products/style" element={<Style />} /> */}
               {/* <Route path="/products/theme" element={<Theme />} /> */}
+              <Route path="/colors" element={<Colors />} />
 
               {/* Sold */}
               <Route path="/sold" element={<Sold />} />

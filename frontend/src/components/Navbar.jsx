@@ -29,7 +29,7 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li>
-                  <Link className="block px-4 py-2 hover:bg-neutral-700" to="/products?category=color">
+                  <Link className="block px-4 py-2 hover:bg-neutral-700" to="/colors">
                     Color
                   </Link>
                 </li>

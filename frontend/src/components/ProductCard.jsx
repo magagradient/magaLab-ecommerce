@@ -5,27 +5,30 @@ export default function ProductCard({ product }) {
   const [isHovered, setIsHovered] = useState(false);
 
   if (!product) return null;
-  
 
-  // Ordenar imágenes para que el cover quede primero
-  const sortedImages = (product.images || []).sort((a, b) => {
-    if (a.image_type === "cover") return -1;
-    if (b.image_type === "cover") return 1;
-    return 0;
-  });
+  const images = Array.isArray(product.images) ? product.images : [];
 
-  const coverImage = sortedImages[0];
-  const hoverImage = sortedImages[1];
+  const coverImage =
+    images.find(img => img.image_type === "cover") ||
+    images[0] ||
+    null;
+
+  const hoverImage =
+    images.find(
+      img =>
+        img.image_type !== "cover" &&
+        img.id_image !== coverImage?.id_image
+    ) || null;
 
   const coverSrc =
     coverImage?.image_url ||
     `https://picsum.photos/500/500?random=${product.id_product}`;
 
-  const hoverSrc = hoverImage?.image_url;
+  const hoverSrc = hoverImage?.image_url || null;
 
   return (
     <div className="bg-zinc-900 rounded-xl p-4 text-white border border-zinc-800">
-      
+
       {/* Imagen */}
       <div
         className="relative aspect-square bg-zinc-800 mb-3 overflow-hidden group"
@@ -52,7 +55,7 @@ export default function ProductCard({ product }) {
           />
         )}
 
-        {/* Flechita overlay */}
+        {/* Flecha overlay */}
         <div
           className={`absolute inset-0 flex items-center justify-end pr-3 transition-opacity duration-300 ${
             isHovered ? "opacity-100" : "opacity-0"

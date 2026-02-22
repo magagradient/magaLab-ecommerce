@@ -7,6 +7,7 @@ export default function Products() {
 
   const category = params.get("category") || "all";
   const query = params.get("term") || "";
+  const colors = params.get("colors") || "";   // 👈 NUEVO
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-12 text-white">
@@ -14,7 +15,11 @@ export default function Products() {
         Catálogo de productos
       </h1>
 
-      <ProductList filter={category} searchQuery={query} />
+      <ProductList 
+        filter={category} 
+        searchQuery={query}
+        colors={colors}   // 👈 NUEVO
+      />
     </section>
   );
 }

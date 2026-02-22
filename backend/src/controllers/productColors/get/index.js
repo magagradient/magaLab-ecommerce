@@ -14,7 +14,7 @@ const index = async (req, res) => {
             }]
         });
 
-        const result = colors.map(pc => pc.Color); // extraer solo la data de Colors
+        const result = colors.map(pc => pc.color); 
 
         return responseHelper.successResponse(res, result, "product_colors_list");
     } catch (error) {
