@@ -1,3 +1,8 @@
+require("dotenv").config();
+
+if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
+    throw new Error("JWT_SECRET no está definido o es demasiado corto");
+}
 const express = require("express");
 const xss = require('xss-clean');
 const helmet = require("helmet");
@@ -14,7 +19,7 @@ const PORT = process.env.PORT || 3000;
 // seguridad y cors
 app.use(helmet());
 app.use(cors);
-app.use(morgan("dev")); // "dev" es el formato de logs para desarrollo
+app.use(morgan("dev")); 
 
 // middleware
 app.use(express.json());

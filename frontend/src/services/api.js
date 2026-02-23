@@ -46,6 +46,10 @@ export const getCategories = () => request("/categories");
 
 export const getColors = () => request("/colors");
 
+// keywords
+
+export const getKeywords = () => request("/keywords");
+
 // usuarios / cuenta
 
 export const registerUser = (userData) =>

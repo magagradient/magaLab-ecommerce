@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const upload = require("../middlewares/multerConfig");
-const authMiddleware = require("../middlewares/authMiddleware");
+const auth = require("../middlewares/authMiddleware");
 const loginLimiter = require("../middlewares/loginLimiter");
 const registerLimiter = require("../middlewares/registerLimiter");
 const validateSchema = require("../middlewares/validateSchema");
@@ -33,27 +33,27 @@ const updateRole = require("../controllers/users/patch/updateRole");
 // delete
 const destroy = require("../controllers/users/delete/destroy");
 
-/////////////////////////////////////////////////
-
 // get (protegidas)
-router.get("/", authMiddleware, validateSchema(usersPaginationSchema, "query"), index);
-router.get("/status", authMiddleware, status);
-router.get("/profile", authMiddleware, getProfile);
-router.get("/:id", authMiddleware, validateSchema(idParamSchema, "params"), show);
-router.get("/:id/password-changes", authMiddleware, validateSchema(idParamSchema, "params"), passwordChangesIndex);
+router.get("/", auth(), validateSchema(usersPaginationSchema, "query"), index);
+router.get("/status", auth(), status);
+router.get("/profile", auth(), getProfile);
+router.get("/:id", auth(), validateSchema(idParamSchema, "params"), show);
+router.get("/:id/password-changes", auth(), validateSchema(idParamSchema, "params"), passwordChangesIndex);
 
-// post (pública, para crear usuario)
+// post (públicas)
 router.post("/login", loginLimiter, validateSchema(loginSchema, "body"), login);
 router.post("/", registerLimiter, validateSchema(registerSchema, "body"), create);
 
 // put (protegida)
-router.put("/:id", authMiddleware, validateSchema(idParamSchema, "params"), validateSchema(updateUserSchema, "body"), update);
+router.put("/:id", auth(), validateSchema(idParamSchema, "params"), validateSchema(updateUserSchema, "body"), update);
 
 // patch (protegidas)
-router.patch("/:id/avatar", authMiddleware, validateSchema(idParamSchema, "params"), upload.single("avatar"), updateAvatar);
-router.patch("/:id/role", authMiddleware, validateSchema(idParamSchema, "params"), updateRole);
+router.patch("/:id/avatar", auth(), validateSchema(idParamSchema, "params"), upload.single("avatar"), updateAvatar);
 
-// delete (protegida)
-router.delete("/:id", authMiddleware, destroy);
+// 🔐 solo admin
+router.patch("/:id/role", auth(["admin"]), validateSchema(idParamSchema, "params"), updateRole);
+
+// 🔐 solo admin
+router.delete("/:id", auth(["admin"]), validateSchema(idParamSchema, "params"), destroy);
 
 module.exports = router;

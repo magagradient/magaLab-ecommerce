@@ -13,6 +13,7 @@ export default function ProductList({ filter, searchQuery, colors, keywords }) {
     if (keywords) params.append("keywords", keywords);
   
     const queryString = params.toString() ? `?${params.toString()}` : "";
+    
   
     if (searchQuery) {
       searchProducts(searchQuery)
