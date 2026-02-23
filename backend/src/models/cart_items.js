@@ -22,7 +22,13 @@ module.exports = (sequelize) => {
     }, {
         tableName: 'cart_items',
         timestamps: false,
-        freezeTableName: true 
+        freezeTableName: true,
+        indexes: [
+            {
+                unique: true,
+                fields: ['id_cart', 'id_product']
+            }
+        ]
     });
 
     return CartItems;
