@@ -9,7 +9,6 @@ const {
     productCreateSchema,
     productUpdateSchema,
     updateRelationsSchema,
-    productFilterSchema,
     productSearchSchema,
     deleteRelationSchema,
     assignRelationParamsSchema,
@@ -20,7 +19,6 @@ const idParamSchema = require("../validators/shared/idParamSchema");
 
 // get
 const index = require("../controllers/products/get/index");
-const filter = require("../controllers/products/get/filter");
 const show = require("../controllers/products/get/show");
 const status = require("../controllers/products/get/status");
 const getRelations = require("../controllers/products/get/getRelations");
@@ -49,7 +47,6 @@ const removeRelation = require("../controllers/products/delete/removeRelation");
 /*-------------------------------------------------*/
 
 //get
-router.get("/filter", validateSchema(productFilterSchema, 'query'), filter);
 router.get("/search", validateSchema(productSearchSchema, 'query'), search);
 router.get("/status/:type", status);
 router.get("/:id/related", related);

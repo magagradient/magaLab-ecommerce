@@ -37,7 +37,6 @@ const index = async (req, res) => {
 
     const where = {};
     if (category) where.categoryId = category;
-    if (series) where.seriesId = series;
     if (title) where.title = { [Op.like]: `%${title}%` };
     if (description) where.description = { [Op.like]: `%${description}%` };
     if (price_min) where.price = { ...(where.price || {}), [Op.gte]: Number(price_min) };
@@ -58,8 +57,17 @@ const index = async (req, res) => {
           : undefined,
         required: !!category,
       },
-      { 
-        model: Series, as: "series" 
+      {
+        model: Series,
+        as: "series",
+        where: series
+          ? {
+              title: {
+                [Op.in]: series.split(",").map(s => s.trim())
+              }
+            }
+          : undefined,
+        required: !!series,
       },
       {
         model: ProductImages,
@@ -76,7 +84,13 @@ const index = async (req, res) => {
         model: Keywords,
         as: "keywords",
         through: { attributes: [] },
-        where: keywords ? { name: { [Op.like]: `%${keywords}%` } } : undefined,
+        where: keywords
+          ? {
+              name: {
+                [Op.in]: keywords.split(",").map(k => k.trim().toLowerCase())
+              }
+            }
+          : undefined,
         required: !!keywords,
       },
       {

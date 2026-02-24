@@ -32,12 +32,6 @@ export const getProductById = (id) => request(`/products/${id}`);
 
 export const searchProducts = (query) => request(`/products/search?q=${encodeURIComponent(query)}`);
 
-export const filterProducts = (filters) =>
-  request("/products/filter", {
-    method: "POST",
-    body: JSON.stringify(filters),
-  });
-
 // categorías
 
 export const getCategories = () => request("/categories");
@@ -49,6 +43,10 @@ export const getColors = () => request("/colors");
 // keywords
 
 export const getKeywords = () => request("/keywords");
+
+// series
+
+export const getSeries = () => request("/series");
 
 // usuarios / cuenta
 

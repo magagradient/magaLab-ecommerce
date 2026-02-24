@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getProducts, searchProducts } from "../services/api";
 import ProductCard from "./ProductCard";
 
-export default function ProductList({ filter, searchQuery, colors, keywords }) {
+export default function ProductList({ filter, searchQuery, colors, keywords, series }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -11,6 +11,7 @@ export default function ProductList({ filter, searchQuery, colors, keywords }) {
     if (colors) params.append("colors", colors);
     if (filter && filter !== "all") params.append("category", filter);
     if (keywords) params.append("keywords", keywords);
+    if (series) params.append("series", series);
   
     const queryString = params.toString() ? `?${params.toString()}` : "";
     
@@ -25,11 +26,11 @@ export default function ProductList({ filter, searchQuery, colors, keywords }) {
         .catch(console.error);
     }
   
-  }, [searchQuery, filter, colors, keywords]);
+  }, [searchQuery, filter, colors, keywords, series]);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      {products.slice(0, 12).map((product) => (
+      {products.map((product) => (
         <ProductCard
           key={product.id_product}
           product={product}

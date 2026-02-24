@@ -7,13 +7,17 @@ import Footer from "./components/Footer.jsx";
 // Pages
 import Home from "./pages/Home.jsx";
 
+// Shop
+import Shop from "./pages/Shop/Shop.jsx";
+
 // Products
 import Products from "./pages/Shop/Products.jsx";
-import Series from "./pages/Shop/Series.jsx";
-import Animations from "./pages/Shop/Animations.jsx";
-import Colors from "./pages/Shop/Colors.jsx";
-import Style from "./pages/Shop/Style.jsx";
-import Theme from "./pages/Shop/Theme.jsx";
+// import Keywords from "./pages/Shop/Keywords.jsx";
+// import Series from "./pages/Shop/Series.jsx";
+// import Colors from "./pages/Shop/Colors.jsx";
+// import Animations from "./pages/Shop/Animations.jsx";
+// import Style from "./pages/Shop/Style.jsx";
+// import Theme from "./pages/Shop/Theme.jsx";
 
 import Sold from "./pages/Sold.jsx";
 import Lab from "./pages/Lab.jsx";
@@ -54,12 +58,17 @@ function App() {
               {/* Home */}
               <Route path="/" element={<Home />} />
 
+              {/* SHOP */}
+              <Route path="/shop" element={<Shop />} />
+
               {/* Products */}
               <Route path="/products" element={<Products />} />
+              {/* <Route path="/keywords" element={<Keywords />} />
+              <Route path="/series" element={<Series />} /> */}
               {/* <Route path="/products/animations" element={<Animations />} /> */}
               {/* <Route path="/products/style" element={<Style />} /> */}
               {/* <Route path="/products/theme" element={<Theme />} /> */}
-              <Route path="/colors" element={<Colors />} />
+              {/* <Route path="/colors" element={<Colors />} /> */}
 
               {/* Sold */}
               <Route path="/sold" element={<Sold />} />

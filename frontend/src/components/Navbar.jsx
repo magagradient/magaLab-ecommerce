@@ -7,7 +7,11 @@ export default function Navbar() {
 
         <Link to="/">Home</Link>
 
-        <div className="relative group">
+        <Link to="/shop">Shop</Link>
+
+        <Link to="/products">Products</Link>
+
+        {/* <div className="relative group">
           <span className="cursor-pointer">Products</span>
 
           <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 hidden group-hover:block">
@@ -19,12 +23,12 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li>
-                  <Link className="block px-4 py-2 hover:bg-neutral-700" to="/products?category=series">
+                  <Link className="block px-4 py-2 hover:bg-neutral-700" to="/series">
                     Series
                   </Link>
                 </li>
                 <li>
-                  <Link className="block px-4 py-2 hover:bg-neutral-700" to="/products?category=keywords">
+                  <Link className="block px-4 py-2 hover:bg-neutral-700" to="/keywords">
                     Keywords
                   </Link>
                 </li>
@@ -36,7 +40,7 @@ export default function Navbar() {
               </ul>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <Link to="/sold">Sold</Link>
         <Link to="/about">About</Link>

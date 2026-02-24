@@ -12,6 +12,12 @@ function Colors() {
       .catch(console.error);
   }, []);
 
+  const handleClick = (name) => {
+    const params = new URLSearchParams(window.location.search);
+    params.set("colors", name);
+    navigate(`/products?${params.toString()}`);
+  };
+
   return (
     <section className="py-16 px-6 text-center text-white">
       <h1 className="text-4xl font-bold mb-6">Colores</h1>
@@ -24,7 +30,7 @@ function Colors() {
         {colors.map((color) => (
           <div
             key={color.id_color}
-            onClick={() => navigate(`/products?colors=${encodeURIComponent(color.name)}`)}
+            onClick={() => handleClick(color.name)}
             className="cursor-pointer rounded-xl h-40 flex items-center justify-center font-medium text-black"
             style={{ backgroundColor: color.name.toLowerCase() }}
           >
