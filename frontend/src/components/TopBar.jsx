@@ -1,10 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Search, User, ShoppingCart, Heart } from "lucide-react";
 import { useFavorites } from "../context/FavoritesContext";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 export default function TopBar() {
   const { favorites } = useFavorites();
+  const { user } = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
@@ -58,7 +60,8 @@ export default function TopBar() {
             <ShoppingCart className="w-5 h-5 hover:text-pink-400 transition" />
           </Link>
 
-          <Link to="/account/login">
+          {/* 👇 Usuario inteligente */}
+          <Link to={user ? "/account/profile" : "/account/login"}>
             <User className="w-5 h-5 hover:text-pink-400 transition" />
           </Link>
 

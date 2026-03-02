@@ -91,23 +91,23 @@ export const resetPassword = (token, newPassword) =>
 //  favoritos
 
 export const getFavorites = (token) =>
-  request("/favorites", {
+  request("/favorite_images", {
     headers: { Authorization: `Bearer ${token}` },
   });
 
 export const addFavorite = (token, productId) =>
-  request("/favorites", {
+  request("/favorite_images", {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
     body: JSON.stringify({ product_id: productId }),
   });
 
 export const removeFavorite = (token, productId) =>
-  request(`/favorites/${productId}`, {
+  request(`/favorite_images/${productId}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
   });
-
+  
 //
 //  carrito
 //
