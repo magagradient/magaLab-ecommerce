@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { useFavorites } from "../context/FavoritesContext";
 
 export default function ProductCard({ product }) {
-  const [fav, setFav] = useState(false);
+  const { isFavorite, add, remove } = useFavorites();
   const [isHovered, setIsHovered] = useState(false);
 
   if (!product) return null;
@@ -9,9 +10,7 @@ export default function ProductCard({ product }) {
   const images = Array.isArray(product.images) ? product.images : [];
 
   const coverImage =
-    images.find(img => img.image_type === "cover") ||
-    images[0] ||
-    null;
+    images.find(img => img.image_type === "cover") || images[0] || null;
 
   const hoverImage =
     images.find(
@@ -26,6 +25,16 @@ export default function ProductCard({ product }) {
 
   const hoverSrc = hoverImage?.image_url || null;
 
+  const fav = isFavorite(product.id_product);
+
+  const toggleFavorite = () => {
+    if (fav) {
+      remove(product.id_product);
+    } else {
+      add(product.id_product);
+    }
+  };
+
   return (
     <div className="bg-zinc-900 rounded-xl p-4 text-white border border-zinc-800">
 
@@ -35,7 +44,6 @@ export default function ProductCard({ product }) {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Imagen principal */}
         <img
           src={coverSrc}
           alt={product.title || "producto"}
@@ -43,8 +51,6 @@ export default function ProductCard({ product }) {
             isHovered && hoverSrc ? "opacity-0" : "opacity-100"
           }`}
         />
-
-        {/* Imagen hover */}
         {hoverSrc && (
           <img
             src={hoverSrc}
@@ -68,19 +74,13 @@ export default function ProductCard({ product }) {
       </div>
 
       {/* Título */}
-      <h3 className="text-sm font-medium mb-1">
-        {product.title || "Producto sin nombre"}
-      </h3>
+      <h3 className="text-sm font-medium mb-1">{product.title || "Producto sin nombre"}</h3>
 
       {/* Descripción */}
-      <p className="text-xs text-zinc-400 line-clamp-2 mb-2">
-        {product.description || ""}
-      </p>
+      <p className="text-xs text-zinc-400 line-clamp-2 mb-2">{product.description || ""}</p>
 
       {/* Precio */}
-      <p className="text-emerald-400 mb-3">
-        ${product.price || 0}
-      </p>
+      <p className="text-emerald-400 mb-3">${product.price || 0}</p>
 
       {/* Botones */}
       <div className="flex justify-between items-center">
@@ -89,8 +89,8 @@ export default function ProductCard({ product }) {
         </button>
 
         <button
-          onClick={() => setFav(!fav)}
-          className={fav ? "text-red-500 text-xl" : "text-white text-xl"}
+          onClick={toggleFavorite}
+          className={`${fav ? "text-red-500" : "text-white"} text-xl`}
         >
           ♥
         </button>

@@ -1,5 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import { AuthProvider } from "./context/AuthContext";
+import FavoritesProvider from "./context/FavoritesContext";
+
 import TopBar from "./components/TopBar";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer.jsx";
@@ -9,8 +12,6 @@ import Home from "./pages/Home.jsx";
 
 // Shop
 import Shop from "./pages/Shop/Shop.jsx";
-
-// Products
 import Products from "./pages/Shop/Products.jsx";
 // import Keywords from "./pages/Shop/Keywords.jsx";
 // import Series from "./pages/Shop/Series.jsx";
@@ -40,73 +41,97 @@ import ChangePassword from "./pages/Account/ChangePassword.jsx";
 import ForgotPassword from "./pages/Account/ForgotPassword.jsx";
 import ResetPassword from "./pages/Account/ResetPassword.jsx";
 
-import FavoritesProvider from "./context/FavoritesContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
-    <FavoritesProvider>
-      <Router>
-        <div className="flex flex-col min-h-screen">
+    <AuthProvider>
+      <FavoritesProvider>
+        <Router>
+          <div className="flex flex-col min-h-screen">
 
-          {/* Top layout */}
-          <TopBar />
-          <Navbar />
+            {/* Top layout */}
+            <TopBar />
+            <Navbar />
 
-          {/* Main content */}
-          <main className="pt-28 flex-grow">
-            <Routes>
-              {/* Home */}
-              <Route path="/" element={<Home />} />
+            {/* Main content */}
+            <main className="pt-28 flex-grow">
+              <Routes>
 
-              {/* SHOP */}
-              <Route path="/shop" element={<Shop />} />
+                {/* Home */}
+                <Route path="/" element={<Home />} />
 
-              {/* Products */}
-              <Route path="/products" element={<Products />} />
-              {/* <Route path="/keywords" element={<Keywords />} />
-              <Route path="/series" element={<Series />} /> */}
-              {/* <Route path="/products/animations" element={<Animations />} /> */}
-              {/* <Route path="/products/style" element={<Style />} /> */}
-              {/* <Route path="/products/theme" element={<Theme />} /> */}
-              {/* <Route path="/colors" element={<Colors />} /> */}
+                {/* SHOP */}
+                <Route path="/shop" element={<Shop />} />
+                <Route path="/products" element={<Products />} />
+                {/* <Route path="/keywords" element={<Keywords />} />
+                <Route path="/series" element={<Series />} /> */}
+                {/* <Route path="/products/animations" element={<Animations />} /> */}
+                {/* <Route path="/products/style" element={<Style />} /> */}
+                {/* <Route path="/products/theme" element={<Theme />} /> */}
+                {/* <Route path="/colors" element={<Colors />} /> */}
 
-              {/* Sold */}
-              <Route path="/sold" element={<Sold />} />
+                {/* Sold */}
+                <Route path="/sold" element={<Sold />} />
 
-              {/* Lab */}
-              <Route path="/lab" element={<Lab />} />
+                {/* Lab */}
+                <Route path="/lab" element={<Lab />} />
 
-              {/* Cart */}
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/cart/checkout" element={<Checkout />} />
+                {/* Cart */}
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/cart/checkout" element={<Checkout />} />
 
-              {/* Search */}
-              <Route path="/search" element={<Search />} />
+                {/* Search */}
+                <Route path="/search" element={<Search />} />
 
-              {/* Info */}
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
+                {/* Info */}
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
 
-              {/* Account */}
-              <Route path="/account/login" element={<Login />} />
-              <Route path="/account/register" element={<Register />} />
-              <Route path="/account/logout" element={<Logout />} />
-              <Route path="/account/profile" element={<Profile />} />
-              <Route path="/account/favorites" element={<Favorites />} />
-              <Route path="/account/change-password" element={<ChangePassword />} />
-              <Route path="/account/forgot-password" element={<ForgotPassword />} />
-              <Route path="/account/reset-password/:token" element={<ResetPassword />} />
+                {/* Account - públicas */}
+                <Route path="/account/login" element={<Login />} />
+                <Route path="/account/register" element={<Register />} />
+                <Route path="/account/logout" element={<Logout />} />
+                <Route path="/account/forgot-password" element={<ForgotPassword />} />
+                <Route path="/account/reset-password/:token" element={<ResetPassword />} />
 
-              {/* 404 */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
+                {/* Account - protegidas */}
+                <Route
+                  path="/account/profile"
+                  element={
+                    <ProtectedRoute>
+                      <Profile />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/account/favorites"
+                  element={
+                    <ProtectedRoute>
+                      <Favorites />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/account/change-password"
+                  element={
+                    <ProtectedRoute>
+                      <ChangePassword />
+                    </ProtectedRoute>
+                  }
+                />
 
-          {/* Footer */}
-          <Footer />
-        </div>
-      </Router>
-    </FavoritesProvider>
+                {/* 404 */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+
+            {/* Footer */}
+            <Footer />
+          </div>
+        </Router>
+      </FavoritesProvider>
+    </AuthProvider>
   );
 }
 
