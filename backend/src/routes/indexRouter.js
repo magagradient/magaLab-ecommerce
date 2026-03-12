@@ -8,9 +8,9 @@ const categoriesRouter = require("./categoriesRouter");
 const colorsRouter = require("./colorsRouter");
 const couponsRouter = require("./couponsRouter");
 const downloadLinksRouter = require("./downloadLinksRouter");
-const favoriteImagesRouter = require("./favoriteImagesRouter") 
-const favoriteSeriesRouter = require("./favoriteSeriesRouter") 
-const invoicesRouter = require("./invoicesRouter")
+const favoriteSeriesRouter = require("./favoriteSeriesRouter"); 
+const favoriteProductsRouter = require("./favoriteProductsRouter");
+const invoicesRouter = require("./invoicesRouter");
 const keywordsRouter = require("./keywordsRouter");
 const ordersRouter = require("./ordersRouter");
 const ordersProductsRouter = require("./ordersProductsRouter");
@@ -42,8 +42,8 @@ router.use("/categories", categoriesRouter);
 router.use("/colors", colorsRouter);
 router.use("/coupons", couponsRouter);
 router.use("/download_links", downloadLinksRouter);
-router.use("/favorite_images", favoriteImagesRouter)
-router.use("/favorite_series", favoriteSeriesRouter)
+router.use("/favorite_series", favoriteSeriesRouter);
+router.use("/favorite_products", favoriteProductsRouter);
 router.use("/invoices", invoicesRouter);
 router.use("/keywords", keywordsRouter);
 router.use("/orders", ordersRouter);

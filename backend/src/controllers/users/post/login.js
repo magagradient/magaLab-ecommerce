@@ -39,7 +39,14 @@ const login = async (req, res) => {
             { expiresIn: "1h" }
         );
 
-        return res.json({ token });
+        return res.json({
+          token,
+          user: {
+            id_user: user.id_user,
+            email: user.email,
+            role: user.role
+          }
+        });
 
     } catch (error) {
         console.error("Error en login:", error);

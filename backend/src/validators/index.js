@@ -4,174 +4,174 @@ const userIdParamSchema = require('./shared/userIdParamSchema');
 
 // products
 const {
-    productCreateSchema,
-    productUpdateSchema,
-    productFilterSchema,
-    productSearchSchema,
-    deleteRelationSchema,
-    productRelationSchemas,
-    statusParamSchema,
-    updateRelationsSchema,
-    productsArraySchema,
+  productCreateSchema,
+  productUpdateSchema,
+  productFilterSchema,
+  productSearchSchema,
+  deleteRelationSchema,
+  productRelationSchemas,
+  statusParamSchema,
+  updateRelationsSchema,
+  productsArraySchema,
 } = require('./products');
 
 // categories
 const {
-    categoryCreateSchema,
-    categoryUpdateSchema
+  categoryCreateSchema,
+  categoryUpdateSchema
 } = require('./categories');
 
 // colors
 const {
-    colorCreateSchema,
-    colorUpdateSchema
+  colorCreateSchema,
+  colorUpdateSchema
 } = require('./colors');
 
 // styles
 const {
-    createStyleSchema,
-    updateStyleSchema
+  createStyleSchema,
+  updateStyleSchema
 } = require('./styles');
 
 // themes
 const {
-    createThemeSchema,
-    updateThemeSchema
+  createThemeSchema,
+  updateThemeSchema
 } = require("./themes");
 
 // keywords
 const {
-    createKeywordSchema,
-    updateKeywordSchema
+  createKeywordSchema,
+  updateKeywordSchema
 } = require('./keywords');
 
 // series
 const {
-    createSeriesSchema,
-    updateSeriesSchema
+  createSeriesSchema,
+  updateSeriesSchema
 } = require("./series");
 
 // authors
 const {
-    createAuthorSchema,
-    updateAuthorSchema
+  createAuthorSchema,
+  updateAuthorSchema
 } = require('./authors');
 
 // blogPosts
 const {
-    createBlogPostSchema,
-    updateBlogPostSchema
+  createBlogPostSchema,
+  updateBlogPostSchema
 } = require('./blogPost');
 
 // productColors
 const {
-    productColorParamsSchema
+  productColorParamsSchema
 } = require('./productColor');
 
 // productImages
 const {
-    createProductImageSchema,
-    productImageParamsSchema
+  createProductImageSchema,
+  productImageParamsSchema
 } = require('./productImages');
 
 // productKeywords
 const {
-    createProductKeywordSchema,
-    paramsProductKeywordSchema,
-    idProductParamSchema
+  createProductKeywordSchema,
+  paramsProductKeywordSchema,
+  idProductParamSchema
 } = require('./productKeywords');
 
 // cartItems
 const {
-    createCartItemSchema,
-    updateCartItemSchema,
-    cartItemsQuerySchema
+  createCartItemSchema,
+  updateCartItemSchema,
+  cartItemsQuerySchema
 } = require('./cartItems');
 
 // coupons
 const {
-    createCouponSchema,
-    updateCouponSchema,
-    userCouponParamsSchema,
+  createCouponSchema,
+  updateCouponSchema,
+  userCouponParamsSchema,
 } = require('./coupons');
 
 // downloadLinks
 const {
-    createDownloadLinkSchema,
-    updateDownloadLinkSchema,
-    productIdParamSchema,
+  createDownloadLinkSchema,
+  updateDownloadLinkSchema,
+  productIdParamSchema,
 } = require('./downloadLinks')
 
-// favoriteImages
-const {
-    createFavoriteImageSchema,
-    imageIdParamSchema,
-    deleteByUserAndImageParamsSchema,
-} = require('./favoriteImages')
 
 // favoriteSeries
 const {
-    favoriteSeriesCreateSchema,
-    favoriteSeriesParamsSchema,
+  favoriteSeriesCreateSchema,
+  favoriteSeriesParamsSchema,
 } = require('./favoriteSeries')
+
+// favoriteProducts
+const {
+  favoriteProductCreateSchema,
+  favoriteProductParamsSchema,
+} = require('./favoriteProducts');
 
 // invoices
 const {
-    invoiceCreateSchema,
-    invoiceUpdateSchema,
-    invoicesQuerySchema
+  invoiceCreateSchema,
+  invoiceUpdateSchema,
+  invoicesQuerySchema
 } = require('./invoices')
 
 // orders
 const {
-    orderCreateSchema,
-    orderUpdateSchema,
-    ordersPaginationSchema
+  orderCreateSchema,
+  orderUpdateSchema,
+  ordersPaginationSchema
 } = require('./orders')
 
 // ordersProducts
 const {
-    ordersProductsParamsSchema,
-    ordersProductsCreateSchema,
-    ordersProductsUpdateSchema,
-    ordersProductsOnlyOrderParamSchema
+  ordersProductsParamsSchema,
+  ordersProductsCreateSchema,
+  ordersProductsUpdateSchema,
+  ordersProductsOnlyOrderParamSchema
 } = require('./ordersProducts')
 
 // payments
 const {
-    paymentCreateSchema,
-    paymentUpdateSchema,
+  paymentCreateSchema,
+  paymentUpdateSchema,
 } = require("./payments");
 
 // paymentsMethods
 const {
-    paymentMethodCreateSchema,
-    paymentMethodUpdateSchema
+  paymentMethodCreateSchema,
+  paymentMethodUpdateSchema
 } = require("./paymentMethods");
 
 // productStyles
 const {
-    productStyleParamsSchema,
-    productStyleIdParamSchema,
-    productStyleCreateSchema
+  productStyleParamsSchema,
+  productStyleIdParamSchema,
+  productStyleCreateSchema
 } = require("./productStyle");
 
 const {
-    createShoppingCartSchema
+  createShoppingCartSchema
 } = require('./shoppingCarts');
 
 // userCoupons
 const {
-    createUserCouponSchema,
-    updateUserCouponSchema,
+  createUserCouponSchema,
+  updateUserCouponSchema,
 } = require('./userCoupons');
 
 // auth
 const {
-    loginSchema,
-    registerSchema,
-    updateUserSchema,
-    usersPaginationSchema
+  loginSchema,
+  registerSchema,
+  updateUserSchema,
+  usersPaginationSchema
 } = require('./users');
 
 // passwordChanges
@@ -179,146 +179,141 @@ const createPasswordChangeSchema = require('./passwordChanges');
 
 // passwordReset
 const {
-    confirmPasswordResetSchema,
-    requestPasswordResetSchema,
-    tokenParamSchema,
+  confirmPasswordResetSchema,
+  requestPasswordResetSchema,
+  tokenParamSchema,
 } = require('./passwordResets')
 
 
 // export general
 module.exports = {
-    // products
-    productCreateSchema,
-    productUpdateSchema,
-    productFilterSchema,
-    productSearchSchema,
-    deleteRelationSchema,
-    productRelationSchemas,
-    statusParamSchema,
-    updateRelationsSchema,
-    productsArraySchema,
+  // products
+  productCreateSchema,
+  productUpdateSchema,
+  productFilterSchema,
+  productSearchSchema,
+  deleteRelationSchema,
+  productRelationSchemas,
+  statusParamSchema,
+  updateRelationsSchema,
+  productsArraySchema,
 
-    // categories
-    categoryCreateSchema,
-    categoryUpdateSchema,
+  // favoriteProducts
+  favoriteProductCreateSchema,
+  favoriteProductParamsSchema,
+  
+  // categories
+  categoryCreateSchema,
+  categoryUpdateSchema,
 
-    // colors
-    colorCreateSchema,
-    colorUpdateSchema,
+  // colors
+  colorCreateSchema,
+  colorUpdateSchema,
 
-    // styles
-    createStyleSchema,
-    updateStyleSchema,
+  // styles
+  createStyleSchema,
+  updateStyleSchema,
 
-    // themes
-    createThemeSchema,
-    updateThemeSchema,
+  // themes
+  createThemeSchema,
+  updateThemeSchema,
 
-    // keywords
-    createKeywordSchema,
-    updateKeywordSchema,
+  // keywords
+  createKeywordSchema,
+  updateKeywordSchema,
 
-    // series
-    createSeriesSchema,
-    updateSeriesSchema,
+  // series
+  createSeriesSchema,
+  updateSeriesSchema,
 
-    // authors
-    createAuthorSchema,
-    updateAuthorSchema,
+  // authors
+  createAuthorSchema,
+  updateAuthorSchema,
 
-    // shared
-    idParamSchema,
-    userIdParamSchema,
+  // shared
+  idParamSchema,
+  userIdParamSchema,
 
-    // blogPost
-    createBlogPostSchema,
-    updateBlogPostSchema,
+  // blogPost
+  createBlogPostSchema,
+  updateBlogPostSchema,
 
-    // productColor
-    productColorParamsSchema,
+  // productColor
+  productColorParamsSchema,
 
-    // productimages
-    createProductImageSchema,
-    productImageParamsSchema,
+  // productimages
+  createProductImageSchema,
+  productImageParamsSchema,
 
-    // productKeywords
-    createProductKeywordSchema,
-    paramsProductKeywordSchema,
-    idProductParamSchema,
+  // productKeywords
+  createProductKeywordSchema,
+  paramsProductKeywordSchema,
+  idProductParamSchema,
 
-    // cartItems
-    createCartItemSchema,
-    updateCartItemSchema,
-    cartItemsQuerySchema,
+  // cartItems
+  createCartItemSchema,
+  updateCartItemSchema,
+  cartItemsQuerySchema,
 
-    // coupons
-    createCouponSchema,
-    updateCouponSchema,
-    userCouponParamsSchema,
+  // coupons
+  createCouponSchema,
+  updateCouponSchema,
+  userCouponParamsSchema,
 
-    // downloadLinks
-    createDownloadLinkSchema,
-    updateDownloadLinkSchema,
-    productIdParamSchema,
+  // downloadLinks
+  createDownloadLinkSchema,
+  updateDownloadLinkSchema,
+  productIdParamSchema,
 
-    // favoriteImages
-    createFavoriteImageSchema,
-    imageIdParamSchema,
-    deleteByUserAndImageParamsSchema,
+  // invoices
+  invoiceCreateSchema,
+  invoiceUpdateSchema,
+  invoicesQuerySchema,
 
-    // favoriteImages
-    favoriteSeriesCreateSchema,
-    favoriteSeriesParamsSchema,
+  // orders
+  orderCreateSchema,
+  orderUpdateSchema,
+  ordersPaginationSchema,
 
-    // invoices
-    invoiceCreateSchema,
-    invoiceUpdateSchema,
-    invoicesQuerySchema,
+  // ordersProducts
+  ordersProductsParamsSchema,
+  ordersProductsCreateSchema,
+  ordersProductsUpdateSchema,
+  ordersProductsOnlyOrderParamSchema,
 
-    // orders
-    orderCreateSchema,
-    orderUpdateSchema,
-    ordersPaginationSchema,
+  // payments
+  paymentCreateSchema,
+  paymentUpdateSchema,
 
-    // ordersProducts
-    ordersProductsParamsSchema,
-    ordersProductsCreateSchema,
-    ordersProductsUpdateSchema,
-    ordersProductsOnlyOrderParamSchema,
+  // paymentMethods
+  paymentMethodCreateSchema,
+  paymentMethodUpdateSchema,
 
-    // payments
-    paymentCreateSchema,
-    paymentUpdateSchema,
+  // productStyles
+  productStyleParamsSchema,
+  productStyleIdParamSchema,
+  productStyleCreateSchema,
 
-    // paymentMethods
-    paymentMethodCreateSchema,
-    paymentMethodUpdateSchema,
+  // shoppingCarts
+  createShoppingCartSchema,
 
-    // productStyles
-    productStyleParamsSchema,
-    productStyleIdParamSchema,
-    productStyleCreateSchema,
+  // userCoupons
+  createUserCouponSchema,
+  updateUserCouponSchema,
 
-    // shoppingCarts
-    createShoppingCartSchema,
+  // users
+  loginSchema,
+  registerSchema,
+  updateUserSchema,
+  usersPaginationSchema,
 
-    // userCoupons
-    createUserCouponSchema,
-    updateUserCouponSchema,
+  // PasswordChanges
+  createPasswordChangeSchema,
 
-    // users
-    loginSchema,
-    registerSchema,
-    updateUserSchema,
-    usersPaginationSchema,
-
-    // PasswordChanges
-    createPasswordChangeSchema,
-
-    // passwordReset
-    confirmPasswordResetSchema,
-    requestPasswordResetSchema,
-    tokenParamSchema,
+  // passwordReset
+  confirmPasswordResetSchema,
+  requestPasswordResetSchema,
+  tokenParamSchema,
 };
 
 

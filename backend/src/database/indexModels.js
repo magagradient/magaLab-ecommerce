@@ -28,8 +28,8 @@ const ThemesModel = require("../models/themes");
 const UsersModel = require("../models/users");
 const PasswordChangesModel = require("../models/password_changes");
 const PasswordResetsModel = require("../models/password_resets");
-const FavoriteImagesModel = require("../models/favorite_images");
 const FavoriteSeriesModel = require("../models/favorite_series");
+const FavoriteProductsModel = require("../models/favorite_products");
 const UserCouponsModel = require("../models/user_coupons");
 
 // Carritos y Órdenes:
@@ -58,8 +58,8 @@ const models = {
   Colors: ColorsModel(sequelize, DataTypes),
   Coupons: CouponsModel(sequelize, DataTypes),
   DownloadLinks: DownloadLinksModel(sequelize, DataTypes),
-  FavoriteImages: FavoriteImagesModel(sequelize, DataTypes),
   FavoriteSeries: FavoriteSeriesModel(sequelize, DataTypes),
+  FavoriteProducts: FavoriteProductsModel(sequelize, DataTypes),
   Invoices: InvoicesModel(sequelize, DataTypes),
   Keywords: KeywordsModel(sequelize, DataTypes),
   Orders: OrdersModel(sequelize, DataTypes),

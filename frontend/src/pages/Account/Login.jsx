@@ -19,10 +19,8 @@ export default function Login() {
     setLoading(true);
 
     try {
-      // Llamamos al login del contexto
       await login(form.email, form.password);
 
-      // Si funciona, redirigimos a perfil
       navigate("/account/profile");
     } catch (err) {
       console.error(err);

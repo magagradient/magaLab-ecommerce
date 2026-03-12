@@ -47,19 +47,13 @@ export const AuthProvider = ({ children }) => {
     console.log("RESPUESTA LOGIN:", response);
 
     const newToken = response?.token || response?.data?.token;
+    const userData = response?.user || response?.data?.user;
 
     console.log("TOKEN GUARDADO EN LOGIN:", newToken);
+    console.log("USER DESDE LOGIN:", userData);
 
     localStorage.setItem("token", newToken);
     setToken(newToken);
-
-    const profileResponse = await getProfileRequest(newToken);
-    console.log("RESPUESTA PROFILE DESDE LOGIN:", profileResponse);
-
-    const userData = profileResponse?.data || profileResponse;
-
-    console.log("USER SETEADO DESDE LOGIN:", userData);
-
     setUser(userData);
   };
 
@@ -71,9 +65,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider
-      value={{ user, token, checkingAuth, login, logout }}
-    >
+    <AuthContext.Provider value={{ user, token, checkingAuth, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

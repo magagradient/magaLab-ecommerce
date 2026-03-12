@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-    const FavoriteImages = sequelize.define("FavoriteImages", {
-        id_favorite_image: {
+    const FavoriteProducts = sequelize.define("FavoriteProducts", {
+        id_favorite_product: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        id_image: {
+        id_product: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
@@ -20,10 +20,16 @@ module.exports = (sequelize) => {
             defaultValue: DataTypes.NOW
         }
     }, {
-        tableName: "favorite_images",
+        tableName: "favorite_products",
         timestamps: false,
-        freezeTableName: true 
+        freezeTableName: true,
+        indexes: [
+            {
+                unique: true,
+                fields: ["id_user", "id_product"]
+            }
+        ]
     });
 
-    return FavoriteImages;
+    return FavoriteProducts;
 };
