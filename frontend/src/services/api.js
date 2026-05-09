@@ -1,6 +1,6 @@
 const API_URL = "http://localhost:3000/api";
 
-// helper genérico para manejar peticiones
+// helper
 async function request(endpoint, options = {}) {
   try {
     const response = await fetch(`${API_URL}${endpoint}`, {
@@ -17,38 +17,39 @@ async function request(endpoint, options = {}) {
     }
 
     const data = await response.json().catch(() => ({}));
-    return data.data || data; // soporte para { data: ... } o respuesta directa
+    return data.data || data;
   } catch (error) {
     console.error(`❌ Error en ${endpoint}:`, error.message);
     throw error;
   }
 }
 
-// productos
+//
+// 🛍️ PRODUCTOS
+//
 
 export const getProducts = (query = "") => request(`/products${query}`);
 
 export const getProductById = (id) => request(`/products/${id}`);
 
-export const searchProducts = (query) => request(`/products/search?q=${encodeURIComponent(query)}`);
+export const searchProducts = (query) =>
+  request(`/products/search?q=${encodeURIComponent(query)}`);
 
-// categorías
+//
+// 🧩 CATEGORÍAS / FILTROS
+//
 
 export const getCategories = () => request("/categories");
 
-// colores
-
 export const getColors = () => request("/colors");
-
-// keywords
 
 export const getKeywords = () => request("/keywords");
 
-// series
-
 export const getSeries = () => request("/series");
 
-// usuarios / cuenta
+//
+// 👤 USUARIOS
+//
 
 export const registerUser = (userData) =>
   request("/users/register", {
@@ -62,7 +63,8 @@ export const loginUser = (credentials) =>
     body: JSON.stringify(credentials),
   });
 
-export const logoutUser = () => request("/users/logout", { method: "POST" });
+export const logoutUser = () =>
+  request("/users/logout", { method: "POST" });
 
 export const getUserProfile = (token) =>
   request("/users/profile", {
@@ -88,7 +90,9 @@ export const resetPassword = (token, newPassword) =>
     body: JSON.stringify({ password: newPassword }),
   });
 
-//  favoritos
+//
+// ❤️ FAVORITOS
+//
 
 export const getFavoriteProducts = (token, userId) =>
   request(`/favorite_products?id_user=${userId}`, {
@@ -101,7 +105,7 @@ export const addFavoriteProduct = (token, userId, productId) =>
     headers: { Authorization: `Bearer ${token}` },
     body: JSON.stringify({
       id_user: userId,
-      id_product: productId
+      id_product: productId,
     }),
   });
 
@@ -111,10 +115,18 @@ export const removeFavoriteProduct = (token, productId) =>
     headers: { Authorization: `Bearer ${token}` },
   });
 
+//
+// ✅ ALIASES LIMPIOS (para el context)
+//
+
+export const getFavorites = getFavoriteProducts;
+export const addFavorite = addFavoriteProduct;
+export const removeFavorite = removeFavoriteProduct;
 
 //
-//  carrito
+// 🛒 CARRITO
 //
+
 export const getCart = (token) =>
   request("/cart", {
     headers: { Authorization: `Bearer ${token}` },

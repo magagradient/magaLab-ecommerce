@@ -1,50 +1,25 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
+  const baseClass = "text-[#ffb4ab] hover:text-error hover:skew-x-2 hover:bg-[#ffb4ab]/10 transition-all duration-75 uppercase px-2 py-1 text-label-sm";
+  const activeClass = "text-error border-b border-error pb-1";
+  const linkStyle = { fontFamily: "Space Grotesk" };
+
   return (
-    <div className="fixed top-16 left-0 w-full h-12 bg-neutral-900 text-white z-40">
+    <div className="fixed top-16 left-0 w-full h-12 bg-surface border-b border-outline-variant z-40">
       <div className="max-w-screen-xl mx-auto h-full flex items-center justify-center gap-8">
 
-        <Link to="/">Home</Link>
+        <NavLink to="/" end style={linkStyle} className={({ isActive }) => `${baseClass} ${isActive ? activeClass : ""}`}>Home</NavLink>
 
-        <Link to="/shop">Shop</Link>
+        <NavLink to="/shop" style={linkStyle} className={({ isActive }) => `${baseClass} ${isActive ? activeClass : ""}`}>Shop</NavLink>
 
-        <Link to="/products">Products</Link>
+        <NavLink to="/products" style={linkStyle} className={({ isActive }) => `${baseClass} ${isActive ? activeClass : ""}`}>Products</NavLink>
 
-        {/* <div className="relative group">
-          <span className="cursor-pointer">Products</span>
+        <NavLink to="/sold" style={linkStyle} className={({ isActive }) => `${baseClass} ${isActive ? activeClass : ""}`}>Sold</NavLink>
 
-          <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 hidden group-hover:block">
-            <div className="bg-neutral-800 rounded shadow-lg">
-              <ul className="py-2 text-sm">
-                <li>
-                  <Link className="block px-4 py-2 hover:bg-neutral-700" to="/products">
-                    All
-                  </Link>
-                </li>
-                <li>
-                  <Link className="block px-4 py-2 hover:bg-neutral-700" to="/series">
-                    Series
-                  </Link>
-                </li>
-                <li>
-                  <Link className="block px-4 py-2 hover:bg-neutral-700" to="/keywords">
-                    Keywords
-                  </Link>
-                </li>
-                <li>
-                  <Link className="block px-4 py-2 hover:bg-neutral-700" to="/colors">
-                    Color
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div> */}
+        <NavLink to="/about" style={linkStyle} className={({ isActive }) => `${baseClass} ${isActive ? activeClass : ""}`}>About</NavLink>
 
-        <Link to="/sold">Sold</Link>
-        <Link to="/about">About</Link>
-        <Link to="/contact">Contact</Link>
+        <NavLink to="/contact" style={linkStyle} className={({ isActive }) => `${baseClass} ${isActive ? activeClass : ""}`}>Contact</NavLink>
 
       </div>
     </div>

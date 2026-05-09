@@ -7,9 +7,48 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #141218;
+  color: #e6e0e9;
+  overflow-x: hidden;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.glitch-border {
+    position: relative;
+}
+.glitch-border::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 1px solid #ffb4ab;
+    clip-path: polygon(0 0, 10% 0, 10% 100%, 0 100%, 0 0, 90% 0, 90% 100%, 100% 100%, 100% 0, 90% 0);
+    pointer-events: none;
+}
+
+.scanline {
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 0, 0, 0.1);
+  position: absolute;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://grainy-gradients.vercel.app/noise.svg');
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 999;
 }
