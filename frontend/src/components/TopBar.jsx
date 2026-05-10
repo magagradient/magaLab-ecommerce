@@ -3,12 +3,14 @@ import { Search, User, ShoppingCart, Heart } from "lucide-react";
 import { useFavorites } from "../context/FavoritesContext";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { useCart } from "../context/CartContext";
 
 export default function TopBar() {
   const { favorites } = useFavorites();
   const { user } = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  const { toggleCart } = useCart();
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
@@ -20,13 +22,13 @@ export default function TopBar() {
 
   return (
     <div className="fixed top-0 left-0 w-full h-16 bg-surface border-b border-outline-variant z-50">
-      <div className="h-full grid grid-cols-3 items-center px-10"> 
-        
+      <div className="h-full grid grid-cols-3 items-center px-10">
+
         {/* Logo */}
         <div className="flex items-center justify-start">
-        <Link to="/" style={{ fontFamily: "Space Grotesk", letterSpacing: "-0.05em", color: "#ffb4ab" }} className="text-2xl font-bold hover:opacity-80 transition-opacity">
-          MAGA_LAB
-        </Link>
+          <Link to="/" style={{ fontFamily: "Space Grotesk", letterSpacing: "-0.05em", color: "#ffb4ab" }} className="text-2xl font-bold hover:opacity-80 transition-opacity">
+            MAGA_LAB
+          </Link>
         </div>
 
         {/* Search */}
@@ -56,9 +58,9 @@ export default function TopBar() {
             )}
           </Link>
 
-          <Link to="/cart" className="group">
+          <button onClick={toggleCart} className="group">
             <ShoppingCart className="w-5 h-5 text-on-surface-variant group-hover:text-[#ffb4ab] transition-colors duration-75" />
-          </Link>
+          </button>
 
           <Link to={user ? "/account/profile" : "/account/login"} className="group">
             <User className="w-5 h-5 text-on-surface-variant group-hover:text-[#ffb4ab] transition-colors duration-75" />

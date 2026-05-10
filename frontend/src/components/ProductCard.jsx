@@ -1,53 +1,44 @@
 import { useState } from "react";
 import { useFavorites } from "../context/FavoritesContext";
+import { useCart } from "../context/CartContext";
 
 export default function ProductCard({ product }) {
   const { isFavorite, add, remove } = useFavorites();
+  const { toggleCart } = useCart();
   const [isHovered, setIsHovered] = useState(false);
 
   if (!product) return null;
 
   const images = Array.isArray(product.images) ? product.images : [];
 
-  const coverImage =
-    images.find(img => img.image_type === "cover") || images[0] || null;
+  const coverImage = images.find(img => img.image_type === "cover") || images[0] || null;
+  const hoverImage = images.find(img => img.image_type !== "cover" && img.id_image !== coverImage?.id_image) || null;
 
-  const hoverImage =
-    images.find(
-      img =>
-        img.image_type !== "cover" &&
-        img.id_image !== coverImage?.id_image
-    ) || null;
-
-  const coverSrc =
-    coverImage?.image_url ||
-    `https://picsum.photos/500/500?random=${product.id_product}`;
-
+  const coverSrc = coverImage?.image_url || `https://picsum.photos/500/500?random=${product.id_product}`;
   const hoverSrc = hoverImage?.image_url || null;
 
   const fav = isFavorite(product.id_product);
 
   const toggleFavorite = () => {
-    if (fav) {
-      remove(product.id_product);
-    } else {
-      add(product.id_product);
-    }
+    if (fav) remove(product.id_product);
+    else add(product.id_product);
   };
 
   return (
-    <div className="bg-zinc-900 rounded-xl p-4 text-white border border-zinc-800">
-
+    <div
+      className="group relative bg-[#1d1b20] border border-[#494551] overflow-hidden hover:border-[#ffb4ab] transition-colors"
+      style={{ fontFamily: "Space Grotesk" }}
+    >
       {/* Imagen */}
       <div
-        className="relative aspect-square bg-zinc-800 mb-3 overflow-hidden group"
+        className="aspect-square relative overflow-hidden"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         <img
           src={coverSrc}
           alt={product.title || "producto"}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+          className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-110 ${
             isHovered && hoverSrc ? "opacity-0" : "opacity-100"
           }`}
         />
@@ -61,39 +52,42 @@ export default function ProductCard({ product }) {
           />
         )}
 
-        {/* Flecha overlay */}
-        <div
-          className={`absolute inset-0 flex items-center justify-end pr-3 transition-opacity duration-300 ${
-            isHovered ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <div className="bg-black/60 backdrop-blur-sm rounded-full w-8 h-8 flex items-center justify-center text-white text-lg">
-            →
-          </div>
+        {/* Badge */}
+        <div className="absolute top-4 left-4 bg-[#141218]/90 text-[#ffb4ab] text-xs px-2 py-1 backdrop-blur-sm border border-[#ffb4ab] uppercase tracking-widest">
+          {product.id_product?.toString().padStart(2, "0")}_{product.title?.split(" ")[0]?.toUpperCase()}
         </div>
       </div>
 
-      {/* Título */}
-      <h3 className="text-sm font-medium mb-1">{product.title || "Producto sin nombre"}</h3>
+      {/* Info */}
+      <div className="p-4 flex justify-between items-center">
+        <div>
+          <h3 className="text-[#e6e0e9] font-bold uppercase tracking-tight text-sm mb-1">
+            {product.title || "Producto sin nombre"}
+          </h3>
+          <p className="text-[#cbc4d2] text-xs uppercase">
+            ${product.price || 0} // LIC_BASIC
+          </p>
+        </div>
 
-      {/* Descripción */}
-      <p className="text-xs text-zinc-400 line-clamp-2 mb-2">{product.description || ""}</p>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleFavorite}
+            className={`w-10 h-10 border flex items-center justify-center transition-all ${
+              fav
+                ? "bg-[#ffb4ab] border-[#ffb4ab] text-[#690005]"
+                : "border-[#494551] text-[#cbc4d2] hover:border-[#ffb4ab] hover:text-[#ffb4ab]"
+            }`}
+          >
+            ♥
+          </button>
 
-      {/* Precio */}
-      <p className="text-emerald-400 mb-3">${product.price || 0}</p>
-
-      {/* Botones */}
-      <div className="flex justify-between items-center">
-        <button className="bg-white text-black px-4 py-1 rounded-full text-sm">
-          Comprar
-        </button>
-
-        <button
-          onClick={toggleFavorite}
-          className={`${fav ? "text-red-500" : "text-white"} text-xl`}
-        >
-          ♥
-        </button>
+          <button
+            onClick={toggleCart}
+            className="w-10 h-10 bg-[#ffb4ab] text-[#690005] flex items-center justify-center hover:bg-transparent hover:border hover:border-[#ffb4ab] hover:text-[#ffb4ab] transition-all"
+          >
+            <span className="material-symbols-outlined text-base">add_shopping_cart</span>
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -2,9 +2,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
 import FavoritesProvider from "./context/FavoritesContext";
+import { CartProvider } from "./context/CartContext";
 
 import TopBar from "./components/TopBar";
 import Navbar from "./components/Navbar";
+import CartSidebar from "./components/CartSidebar";
 import Footer from "./components/Footer.jsx";
 
 // Pages
@@ -46,13 +48,15 @@ import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <AuthProvider>
-      <FavoritesProvider>
-        <Router>
+  <FavoritesProvider>
+    <CartProvider>
+      <Router>
           <div className="flex flex-col min-h-screen">
 
             {/* Top layout */}
             <TopBar />
             <Navbar />
+            <CartSidebar />
 
             {/* Main content */}
             <main className="pt-28 flex-grow">
@@ -129,9 +133,10 @@ function App() {
             {/* Footer */}
             <Footer />
           </div>
-        </Router>
-      </FavoritesProvider>
-    </AuthProvider>
+      </Router>
+      </CartProvider>
+    </FavoritesProvider>
+  </AuthProvider>
   );
 }
 
