@@ -24,32 +24,32 @@ const byUserAndSeries = require("../controllers/favoriteSeries/delete/byUserAndS
 
 // GET
 router.get("/",
-    authMiddleware,
+    authMiddleware(),
     index
 );
 
 router.get("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     show
 );
 
 // POST
 router.post("/",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(favoriteSeriesCreateSchema, "body"),
     create
 );
 
 // DELETE
 router.delete("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     destroy
 );
 
 router.delete("/user/:id_user/serie/:id_series",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(favoriteSeriesParamsSchema, "params"),
     byUserAndSeries
 );

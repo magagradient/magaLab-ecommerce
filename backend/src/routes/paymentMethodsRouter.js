@@ -16,23 +16,23 @@ const update = require("../controllers/paymentMethods/put/update");
 const destroy = require("../controllers/paymentMethods/delete/destroy");
 
 // Rutas
-router.get("/", authMiddleware, index);
+router.get("/", authMiddleware(), index);
 
 router.post("/",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(paymentMethodCreateSchema, "body"),
     create
 );
 
 router.put("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     validateSchema(paymentMethodUpdateSchema, "body"),
     update
 );
 
 router.delete("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     destroy
 );

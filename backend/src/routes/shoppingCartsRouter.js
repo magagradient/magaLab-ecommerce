@@ -22,40 +22,40 @@ const destroy = require("../controllers/shoppingCarts/delete/destroy");
 
 // GET
 router.get("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     show
 );
 
 router.get("/user/:id_user",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(userIdParamSchema, "params"),
     getActiveCartByUser
 );
 
 // POST
 router.post("/",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(createShoppingCartSchema, "body"),
     create
 );
 
 router.post("/clear/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     clearCart
 );
 
 // PATCH
 router.patch("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     updateCart
 );
 
 // DELETE
 router.delete("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     destroy
 );

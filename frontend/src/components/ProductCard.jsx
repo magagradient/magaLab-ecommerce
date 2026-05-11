@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useFavorites } from "../context/FavoritesContext";
 import { useCart } from "../context/CartContext";
+import { Link } from "react-router-dom";
 
 export default function ProductCard({ product }) {
   const { isFavorite, add, remove } = useFavorites();
-  const { toggleCart } = useCart();
+  const { toggleCart, addToCart } = useCart();
   const [isHovered, setIsHovered] = useState(false);
+
 
   if (!product) return null;
 
@@ -30,33 +32,31 @@ export default function ProductCard({ product }) {
       style={{ fontFamily: "Space Grotesk" }}
     >
       {/* Imagen */}
-      <div
-        className="aspect-square relative overflow-hidden"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <img
-          src={coverSrc}
-          alt={product.title || "producto"}
-          className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-110 ${
-            isHovered && hoverSrc ? "opacity-0" : "opacity-100"
-          }`}
-        />
-        {hoverSrc && (
+      <Link to={`/products/${product.id_product}`}>
+        <div
+          className="aspect-square relative overflow-hidden"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           <img
-            src={hoverSrc}
+            src={coverSrc}
             alt={product.title || "producto"}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-              isHovered ? "opacity-100" : "opacity-0"
-            }`}
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-110 ${isHovered && hoverSrc ? "opacity-0" : "opacity-100"}`}
           />
-        )}
+          {hoverSrc && (
+            <img
+              src={hoverSrc}
+              alt={product.title || "producto"}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
+            />
+          )}
 
-        {/* Badge */}
-        <div className="absolute top-4 left-4 bg-[#141218]/90 text-[#ffb4ab] text-xs px-2 py-1 backdrop-blur-sm border border-[#ffb4ab] uppercase tracking-widest">
-          {product.id_product?.toString().padStart(2, "0")}_{product.title?.split(" ")[0]?.toUpperCase()}
+          {/* Badge */}
+          <div className="absolute top-4 left-4 bg-[#141218]/90 text-[#ffb4ab] text-xs px-2 py-1 backdrop-blur-sm border border-[#ffb4ab] uppercase tracking-widest">
+            {product.id_product?.toString().padStart(2, "0")}_{product.title?.split(" ")[0]?.toUpperCase()}
+          </div>
         </div>
-      </div>
+      </Link>
 
       {/* Info */}
       <div className="p-4 flex justify-between items-center">
@@ -72,17 +72,17 @@ export default function ProductCard({ product }) {
         <div className="flex items-center gap-2">
           <button
             onClick={toggleFavorite}
-            className={`w-10 h-10 border flex items-center justify-center transition-all ${
-              fav
-                ? "bg-[#ffb4ab] border-[#ffb4ab] text-[#690005]"
-                : "border-[#494551] text-[#cbc4d2] hover:border-[#ffb4ab] hover:text-[#ffb4ab]"
-            }`}
+            className={`w-10 h-10 border flex items-center justify-center transition-all ${fav
+              ? "bg-[#ffb4ab] border-[#ffb4ab] text-[#690005]"
+              : "border-[#494551] text-[#cbc4d2] hover:border-[#ffb4ab] hover:text-[#ffb4ab]"
+              }`}
           >
             ♥
           </button>
 
+
           <button
-            onClick={toggleCart}
+            onClick={(e) => { e.preventDefault(); addToCart(product.id_product); }}
             className="w-10 h-10 bg-[#ffb4ab] text-[#690005] flex items-center justify-center hover:bg-transparent hover:border hover:border-[#ffb4ab] hover:text-[#ffb4ab] transition-all"
           >
             <span className="material-symbols-outlined text-base">add_shopping_cart</span>

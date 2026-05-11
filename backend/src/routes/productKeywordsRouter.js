@@ -16,6 +16,8 @@ const create = require("../controllers/productKeywords/post/create");
 
 const destroy = require("../controllers/productKeywords/delete/destroy");
 
+/* ---------------------------------------------------- */
+
 // Routes
 router.get("/", index);
 router.get("/product/:id_product", validateSchema(idProductParamSchema, "params"), byProduct);

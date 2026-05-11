@@ -26,29 +26,29 @@ const destroy = require("../controllers/ordersProducts/delete/destroy");
 
 // Routes
 // Routes
-router.get("/", authMiddleware, index);
+router.get("/", authMiddleware(), index);
 
 router.get("/:id_order",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(ordersProductsOnlyOrderParamSchema, "params"),
     byOrder
 );
 
 router.post("/",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(ordersProductsCreateSchema, "body"),
     create
 );
 
 router.put("/:id_order/:id_product",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(ordersProductsParamsSchema, "params"),
     validateSchema(ordersProductsUpdateSchema, "body"),
     update
 );
 
 router.delete("/:id_order/:id_product",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(ordersProductsParamsSchema, "params"),
     destroy
 );

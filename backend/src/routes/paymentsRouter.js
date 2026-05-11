@@ -19,23 +19,23 @@ const destroy = require("../controllers/payments/delete/destroy");
 
 // Rutas
 // Rutas protegidas
-router.get("/", authMiddleware, index);
+router.get("/", authMiddleware(), index);
 
 router.post("/",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(paymentCreateSchema, "body"),
     create
 );
 
 router.put("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     validateSchema(paymentUpdateSchema, "body"),
     update
 );
 
 router.delete("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     destroy
 );

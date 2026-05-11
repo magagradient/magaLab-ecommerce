@@ -24,35 +24,36 @@ const update = require("../controllers/orders/put/update");
 
 const destroy = require("../controllers/orders/delete/destroy");
 
+/* -------------------------------------------------------------- */
 
 // Routes
 // GET all orders
-router.get("/", authMiddleware, validateSchema(ordersPaginationSchema, "query"), index);
+router.get("/", authMiddleware(), validateSchema(ordersPaginationSchema, "query"), index);
 
 // GET single order by ID
 router.get("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     show
 );
 
 // GET orders by user
 router.get("/user/:id_user",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(userIdParamSchema, "params"),
     byUser
 );
 
 // POST create order
 router.post("/",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(orderCreateSchema, "body"),
     create
 );
 
 // PUT update order
 router.put("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     validateSchema(orderUpdateSchema, "body"),
     update
@@ -60,7 +61,7 @@ router.put("/:id",
 
 // DELETE order
 router.delete("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     destroy
 );

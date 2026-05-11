@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Search, User, ShoppingCart, Heart } from "lucide-react";
 import { useFavorites } from "../context/FavoritesContext";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 
@@ -9,8 +9,15 @@ export default function TopBar() {
   const { favorites } = useFavorites();
   const { user } = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState("");
+  const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
   const { toggleCart } = useCart();
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
@@ -21,9 +28,8 @@ export default function TopBar() {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full h-16 bg-surface border-b border-outline-variant z-50">
+    <div className={`fixed top-0 left-0 w-full h-16 z-50 transition-colors duration-300 ${scrolled ? "bg-[#381e72]" : "bg-transparent"}`}>
       <div className="h-full grid grid-cols-3 items-center px-10">
-
         {/* Logo */}
         <div className="flex items-center justify-start">
           <Link to="/" style={{ fontFamily: "Space Grotesk", letterSpacing: "-0.05em", color: "#ffb4ab" }} className="text-2xl font-bold hover:opacity-80 transition-opacity">

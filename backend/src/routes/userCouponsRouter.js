@@ -24,26 +24,26 @@ const destroy = require("../controllers/userCoupons/delete/destroy");
 router.get("/", authMiddleware, index);
 
 router.get("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     show
 );
 
 router.post("/",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(createUserCouponSchema, "body"),
     create
 );
 
 router.put("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     validateSchema(updateUserCouponSchema, "body"),
     update
 );
 
 router.delete("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     destroy
 );

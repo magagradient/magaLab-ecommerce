@@ -22,6 +22,9 @@ const update = require("../controllers/keywords/put/update");
 
 const destroy = require("../controllers/keywords/delete/destroy");
 
+/* ---------------------------------------------- */
+
+
 // Rutas
 router.get("/", index);
 router.get("/:id", validateSchema(idParamSchema, "params"), show);

@@ -26,29 +26,29 @@ const destroy = require("../controllers/invoices/delete/destroy");
 /////////////////////////////////////////////////////////////
 
 // rutas
-router.get("/", authMiddleware, validateSchema(invoicesQuerySchema, "query"), index);
+router.get("/", authMiddleware(), validateSchema(invoicesQuerySchema, "query"), index);
 
 router.get("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     show
 );
 
 router.post("/",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(invoiceCreateSchema, "body"),
     create
 );
 
 router.put("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     validateSchema(invoiceUpdateSchema, "body"),
     update
 );
 
 router.delete("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     destroy
 );

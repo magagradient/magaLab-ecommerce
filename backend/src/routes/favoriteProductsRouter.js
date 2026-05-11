@@ -16,20 +16,20 @@ const destroy = require("../controllers/favoriteProducts/delete/destroy");
 
 // GET
 router.get("/",
-    authMiddleware,
+    authMiddleware(),
     index
 );
 
 // POST
 router.post("/",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(favoriteProductCreateSchema, "body"),
     create
 );
 
 // DELETE
 router.delete("/:id_product",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(favoriteProductParamsSchema, "params"),
     destroy
 );

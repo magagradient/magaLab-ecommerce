@@ -5,7 +5,7 @@ export default function CartSidebar() {
 
   return (
     <aside
-      className={`fixed right-0 top-0 h-full z-[60] flex flex-col p-8 bg-[#36343a] text-error border-l border-error shadow-[0_0_15px_rgba(255,0,0,0.4)] w-80 transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"
+      className={`fixed right-0 top-0 h-full z-[60] flex flex-col p-8 bg-[#381e72] text-error border-l border-error shadow-[0_0_15px_rgba(255,0,0,0.4)] w-80 transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       style={{ fontFamily: "Space Grotesk" }}
     >

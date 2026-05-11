@@ -25,25 +25,25 @@ const clearCartItems = require("../controllers/cartItems/delete/clearAll");
 // get
 router.get(
     "/",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(cartItemsQuerySchema, "query"),
     index
 );
-router.get("/summary", authMiddleware, summary);
+router.get("/summary", authMiddleware(), summary);
 
 // post
-router.post("/", authMiddleware, validateSchema(createCartItemSchema, "body"), create);
+router.post("/", authMiddleware(), validateSchema(createCartItemSchema, "body"), create);
 
 // put
 router.put("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     validateSchema(updateCartItemSchema, "body"),
     update
 );
 
 // delete
-router.delete("/:id", authMiddleware, validateSchema(idParamSchema, "params"), destroy);
-router.delete("/", authMiddleware, clearCartItems);
+router.delete("/:id", authMiddleware(), validateSchema(idParamSchema, "params"), destroy);
+router.delete("/", authMiddleware(), clearCartItems);
 
 module.exports = router;

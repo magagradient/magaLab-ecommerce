@@ -15,6 +15,7 @@ import Home from "./pages/Home.jsx";
 // Shop
 import Shop from "./pages/Shop/Shop.jsx";
 import Products from "./pages/Shop/Products.jsx";
+import ProductDetail from "./pages/Shop/ProductDetail.jsx";
 // import Keywords from "./pages/Shop/Keywords.jsx";
 // import Series from "./pages/Shop/Series.jsx";
 // import Colors from "./pages/Shop/Colors.jsx";
@@ -68,6 +69,7 @@ function App() {
                 {/* SHOP */}
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/products" element={<Products />} />
+                <Route path="/products/:id" element={<ProductDetail />} />
                 {/* <Route path="/keywords" element={<Keywords />} />
                 <Route path="/series" element={<Series />} /> */}
                 {/* <Route path="/products/animations" element={<Animations />} /> */}

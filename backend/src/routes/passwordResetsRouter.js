@@ -23,7 +23,7 @@ const invalidateToken = require("../controllers/passwordResets/patch/invalidate"
 // GET
 router.get(
     "/user/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(userIdParamSchema, "params"),
     passwordResetsByUser
 );

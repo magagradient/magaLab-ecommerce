@@ -19,7 +19,7 @@ const create = require("../controllers/passwordChanges/post/create");
 
 // GET /passwordChanges/:id  - protegido y validado
 router.get("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(userIdParamSchema, "params"),
     index
 );
@@ -27,7 +27,7 @@ router.get("/:id",
 
 // POST /passwordChanges  - protegido y validado
 router.post("/",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(createPasswordChangeSchema, "body"),
     create
 );

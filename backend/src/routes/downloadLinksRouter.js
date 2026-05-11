@@ -26,38 +26,38 @@ const destroy = require("../controllers/downloadLinks/delete/destroy");
 
 // get
 router.get('/user/:id_user',
-    authMiddleware,
+    authMiddleware(),
     validateSchema(userIdParamSchema, "params"),
     byUser
 );
 
 router.get('/product/:id_product',
-    authMiddleware,
+    authMiddleware(),
     validateSchema(productIdParamSchema, "params"),
     downloadLinkForProduct
 );
 
 router.get('/',
-    authMiddleware,
+    authMiddleware(),
     allDownloadLinks
 );
 
 router.get("/:id",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     byId
 );
 
 // post
 router.post("/",
-    authMiddleware,
+    authMiddleware(),
     validateSchema(createDownloadLinkSchema),
     create
 );
 
 // put
 router.put('/:id',
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     validateSchema(updateDownloadLinkSchema),
     update
@@ -65,7 +65,7 @@ router.put('/:id',
 
 // delete
 router.delete('/:id',
-    authMiddleware,
+    authMiddleware(),
     validateSchema(idParamSchema, "params"),
     destroy
 );

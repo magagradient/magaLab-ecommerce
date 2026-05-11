@@ -50,10 +50,10 @@ router.put("/:id", auth(), validateSchema(idParamSchema, "params"), validateSche
 // patch (protegidas)
 router.patch("/:id/avatar", auth(), validateSchema(idParamSchema, "params"), upload.single("avatar"), updateAvatar);
 
-// 🔐 solo admin
+//  solo admin
 router.patch("/:id/role", auth(["admin"]), validateSchema(idParamSchema, "params"), updateRole);
 
-// 🔐 solo admin
+//  solo admin
 router.delete("/:id", auth(["admin"]), validateSchema(idParamSchema, "params"), destroy);
 
 module.exports = router;
