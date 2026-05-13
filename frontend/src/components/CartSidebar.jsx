@@ -1,12 +1,18 @@
 import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 export default function CartSidebar() {
   const { cart, loading, isOpen, toggleCart, clearCart } = useCart();
+  const navigate = useNavigate();
+
+  const goToCheckout = () => {
+    toggleCart();
+    navigate("/cart/checkout");
+  };
 
   return (
     <aside
-      className={`fixed right-0 top-0 h-full z-[60] flex flex-col p-8 bg-[#381e72] text-error border-l border-error shadow-[0_0_15px_rgba(255,0,0,0.4)] w-80 transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+      className={`fixed right-0 top-0 h-full z-[60] flex flex-col p-8 bg-[#381e72] text-error border-l border-error shadow-[0_0_15px_rgba(255,0,0,0.4)] w-80 transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
       style={{ fontFamily: "Space Grotesk" }}
     >
       {/* Header */}
@@ -49,10 +55,10 @@ export default function CartSidebar() {
 
       {/* Footer */}
       <div className="mt-auto pt-8 space-y-4">
-        <button className="w-full bg-error text-on-error font-bold py-4 uppercase tracking-widest hover:shadow-[0_0_20px_#ff0000] transition-all">
+        <button onClick={goToCheckout} className="w-full bg-error text-on-error font-bold py-4 uppercase tracking-widest hover:shadow-[0_0_20px_#ff0000] transition-all">
           EXECUTE_PURCHASE
         </button>
-        <button className="w-full text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-1">
+        <button onClick={goToCheckout} className="w-full text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-1">
           <span className="material-symbols-outlined">payments</span> CHECKOUT
         </button>
         <button onClick={clearCart} className="w-full text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-1">
