@@ -48,11 +48,11 @@ export const getKeywords = () => request("/keywords");
 export const getSeries = () => request("/series");
 
 //
-// 👤 USUARIOS
+//  USUARIOS
 //
 
 export const registerUser = (userData) =>
-  request("/users/register", {
+  request("/users/", {
     method: "POST",
     body: JSON.stringify(userData),
   });
@@ -91,7 +91,7 @@ export const resetPassword = (token, newPassword) =>
   });
 
 //
-// ❤️ FAVORITOS
+// FAVORITOS
 //
 
 export const getFavoriteProducts = (token, userId) =>
@@ -116,7 +116,7 @@ export const removeFavoriteProduct = (token, productId) =>
   });
 
 //
-// ✅ ALIASES LIMPIOS (para el context)
+// ALIASES LIMPIOS (para el context)
 //
 
 export const getFavorites = getFavoriteProducts;
@@ -124,7 +124,7 @@ export const addFavorite = addFavoriteProduct;
 export const removeFavorite = removeFavoriteProduct;
 
 //
-// 🛒 CARRITO
+//  CARRITO
 //
 
 export const getCart = (token) =>
@@ -151,3 +151,23 @@ export const checkout = (token, data) =>
     headers: { Authorization: `Bearer ${token}` },
     body: JSON.stringify(data),
   });
+
+
+//
+// PAGOS
+//
+
+export const createMPPreference = async (token, items, id_order) => {
+  const response = await fetch(`${API_URL}/payments/mercadopago/preference`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ items, id_order }),
+  });
+
+  const data = await response.json();
+  if (!response.ok) throw new Error(data?.message || "Error al crear preferencia MP");
+  return data;
+};

@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useFavorites } from "../context/FavoritesContext";
 import { useCart } from "../context/CartContext";
+import { useLocation } from "../context/LocationContext";
 import { Link } from "react-router-dom";
 
 export default function ProductCard({ product }) {
   const { isFavorite, add, remove } = useFavorites();
   const { toggleCart, addToCart } = useCart();
   const [isHovered, setIsHovered] = useState(false);
+  const { formatPrice } = useLocation();
 
 
   if (!product) return null;
@@ -65,10 +67,9 @@ export default function ProductCard({ product }) {
             {product.title || "Producto sin nombre"}
           </h3>
           <p className="text-[#cbc4d2] text-xs uppercase">
-            ${product.price || 0} // LIC_BASIC
+            {formatPrice(product.price || 0)} // LIC_BASIC
           </p>
         </div>
-
         <div className="flex items-center gap-2">
           <button
             onClick={toggleFavorite}

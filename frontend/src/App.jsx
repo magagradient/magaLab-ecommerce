@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import FavoritesProvider from "./context/FavoritesContext";
 import { CartProvider } from "./context/CartContext";
+import { LocationProvider } from "./context/LocationContext";
 
 import TopBar from "./components/TopBar";
 import Navbar from "./components/Navbar";
@@ -33,6 +34,9 @@ import NotFound from "./pages/NotFound.jsx";
 // Cart
 import Cart from "./pages/Cart/Cart.jsx";
 import Checkout from "./pages/Cart/Checkout.jsx";
+import CheckoutSuccess from "./pages/Cart/CheckoutSuccess.jsx";
+import CheckoutFailure from "./pages/Cart/CheckoutFailure.jsx";
+import CheckoutPending from "./pages/Cart/CheckoutPending.jsx";
 
 // Account
 import Login from "./pages/Account/Login.jsx";
@@ -49,96 +53,101 @@ import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <AuthProvider>
-  <FavoritesProvider>
-    <CartProvider>
-      <Router>
-          <div className="flex flex-col min-h-screen">
+      <LocationProvider>
+        <FavoritesProvider>
+          <CartProvider>
+            <Router>
+              <div className="flex flex-col min-h-screen">
 
-            {/* Top layout */}
-            <TopBar />
-            <Navbar />
-            <CartSidebar />
+                {/* Top layout */}
+                <TopBar />
+                <Navbar />
+                <CartSidebar />
 
-            {/* Main content */}
-            <main className="pt-28 flex-grow">
-              <Routes>
+                {/* Main content */}
+                <main className="pt-28 flex-grow">
+                  <Routes>
 
-                {/* Home */}
-                <Route path="/" element={<Home />} />
+                    {/* Home */}
+                    <Route path="/" element={<Home />} />
 
-                {/* SHOP */}
-                <Route path="/shop" element={<Shop />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/products/:id" element={<ProductDetail />} />
-                {/* <Route path="/keywords" element={<Keywords />} />
+                    {/* SHOP */}
+                    <Route path="/shop" element={<Shop />} />
+                    <Route path="/products" element={<Products />} />
+                    <Route path="/products/:id" element={<ProductDetail />} />
+                    {/* <Route path="/keywords" element={<Keywords />} />
                 <Route path="/series" element={<Series />} /> */}
-                {/* <Route path="/products/animations" element={<Animations />} /> */}
-                {/* <Route path="/products/style" element={<Style />} /> */}
-                {/* <Route path="/products/theme" element={<Theme />} /> */}
-                {/* <Route path="/colors" element={<Colors />} /> */}
+                    {/* <Route path="/products/animations" element={<Animations />} /> */}
+                    {/* <Route path="/products/style" element={<Style />} /> */}
+                    {/* <Route path="/products/theme" element={<Theme />} /> */}
+                    {/* <Route path="/colors" element={<Colors />} /> */}
 
-                {/* Sold */}
-                <Route path="/sold" element={<Sold />} />
+                    {/* Sold */}
+                    <Route path="/sold" element={<Sold />} />
 
-                {/* Lab */}
-                <Route path="/lab" element={<Lab />} />
+                    {/* Lab */}
+                    <Route path="/lab" element={<Lab />} />
 
-                {/* Cart */}
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/cart/checkout" element={<Checkout />} />
+                    {/* Cart */}
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/cart/checkout" element={<Checkout />} />
+                    <Route path="/checkout/success" element={<CheckoutSuccess />} />
+                    <Route path="/checkout/failure" element={<CheckoutFailure />} />
+                    <Route path="/checkout/pending" element={<CheckoutPending />} />
 
-                {/* Search */}
-                <Route path="/search" element={<Search />} />
+                    {/* Search */}
+                    <Route path="/search" element={<Search />} />
 
-                {/* Info */}
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
+                    {/* Info */}
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
 
-                {/* Account - públicas */}
-                <Route path="/account/login" element={<Login />} />
-                <Route path="/account/register" element={<Register />} />
-                <Route path="/account/logout" element={<Logout />} />
-                <Route path="/account/forgot-password" element={<ForgotPassword />} />
-                <Route path="/account/reset-password/:token" element={<ResetPassword />} />
+                    {/* Account - públicas */}
+                    <Route path="/account/login" element={<Login />} />
+                    <Route path="/account/register" element={<Register />} />
+                    <Route path="/account/logout" element={<Logout />} />
+                    <Route path="/account/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/account/reset-password/:token" element={<ResetPassword />} />
 
-                {/* Account - protegidas */}
-                <Route
-                  path="/account/profile"
-                  element={
-                    <ProtectedRoute>
-                      <Profile />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/account/favorites"
-                  element={
-                    <ProtectedRoute>
-                      <Favorites />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/account/change-password"
-                  element={
-                    <ProtectedRoute>
-                      <ChangePassword />
-                    </ProtectedRoute>
-                  }
-                />
+                    {/* Account - protegidas */}
+                    <Route
+                      path="/account/profile"
+                      element={
+                        <ProtectedRoute>
+                          <Profile />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/account/favorites"
+                      element={
+                        <ProtectedRoute>
+                          <Favorites />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/account/change-password"
+                      element={
+                        <ProtectedRoute>
+                          <ChangePassword />
+                        </ProtectedRoute>
+                      }
+                    />
 
-                {/* 404 */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
+                    {/* 404 */}
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </main>
 
-            {/* Footer */}
-            <Footer />
-          </div>
-      </Router>
-      </CartProvider>
-    </FavoritesProvider>
-  </AuthProvider>
+                {/* Footer */}
+                <Footer />
+              </div>
+            </Router>
+          </CartProvider>
+        </FavoritesProvider>
+      </LocationProvider>
+    </AuthProvider>
   );
 }
 

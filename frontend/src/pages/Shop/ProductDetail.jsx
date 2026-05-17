@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
+import { useLocation } from "../../context/LocationContext";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -9,6 +10,7 @@ export default function ProductDetail() {
   const [loading, setLoading] = useState(true);
   const [mainImage, setMainImage] = useState(null);
   const [zoomOpen, setZoomOpen] = useState(false);
+  const { formatPrice } = useLocation();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -80,7 +82,7 @@ export default function ProductDetail() {
           </div>
 
           <div className="border-t border-[#494551] pt-4">
-            <p className="text-[#ffb4ab] text-2xl font-bold">${product.price}</p>
+            <p className="text-[#ffb4ab] text-2xl font-bold">{formatPrice(product.price)}</p>
             <p className="text-[#cbc4d2] text-xs uppercase mt-1">// LIC_BASIC</p>
           </div>
 

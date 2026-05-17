@@ -2,18 +2,19 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
+import { useLocation } from "../../context/LocationContext";
+import { createMPPreference } from "../../services/api";
 
 export default function Checkout() {
   const { user } = useContext(AuthContext);
   const { cart, clearCart } = useCart();
+  const { country, formatPrice } = useLocation();
   const navigate = useNavigate();
 
   const total = cart.reduce((acc, item) => acc + (parseFloat(item.product?.price) * item.quantity), 0);
+  const token = localStorage.getItem("token");
 
   const handleCheckout = async () => {
-    console.log("checkout iniciado, cart:", cart, "total:", total);
-    const token = localStorage.getItem("token");
-
     try {
       // 1. Crear la orden
       const orderRes = await fetch("http://localhost:3000/api/orders", {
@@ -32,7 +33,7 @@ export default function Checkout() {
       if (!orderRes.ok) throw new Error("Error al crear la orden");
       const id_order = orderData.data.id_order;
 
-      // 2. Crear orders_products por cada item
+      // 2. Crear orders_products
       for (const item of cart) {
         await fetch("http://localhost:3000/api/orders_products", {
           method: "POST",
@@ -49,37 +50,31 @@ export default function Checkout() {
         });
       }
 
-      // 3. Crear el payment simulado
-      await fetch("http://localhost:3000/api/payments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          id_order,
-          id_payment_method: 1,
-          status: "completed",
-          amount_paid: total.toFixed(2),
-        }),
-      });
+      // 3. Según el país redirigir a MP o Stripe
+      if (country === "AR") {
+        const items = cart.map((item) => ({
+          title: item.product.title,
+          unit_price: parseFloat(item.product.price),
+          quantity: item.quantity,
+        }));
 
-      // 4. Vaciar el carrito
-      clearCart();
+        console.log("items que se mandan a MP:", items);
+        const { init_point } = await createMPPreference(token, items, id_order);
+        clearCart();
+        window.location.href = init_point;
 
-      // 5. Redirigir
-      navigate("/account/profile");
+      } else {
+        // Stripe lo integramos después
+        alert("Stripe próximamente");
+      }
 
     } catch (error) {
       console.error("Error en el checkout:", error);
     }
   };
 
-  console.log("cart en checkout:", cart);
-  
   return (
     <section className="min-h-screen bg-[#141218] px-16 py-12" style={{ fontFamily: "Space Grotesk" }}>
-
       <div className="max-w-2xl mx-auto">
 
         <div className="mb-8">
@@ -103,14 +98,14 @@ export default function Checkout() {
             cart.map((item) => (
               <div key={item.id_item} className="flex justify-between items-center px-6 py-4 border-b border-[#494551]">
                 <span className="text-[#e6e0e9] text-sm uppercase">{item.product?.title}</span>
-                <span className="text-[#ffb4ab] text-sm">${item.product?.price}</span>
+                <span className="text-[#ffb4ab] text-sm">{formatPrice(item.product?.price)}</span>
               </div>
             ))
           )}
 
           <div className="flex justify-between items-center px-6 py-4">
             <span className="text-[#cbc4d2] text-xs uppercase tracking-widest">TOTAL</span>
-            <span className="text-[#ffb4ab] text-xl font-bold">${total.toFixed(2)}</span>
+            <span className="text-[#ffb4ab] text-xl font-bold">{formatPrice(total)}</span>
           </div>
         </div>
 
@@ -119,7 +114,9 @@ export default function Checkout() {
           <p className="text-[#cbc4d2] text-xs uppercase tracking-widest">USUARIO</p>
           <p className="text-[#e6e0e9] text-sm">{user?.email}</p>
           <p className="text-[#cbc4d2] text-xs uppercase tracking-widest mt-2">MÉTODO_DE_PAGO</p>
-          <p className="text-[#e6e0e9] text-sm uppercase">TRANSFERENCIA</p>
+          <p className="text-[#e6e0e9] text-sm uppercase">
+            {country === "AR" ? "MERCADOPAGO" : "STRIPE"}
+          </p>
         </div>
 
         <button
@@ -128,7 +125,7 @@ export default function Checkout() {
           className="w-full py-4 bg-[#ffb4ab] text-[#690005] font-bold uppercase tracking-widest hover:bg-transparent hover:border hover:border-[#ffb4ab] hover:text-[#ffb4ab] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <span className="material-symbols-outlined">check_circle</span>
-          EJECUTAR_COMPRA
+          {country === "AR" ? "PAGAR_CON_MERCADOPAGO" : "PAGAR_CON_STRIPE"}
         </button>
 
       </div>
