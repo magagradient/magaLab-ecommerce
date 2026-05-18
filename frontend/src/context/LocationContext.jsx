@@ -14,6 +14,7 @@ export function LocationProvider({ children }) {
         const geoRes = await fetch("https://ipapi.co/json/");
         const geoData = await geoRes.json();
         setCountry(geoData.country_code);
+        // setCountry("US"); // Forzar US para pruebas
 
         // Si es Argentina, traer cotización del dólar
         if (geoData.country_code === "AR") {

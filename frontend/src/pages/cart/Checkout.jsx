@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
 import { useLocation } from "../../context/LocationContext";
-import { createMPPreference } from "../../services/api";
+import { createMPPreference, createPayPalOrder } from "../../services/api";
 
 export default function Checkout() {
   const { user } = useContext(AuthContext);
@@ -50,7 +50,7 @@ export default function Checkout() {
         });
       }
 
-      // 3. Según el país redirigir a MP o Stripe
+      // 3. Según el país redirigir a MP o Paypal
       if (country === "AR") {
         const items = cart.map((item) => ({
           title: item.product.title,
@@ -64,8 +64,15 @@ export default function Checkout() {
         window.location.href = init_point;
 
       } else {
-        // Stripe lo integramos después
-        alert("Stripe próximamente");
+        const items = cart.map((item) => ({
+          title: item.product.title,
+          unit_price: parseFloat(item.product.price),
+          quantity: item.quantity,
+        }));
+
+        const { approval_url } = await createPayPalOrder(token, items, id_order);
+        clearCart();
+        window.location.href = approval_url;
       }
 
     } catch (error) {
@@ -115,7 +122,7 @@ export default function Checkout() {
           <p className="text-[#e6e0e9] text-sm">{user?.email}</p>
           <p className="text-[#cbc4d2] text-xs uppercase tracking-widest mt-2">MÉTODO_DE_PAGO</p>
           <p className="text-[#e6e0e9] text-sm uppercase">
-            {country === "AR" ? "MERCADOPAGO" : "STRIPE"}
+            {country === "AR" ? "MERCADOPAGO" : "PAYPAL"}
           </p>
         </div>
 
@@ -125,7 +132,7 @@ export default function Checkout() {
           className="w-full py-4 bg-[#ffb4ab] text-[#690005] font-bold uppercase tracking-widest hover:bg-transparent hover:border hover:border-[#ffb4ab] hover:text-[#ffb4ab] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <span className="material-symbols-outlined">check_circle</span>
-          {country === "AR" ? "PAGAR_CON_MERCADOPAGO" : "PAGAR_CON_STRIPE"}
+          {country === "AR" ? "PAGAR_CON_MERCADOPAGO" : "PAGAR_CON_PAYPAL"}
         </button>
 
       </div>

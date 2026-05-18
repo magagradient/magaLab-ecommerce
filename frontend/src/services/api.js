@@ -171,3 +171,18 @@ export const createMPPreference = async (token, items, id_order) => {
   if (!response.ok) throw new Error(data?.message || "Error al crear preferencia MP");
   return data;
 };
+
+export const createPayPalOrder = async (token, items, id_order) => {
+  const response = await fetch(`${API_URL}/payments/paypal/order`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ items, id_order }),
+  });
+
+  const data = await response.json();
+  if (!response.ok) throw new Error(data?.message || "Error al crear orden PayPal");
+  return data;
+};
