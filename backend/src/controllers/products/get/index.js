@@ -36,7 +36,6 @@ const index = async (req, res) => {
     const offset = (Number(page) - 1) * Number(limit);
 
     const where = {};
-    if (category) where.categoryId = category;
     if (title) where.title = { [Op.like]: `%${title}%` };
     if (description) where.description = { [Op.like]: `%${description}%` };
     if (price_min) where.price = { ...(where.price || {}), [Op.gte]: Number(price_min) };

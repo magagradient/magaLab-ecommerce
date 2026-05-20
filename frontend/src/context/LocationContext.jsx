@@ -13,7 +13,7 @@ export function LocationProvider({ children }) {
         // Detectar país por IP
         const geoRes = await fetch("https://ipapi.co/json/");
         const geoData = await geoRes.json();
-        setCountry(geoData.country_code);
+        setCountry(geoData.country_code); // ARG
         // setCountry("US"); // Forzar US para pruebas
 
         // Si es Argentina, traer cotización del dólar

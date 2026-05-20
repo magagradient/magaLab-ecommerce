@@ -15,6 +15,8 @@ const index = require("../controllers/payments/get/index");
 const create = require("../controllers/payments/post/create");
 const createMercadoPagoPreference = require("../controllers/payments/post/createMercadoPago");
 const createPayPalOrder = require("../controllers/payments/post/createPayPal");
+const webhookMercadoPago = require("../controllers/payments/post/webhookMercadoPago");
+const webhookPayPal = require("../controllers/payments/post/webhookPayPal");
 const update = require("../controllers/payments/put/update");
 const destroy = require("../controllers/payments/delete/destroy");
 
@@ -37,6 +39,14 @@ router.post("/mercadopago/preference",
 router.post("/paypal/order",
   authMiddleware(),
   createPayPalOrder
+);
+
+router.post("/webhook/mercadopago", 
+  webhookMercadoPago
+);
+
+router.post("/webhook/paypal",
+  webhookPayPal
 );
 
 router.put("/:id",

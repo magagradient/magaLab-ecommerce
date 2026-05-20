@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getProducts, searchProducts } from "../services/api";
 import ProductCard from "./ProductCard";
 
-export default function ProductList({ filter, searchQuery, colors, keywords, series }) {
+export default function ProductList({ filter, searchQuery, colors, keywords, series, isSold }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -10,6 +10,8 @@ export default function ProductList({ filter, searchQuery, colors, keywords, ser
   
     if (colors) params.append("colors", colors);
     if (filter && filter !== "all") params.append("category", filter);
+    if (isSold !== undefined) params.append("is_sold", isSold);
+    else params.append("is_sold", false);
     if (keywords) params.append("keywords", keywords);
     if (series) params.append("series", series);
   
